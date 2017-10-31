@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>提现</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+    <link rel="stylesheet" href="../css/mui.picker.min.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">余额提现</h1>
+        <a class="mui-btn-link mui-pull-right white" onclick="COM.showEplain('exp_withdrawal','../');">限额说明</a>
+    </header>
+    <div class="mui-content">
+        <div class="user-cash">
+            <form id="form1" method="post" onsubmit="return false;">
+                <div class="user-cash-bank">
+                    <ul class="mui-table-view _notop _nobottom">
+                        <li class="mui-table-view-cell">
+                            <a class="mui-navigate-right" id="bank_list">
+                                
+                            </a>
+                            
+                        </li>
+
+                    </ul>
+                </div>
+                <div class="user-cash-money">
+                    <p>提现金额</p>
+                    <input maxvalue="" value="" id="cash_money" name="cash_money" type="text" class="user-cash-inp" />
+                    <p class="last" id="available_balance_money_show"></p>
+                </div>
+                <div class="user-cash-money">
+                    <p>提现密码</p>
+                    <input id="trade_pass" value="" name="trade_pass" type="password" class="user-inp" placeholder="请输入提现密码" style="width: 90%; margin-left: 15px;" />
+                     <p id="d_d_d_d" style="text-align: right;"><a title="forgetTradepwd" url="forgetTradepwd.html" style="color: red;"> 忘记密码</a></p>
+                </div>
+                <div class="w70">
+                    <button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" id="confirmCash" onclick="withdrawal();">确认提交</button>
+                </div>
+                <input id="available_balance_money" type="hidden"  value="" />
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/mui.picker.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+    <script src="../scripts/jquery/common.js"></script>
+    <script src="../scripts/user.js"></script>
+    <script>
+    	if(DEBUG) console.log('正在执行user/withdrawal.html');
+    	COM.createLoading();
+    	mui('#d_d_d_d').on('tap','a',function(){
+			COM.openWindow(this.getAttribute('title'),this.getAttribute('url'),true);
+		});
+		mui.init({
+				statusBarBackground: '#e63d34',
+			});
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			var ajaxObj = {
+				url: URL_DATA.userAjaxWithdrawal,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						initShow(rs);
+						COM.closeLoading();
+						oldCode(rs);
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+    </script>
+    <script>
+    	var initShow = function(rs){
+    		if(DEBUG) console.log('=rs.str_bank_one===='+rs.str_bank_one);
+    		$('#bank_list').html(rs.str_bank_one);
+    		if(DEBUG) console.log('=rs.available_balance_money===='+rs.available_balance_money);
+//  		rs.available_balance_money = 1000;
+    		$('#available_balance_money_show').html('可提现余额：'+COM.stringFormat(rs.available_balance_money)+'元');
+    		$('#cash_money').attr('maxvalue',rs.available_balance_money);
+    		$('#available_balance_money').val(rs.available_balance_mone);
+    	}
+    </script>
+    <script type="text/javascript">
+    	var oldCode = function(rs){ 
+    		if(DEBUG) console.log('=rs.str_bank_json===='+('[' + rs.str_bank_json + ']').replaceAll("'",'"'));
+    		var str_bank_json = eval('[' + rs.str_bank_json + ']');
+    		$("#bank_list").on('tap', function (e) {
+                var $this = $(this);
+                var picker = new mui.PopPicker();
+                picker.setData(str_bank_json);
+                picker.show(function (selectItems) {
+                    var id = selectItems[0].value, tit = selectItems[0].text, type_id = selectItems[0].type_id, account = selectItems[0].account;
+                    $("#bank_list .bank").attr("class", "").addClass("bank");
+                    $("#bank_list .bank").addClass(type_id);
+                    $("#bank_list .bank").html(tit.replace(account, '').replace('（', '').replace('）', '') + "<p>" + account + "</p>");
+                    $("#bank_id").val(id);
+                    if (id == 0) {
+                        $("#bank_list .bank").html("");
+                        COM.openWindow('user/bank_add','bank_add.html',true);
+                    }
+                });
+            });
+    	}
+
+    </script>
+</body>
+</html>

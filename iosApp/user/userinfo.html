@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>用户信息</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left my-link" title="user/default" url="default.html"></a>
+        <h1 class="mui-title">个人资料</h1>
+    </header>
+    <div class="mui-content">
+        <div class="user-info">
+            <ul class="mui-table-view user-info-list _notop _nobottom">
+                <li class="mui-table-view-cell my-link" title="user/avator" url="avator.html">
+                    <a class="mui-navigate-right"><span class="mui-pull-left" style="line-height: 30px;">头&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;像</span>           
+                        <div class="mui-pull-right">
+                            <div class="user-img">
+                                <div class="user-img-bg"></div>
+                                <img id="d_avator" width="100%" />
+                            </div>
+                        </div>
+                    </a>
+                </li>
+                <li class="mui-table-view-cell my-link" title="user/user_opt" url="user_opt.html">
+                    <a class="mui-navigate-right">昵&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;称<span class="mui-pull-right" id="d_nick_name"></span>
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">真实姓名<span class="mui-pull-right" id="d_user_name"></span>
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">身&nbsp;份&nbsp;证<span class="mui-pull-right" id="d_id_no"></span>
+                    </a>
+                </li>
+                <li class="mui-table-view-cell my-link" title="user/user_opt" url="user_opt.html">
+                    <a class="mui-navigate-right">性&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;别<span id="d_sex" class="mui-pull-right"></span>
+                    </a>
+                </li>
+                <li class="mui-table-view-cell my-link" title="user/user_email" url="user_email.html"> 
+                    <a class="mui-navigate-right">邮&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;箱<span id="d_email" class="mui-pull-right"></span>
+                    </a>
+                </li>
+                <li class="mui-table-view-cell">
+                    <a class="mui-navigate-right">手机号码<span class="mui-pull-right" id="d_phone_mobile"></span>
+                    </a>
+                </li>
+            </ul>
+            <ul class="mui-table-view user-info-list _notop _nobottom" >
+                <li class="mui-table-view-cell my-link" title="user/user_opt" url="user_opt.html">
+                    <a class="mui-navigate-right">地&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;区<span class="mui-pull-right" id="d_province"></span>
+                    </a>
+                </li>
+                <li class="mui-table-view-cell my-link" title="user/user_opt" url="user_opt.html">
+                    <a class="mui-navigate-right">绑定QQ<span class="mui-pull-right" id="d_qq"></span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script>
+		if(DEBUG) console.log('正在执行user/userinfo.html');
+		COM.createLoading();
+		mui('body').on('tap','.my-link',function(){
+			COM.openWindow(this.getAttribute('title'),this.getAttribute('url'),true);
+		});
+		COM.addReload();
+		mui.init({
+				statusBarBackground: '#e63d34',
+			});
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			var ajaxObj = {
+				url: URL_DATA.userAjaxUserinfo,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						initShow(rs);
+						COM.closeLoading();
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+		
+	</script>
+	<script>
+		var initShow = function(rs){
+    		var userModel = rs.userModel;
+    		
+    		var avator = userModel.avator.trim();
+    		if(DEBUG) console.log('=userModel.avator===='+avator);
+    		if(avator.length < 16 ){
+    			$('#d_avator').attr('src','../images/user_img.jpg');
+    		}else{
+    			$('#d_avator').attr('src', URL_DATA.http168 + avator+'?t='+new Date().getTime());
+    		}
+    		
+    		var nick_name = userModel.nick_name;
+    		if(DEBUG) console.log('=userModel.nick_name===='+nick_name);
+    		$('#d_nick_name').html(nick_name);
+    		
+    		var user_name = userModel.user_name;
+    		if(DEBUG) console.log('=userModel.user_name===='+user_name);
+    		$('#d_user_name').html(user_name);
+    		
+    		var id_no = userModel.id_no;
+    		if(DEBUG) console.log('=userModel.id_no===='+id_no);
+    		$('#d_id_no').html(Utils.rpIDCARD(id_no));
+    		
+    		var sex = userModel.sex;
+    		if(DEBUG) console.log('=userModel.sex===='+sex);
+    		if(sex == 1){
+    			$('#d_sex').html('男');
+    		}else{
+    			$('#d_sex').html('女');
+    		}
+    		
+    		var email = userModel.email;
+    		if(DEBUG) console.log('=userModel.email===='+email);
+    		$('#d_email').html(email);
+    		
+    		var phone_mobile = userModel.phone_mobile;
+    		if(DEBUG) console.log('=userModel.phone_mobile===='+phone_mobile);
+    		$('#d_phone_mobile').html(COM.rpMobile(phone_mobile));
+    		
+    		var province = userModel.province;
+    		if(DEBUG) console.log('=userModel.province===='+province);
+    		var city = userModel.city;
+    		if(DEBUG) console.log('=userModel.city===='+city);
+    		$('#d_province').html(province+'-'+city);
+    		
+    		var qq = userModel.qq;
+    		if(DEBUG) console.log('=userModel.qq===='+qq);
+    		$('#d_qq').html(qq);
+    	}
+	</script>
+
+</body>
+</html>

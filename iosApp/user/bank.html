@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>银行卡</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+</head>
+<body>
+    <header id="d_header" class="mui-bar mui-bar-nav header">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left my-link" title="user/default" url="default.html"></a>
+        <h1 class="mui-title" >银行卡绑定</h1>
+        <a class="mui-btn mui-btn-link mui-pull-right white my-link" title="user/bank_add" url="bank_add.html">添加</a>
+    </header>
+    <div class="mui-content">
+        <div class="user-bank">
+            <div class="user-bank-list">
+                <ul id="rptList" class="my-ul">
+                    
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+	<script type="text/javascript">
+		if(DEBUG) console.log('正在执行user/bank.html');
+		mui('#d_header').on('tap','.my-link',function(){
+			COM.openWindow(this.getAttribute('title'),this.getAttribute('url'),true);
+		});
+		mui.init({
+				statusBarBackground: '#e63d34',
+			});
+		COM.addReload();
+		COM.createLoading();
+			mui.plusReady(function() {
+				COM.createMenu('user/default', '../');
+				var ajaxObj = {
+					url: URL_DATA.userAjaxBank,
+					type: 'get',
+					success: function(rs) {
+						if(DEBUG) console.log('==========COM.ajax回调函数');
+						if(rs.status === 'y') {
+							initShow(rs);
+							COM.closeLoading();
+							oldCode(rs);
+						} else {
+							COM.cacheUrl();
+							COM.openWindow('login','../login.html');
+						}
+					}
+				}
+				if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+			});
+	</script>
+	<script type="text/javascript">
+		var initShow = function(rs) {
+			if(DEBUG) console.log('=list====' + rs.list);
+			var list = JSON.parse(rs.list).ds || [];
+			var html = '';
+			for(var i = 0; i < list.length; i++) {
+				var obj = list[i];
+	
+				html += '<li class="user-bank-red mui-clearfix"><div class="mui-pull-left user-bank-logo">' +
+					'<img src="../images/bank/' + Utils.bank_cls(obj.bank_name.toString()) + '.png" alt="' + obj.bank_name + '" /></div>' +
+					'<div class="mui-pull-left user-bank-info">' +
+					'<p class="bank-name">' + Utils.CutString(obj.bank_name) + '</p>' +
+					'<p>' + Utils.CutString(obj.province + obj.city + obj.upbank_name,10) + '</p>' +
+					'<p class="bank-number">' + Utils.ReplaceWithSpecialChar(obj.card_no) + '</p></div>' +
+					'<a href="javascript:" class="bank-cancel deleteitem" data_id="' + obj.id + '">解<br/>除<br/>绑<br/>定</a></li>'
+			}
+			$('#rptList').html(html);
+		}
+	</script>
+    <script type="text/javascript">
+		var oldCode = function(rs){
+    		$(".user-bank-list li").bind('tap', function () {
+                if (!$(event.target).hasClass(".btn-cancle")) {
+                    $(this).find(".bank-cancel").toggle();
+                }
+           });
+
+            $(".deleteitem").bind("tap", function () {
+                var _banid = $(this).attr("data_id");
+                mui.confirm("您确定要删除次银行卡吗？", '温馨提示', ['确定', '取消'], function (e) {
+                    if (e.index == 0) {
+                     	var ajaxObj = {
+                     		url:'tools/user_opt_ajax.ashx?act=delbank&bankid='+_banid,
+                     		success: function (data) {
+                     			if(DEBUG) console.log('==========COM.ajax回调函数');
+                                //服务器返回响应，根据响应结果，分析是否登录成功；
+                                if (data.status == "y") {
+                                    mui.alert(data.info, '提示', ['确定'], function (e) {
+                                        location.reload();
+                                    });
+                                } else {
+                                    mui.alert(data.info, '提示', ['确定'], function (e) {
+                                      
+                                    });
+                                }
+                            },
+                            error:function(xhr,type,errorThrown){
+                                //异常处理；
+                                console.log(type);
+                            }
+                     	}
+                        if(DEBUG) console.log('==========正在执行COM.ajax');
+						COM.ajax(ajaxObj);
+                    } else {
+                      
+                    }
+
+                });
+                //alert($(this).attr("data_id"));
+            });
+    	}
+    </script>
+</body>
+</html>

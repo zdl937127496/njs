@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>首页</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link href="css/style.css" rel="stylesheet" />
+		<link href="css/iconfont.css" rel="stylesheet" />
+		<style>
+			.mui-pull-loading {
+				display: none;
+			}
+			
+			#MEIQIA-BTN {
+				display: none;
+			}
+		</style>
+	</head>
+
+	<body>
+		<div class="mark"></div>
+		<!-- 主界面不动、菜单移动 -->
+		<!-- 侧滑导航根容器 -->
+		<div class="mui-off-canvas-wrap mui-draggable mui-slide-in" id="bigbox">
+			<!-- 菜单容器 -->
+			<aside class="mui-off-canvas-left" id="offCanvasSide">
+				<div class="mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<div class="left-nav">
+							<!-- 菜单具体展示内容 -->
+							<div class="left-nav-top">
+								<div class="left-nav-account"  >
+									<a id="d_userModel_t" style="display: none;" url="user/default.html" title="user/default" class="mui-clearfix my-link">
+										<div class="user-img">
+											<div class="user-img-bg"></div>
+											<img id="d_avator" width="100%" />
+										</div>
+										<div class="user-info">
+											<div id="d_nick_name">
+
+											</div>
+											<div><span class="user-phone" id="d_phone_mobile"></span></div>
+											<div class="user-ident">
+												<ul class="mui-clearfix">
+													<li><span class="mui-icon my-icon my-icon-checked"></span></li>
+													<li><span class="mui-icon my-icon my-icon-phone"></span></li>
+													<li><span id="d_name_true_1" class="mui-icon my-icon"></span></li>
+													<li><span class="mui-icon my-icon my-icon-pass"></span></li>
+												</ul>
+											</div>
+										</div>
+										<span class="mui-icon mui-icon-arrowright"></span>
+									</a>
+									<div class="user-img" id="d_userModel_f1" style="display: none;">
+										<div class="user-img-bg"></div>
+										<img src="images/user_img.jpg" width="100%" />
+									</div>
+									<div class="user-info" id="d_userModel_f2" style="display: none;">
+										<div style="padding-left: 10px;">
+											<a class="my-link" title="login" url="login.html">登录</a>
+											<a class="my-link" title="reg" url="reg.html">注册</a>
+											<a class="my-link" title="finduserpwd" url="finduserpwd.html">找回密码？</a>
+										</div>
+									</div>
+								</div>
+								<a id="d_userModel_t_s" style="display: none;" title="user/sign" url="user/sign.html" class="sign my-link">已签到</a>
+								<div id="d_userModel_t_n" style="display: none;" class="sign_box"><a href="javascript:" class="sign">签到</a></div>
+							
+							</div>
+							<div class="left-nav-main">
+								<ul class="mui-table-view">
+									<li class="mui-table-view-cell my-link" title="user/default" url="user/default.html">
+										<a >
+											<span class="mui-icon my-icon my-icon-user-b"></span>账户中心
+										</a>
+									</li>
+									<li class="mui-table-view-cell" id="d_go_borrow_list">
+										<a >
+											<span class="mui-icon my-icon my-icon-balance-b"></span>我的配资
+										</a>
+									</li>
+									<li class="mui-table-view-cell my-link" title="user/task_list" url="user/task_list.html">
+										<a >
+											<span class="mui-icon my-icon my-icon-task-b"></span>任务中心
+										</a>
+									</li>
+									<li class="mui-table-view-cell my-link" title="activity" url="activity.html">
+										<a>
+											<span class="mui-icon my-icon my-icon-bag"></span>最新活动
+										</a>
+									</li>
+									<li class="mui-table-view-cell my-link" title="user/extension" url="user/extension.html">
+										<a >
+											<span class="mui-icon my-icon my-icon-extend"></span>推广返佣
+										</a>
+									</li>
+									<li class="mui-table-view-cell" id="zixun">
+										<a href="JavaScript:void(0);">
+											<span class="mui-icon my-icon my-icon-msg"></span>客服咨询
+										</a>
+									</li>
+									<li class="mui-table-view-cell my-link" title="help" url="help.html">
+										<a>
+											<span class="mui-icon my-icon my-icon-question"></span>帮助中心
+										</a>
+									</li>
+									<li class="mui-table-view-cell my-link" title="user/sys_set" url="user/sys_set.html">
+										<a >
+											<span class="mui-icon my-icon my-icon-set"></span>系统设置
+										</a>
+									</li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</aside>
+			<!-- 主页面容器 -->
+			<div class="mui-inner-wrap">
+				<!-- header -->
+				<!-- footer -->
+				<nav class="mui-bar mui-bar-tab" style="display: none;">
+					<a class="mui-tab-item mui-active">
+						<span class="mui-icon mui-icon-home"></span>
+						<span class="mui-tab-label">首页</span>
+					</a>
+					<a class="mui-tab-item">
+						<span class="mui-icon mui-icon-phone"></span>
+						<span class="mui-tab-label">电话</span>
+					</a>
+					<a class="mui-tab-item">
+						<span class="mui-icon mui-icon-email"></span>
+						<span class="mui-tab-label">邮件</span>
+					</a>
+					<a class="mui-tab-item">
+						<span class="mui-icon mui-icon-gear"></span>
+						<span class="mui-tab-label">设置</span>
+					</a>
+				</nav>
+				<!-- main -->
+				<div class="mui-content mui-scroll-wrapper" id="pullrefresh" style="padding-top: 0; overflow: auto;">
+					<div class="mui-scroll">
+						<header class="mui-bar mui-bar-nav mui-bar-index mui-header">
+							<a class="mui-icon mui-action-menu mui-icon-bars mui-pull-left" href="#offCanvasSide"></a>
+							<h1 class="mui-title" id="d_userModel_t1"></h1>
+							<a id="d_userModel_t_u" style="display: none;" class="mui-btn mui-btn-link mui-pull-right c-white my-link" title="user/default" url="user/default.html">
+								<span class="mui-icon my-icon my-icon-user"></span>账户
+							</a>
+							<a id="d_userModel_t_l" style="display: none;" class="mui-btn mui-btn-link mui-pull-right c-white my-link" title="login" url="login.html">
+								<span class="mui-icon my-icon my-icon-user"></span>登录
+							</a>
+						</header>
+						<!-- banner -->
+						<div id="banner" class="mui-slider">
+							<div class="mui-slider-group mui-slider-loop" id="d_GetAdBanner">
+
+							</div>
+						</div>
+						<!--公告-->
+						<div class="mui-slider slide-txt" id="slider_txt">
+							<div class="mui-slider-group mui-slider-loop" id="d_GetAnn">
+
+							</div>
+						</div>
+						<!-- 新菜单 -->
+						<div class="nindex-menu mui-clearfix">
+							<ul>
+								<li class="my-link" title="stock/month" url="stock/month.html">
+									<a>
+										<img src="images/icon/nindex-menu1.png" alt="按月配资" />
+										<span>按月配资</span>
+									</a>
+								</li>
+								<li class="my-link" title="stock/day" url="stock/day.html">
+									<a>
+										<img src="images/icon/nindex-menu2.png" alt="按天配资" />
+										<span>按天配资</span>
+									</a>
+								</li>
+								<li class="my-link" title="stock/free" url="stock/free.html">
+									<a >
+										<img src="images/icon/nindex-menu3.png" alt="免息体验" />
+										<span>免息体验</span>
+									</a>
+								</li>
+								<li class="my-link" title="activity" url="activity.html">
+									<a>
+										<img src="images/icon/nindex-menu4.png" alt="最新活动" />
+										<span>最新活动</span>
+									</a>
+								</li>
+								<li class="my-link" title="process" url="process.html">
+									<a>
+										<img src="images/icon/nindex-menu5.png" alt="新手指引" />
+										<span>新手指引</span>
+									</a>
+								</li>
+							</ul>
+						</div>
+						<div class="index-stock">
+							<div class="index-stock-nav mui-clearfix" id="stock_switch">
+								<ul>
+									<li id="stock1" class="on">按月配资</li>
+									<li id="stock2">按天配资</li>
+									<li id="stock3">免息体验</li>
+								</ul>
+							</div>
+							<div class="index-stock-con">
+								<div id="con_stock1">
+									<div class="index-stock-box">
+										<i class="tj">推荐</i>
+										<h3 class="mui-clearfix">
+                                        <span class="mui-pull-left">资金：<strong>5000</strong>元起</span>
+                                        <span class="mui-pull-right">倍数：最高<strong>5</strong>倍</span>
+                                    </h3>
+										<p>极速开户,利率低至<span class="c-red">1.5%</span>/月</p>
+										<p>最低1月起配，未申请终止操盘，续费自动延期。</p>
+									</div>
+									<a title="stock/month" url="stock/month.html" class="index-stock-btn my-link">立即配资</a>
+								</div>
+								<div id="con_stock2" class="mui-hidden">
+									<div class="index-stock-box">
+										<h3 class="mui-clearfix">
+                                        <span class="mui-pull-left">资金：<strong>2000</strong>元起</span>
+                                        <span class="mui-pull-right">倍数：最高<strong>7</strong>倍</span>
+                                    </h3>
+										<p>极速开户,利率低至<span class="c-red">0.15%</span>/天</p>
+										<p>最低2天起配，未申请终止操盘，续费自动延期。</p>
+									</div>
+									<a title="stock/day" url="stock/day.html" class="index-stock-btn my-link">立即配资</a>
+								</div>
+								<div id="con_stock3" class="mui-hidden">
+									<div class="index-stock-box">
+										<i class="tj">推荐</i>
+										<h3 class="mui-clearfix">
+                                        <span class="mui-pull-left">平台出：<strong>5000</strong>元</span>
+                                        <span class="mui-pull-right">你出：<strong>1000</strong>元</span>
+                                    </h3>
+										<p>总共<span class="c-red">6000</span>元配资资金，5个交易日。</p>
+										<p>盈利全归你，平台不收取任何费用。</p>
+									</div>
+									<a title="stock/free" url="stock/free.html"  class="index-stock-btn my-link">立即配资</a>
+								</div>
+							</div>
+						</div>
+						<!-- 菜单 -->
+
+					</div>
+				</div>
+				<div class="mui-off-canvas-backdrop"></div>
+			</div>
+			<div id="tmp-hidden" style="display: none;"></div>
+		</div>
+		<script type="text/javascript" src="scripts/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="scripts/mui.min.js"></script>
+		<script src="scripts/mui.pullToRefresh.js"></script>
+		<script src="scripts/mui.pullToRefresh.material.js"></script>
+		<script src="scripts/jquery-scrolltofixed-min.js"></script>
+		<script src="scripts/rem.js"></script>
+		<script src="scripts/user.js"></script>
+		<script src="scripts/layer/layer.js"></script>
+		<script type="text/javascript">
+			if(DEBUG) console.log('正在执行default.html');
+			COM.createLoading();
+			mui.init({
+				statusBarBackground: '#e63d34',
+				swipeBack:false
+			});
+			mui('body').on('tap','.my-link',function(){
+				var className = this.getAttribute('class');
+				if(DEBUG) console.log('=className===='+className);
+				COM.openWindow(this.getAttribute('title'),this.getAttribute('url'),true);
+			});
+			mui('#d_GetAnn').on('tap','.news-ddlink',function(){
+				var id = this.getAttribute('title');
+				COM.showNewsDetail(id,'news/');
+			});
+			mui('#d_go_borrow_list').on('tap','a',function(){
+				COM.go_borrow_list('','','','user/');
+			});
+			COM.addReload(function(){
+				if(DEBUG)console.log('=addReload');
+				plus.navigator.setStatusBarBackground("#e63d34");
+				var z_login_flag = COM.getStorage(LOCAL_STORAGE.z_login_flag);
+				if(z_login_flag === '2' || z_login_flag === '3'){
+					COM.setStorage(LOCAL_STORAGE.z_login_flag,'0');
+					COM.clearView();
+					location.reload();
+				}else{
+					var ver = COM.getStorage(LOCAL_STORAGE.zVersion) || 'n';
+//					ver = '1';
+					var ajaxObj = {
+						url: URL_DATA.defaultIndex,
+						type: 'get',
+						data: {
+							ver: ver
+						},
+						success: function(rs) {
+							initShow(rs);
+						},
+						error: function() {
+							COM.createMenu('default');
+						}
+					}
+					if(DEBUG) console.log('==========正在执行COM.ajax');
+					COM.ajax(ajaxObj);
+				}
+			});
+			
+			mui.plusReady(function() {
+				var wv=plus.webview.currentWebview();
+				// 关闭侧滑返回功能
+				wv.setStyle({'popGesture':'none'});
+				COM.setStorage(LOCAL_STORAGE.u_start,'');
+
+				var z_login_flag = COM.getStorage(LOCAL_STORAGE.z_login_flag);
+				if(z_login_flag === '1'){
+					var tAjaxObj = {
+						url: 'tools/user_ajax.ashx?act=login',
+						async: false,
+						data: {
+							"mobile":COM.getStorage(LOCAL_STORAGE.z_login_account),
+							"pwd": COM.getStorage(LOCAL_STORAGE.z_login_pwd)
+						},
+						success: function() {
+							COM.setStorage(LOCAL_STORAGE.z_login_flag, '0');
+						}
+					}
+					if(DEBUG) console.log('==========正在执行COM.ajax');
+					COM.ajax(tAjaxObj);
+				}
+//				COM.clearView();
+				COM.setStorage(LOCAL_STORAGE.z_login_flag,'0');
+				var ver = COM.getStorage(LOCAL_STORAGE.zVersion) || 'n';
+//				ver = '1'; 
+				var ajaxObj = {
+					url: URL_DATA.defaultIndex,
+					type: 'get',
+					data: {
+						ver: ver
+					},
+					success: function(rs) {
+						if(rs.ver != ver) {
+							COM.setStorage(LOCAL_STORAGE.zVersion, rs.ver);
+							COM.setStorage(LOCAL_STORAGE.zMenu, rs.data);
+						}
+						COM.createMenu('default');
+						initShow(rs);
+						COM.closeLoading();
+						oldCode(rs);
+					},
+					error: function() {
+						COM.createMenu('default');
+					}
+				}
+				if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+				
+				COM.addPush();
+			});
+		</script>
+		<script>
+			var initShow = function(rs) {
+				userModel = rs.userModel;
+				signInfo = rs.signInfo;
+				if(userModel) {
+					var avator = userModel.avator.trim();
+					if(DEBUG) console.log('=userModel.avator====' + avator);
+					avator = avator.length < 16 ? 'images/user_img.jpg' : URL_DATA.http168 + avator;
+					if(DEBUG) console.log('=avator====' + avator);
+					$('#d_avator').attr('src', avator+'?t='+new Date().getTime());
+
+					var nick_name = userModel.nick_name.trim();
+					var name_true = userModel.name_true == 2 ? "已实名" : "未实名";
+					if(DEBUG) console.log('=userModel.nick_name====' + nick_name);
+					nick_name = nick_name.length < 1 ? Utils.rpMobile(userModel.phone_mobile) : nick_name;
+					$('#d_nick_name').html(nick_name + '<span class="user-name-true">' + name_true + '</span>');
+
+					$('#d_phone_mobile').html(Utils.rpMobile(userModel.phone_mobile));
+					$('#d_name_true_1').attr('class','mui-icon my-icon ' + (userModel.name_true == 2 ? "my-icon-user-f " : "my-icon-user"));
+					
+					$('#d_userModel_t,#d_userModel_t_u').show();
+					$('#d_userModel_f1,#d_userModel_f2,#d_userModel_t_l').hide();
+				} else {
+					$('#d_userModel_f1,#d_userModel_f2,#d_userModel_t_l').show();
+					$('#d_userModel_t,#d_userModel_t_u').hide();
+				}
+
+				if(signInfo) {
+					$('#d_userModel_t_n').hide();
+					$('#d_userModel_t_s').show();
+				} else {
+					$('#d_userModel_t_n').show();
+					$('#d_userModel_t_s').hide();
+				}
+				if(DEBUG) console.log('=rs.GetAdBanner====' + rs.GetAdBanner);
+				if(DEBUG) console.log('=rs.GetAnn====' + rs.GetAnn);
+				$('#d_GetAdBanner').html(_clearAdBanner(rs.GetAdBanner));
+				$('#d_GetAnn').html(_clearAnn(rs.GetAnn));
+			}
+			var _clearAdBanner = function(html) {
+				$('#tmp-hidden').html(html);
+				$('#tmp-hidden a').each(function() {
+					var href = this.getAttribute('href');
+					if(href.startsWith('http')) {
+//						if(DEBUG) console.log('=href====' + href);
+						if(href.startsWith(URL_DATA.httpM)) {
+							href = href.replace(URL_DATA.httpM, "");
+							if(DEBUG)console.log('=href===='+href);
+							$(this).attr('url',href).attr('title',href.replace('.html',''))
+								.attr('class',this.getAttribute('class') + ' my-link');
+						} else if(href.startsWith(URL_DATA.http168)) {
+							href = href.replace(URL_DATA.httpM, "");
+							if(DEBUG)console.log('=href===='+href);
+							$(this).attr('url',href).attr('title',href.replace('.html',''))
+								.attr('class',this.getAttribute('class') + ' my-link');
+						} else {
+							$(this).parent().remove();
+							//							this.setAttribute('href','');
+							//							this.setAttribute('url',href);
+						}
+					} else {
+						$(this).parent().remove();
+					}
+				});
+				return $('#tmp-hidden').html();
+			}
+			var _clearAnn = function(html) {
+				$('#tmp-hidden').html(html);
+				$('#tmp-hidden a').each(function() {
+					var href = this.getAttribute('href');
+					if(href.startsWith('/news/detail/')) {
+						var id = href.replace('/news/detail/', '').replace('.html', '');
+						if(DEBUG) console.log('=id===='+id);
+						$(this).attr('title',id).attr('class',this.getAttribute('class') + ' news-ddlink');
+					}
+				});
+				return $('#tmp-hidden').html();
+			}
+		</script>
+		<script>
+			mui("body").on('tap', '#zixun', function() {
+				open_hide();
+			});
+			var open_hide = function() {
+				//$("#MEIQIA-BTN").css("display", "block");
+				$("#MEIQIA-BTN-ICON").trigger("click"); //模拟执行id=a的事件 
+			}
+			mui(".sign_box").on('tap', 'a', function() {
+				signNow(this);
+			});
+			$("#stock_switch li").each(function() {
+				$(this).on("tap", function() {
+					var tagId = $(this).attr("id");
+					$(this).addClass("on").siblings().removeClass("on");
+					$("#con_" + tagId).removeClass("mui-hidden").siblings().addClass("mui-hidden");
+				})
+			});
+			var oldCode = function(rs) {
+				/**上拉加载具体业务实现*/
+				count = 0,
+					pageSize = rs.pageSize,
+					pagenum = rs.newsPageNum;
+				mui("#banner").slider({
+					interval: 3000
+				});
+				mui("#slider_txt").slider({
+					interval: 3000
+				});
+				
+				var gallery = mui('.mui-slider');
+				gallery.slider({
+					interval: 3000 //自动轮播周期，若为0则不自动播放，默认为0；
+				});
+
+				(function($) {
+					//阻尼系数
+					var deceleration = mui.os.ios ? 0.003 : 0.0009;
+					var scroll = $('.mui-scroll-wrapper').scroll({
+						bounce: false,
+						indicators: true, //是否显示滚动条
+						deceleration: deceleration
+					});
+					$.ready(function() {
+						//循环初始化所有下拉刷新，上拉加载。
+						$.each(document.querySelectorAll('.mui-scroll-wrapper .mui-scroll'), function(index, pullRefreshEl) {
+							$(pullRefreshEl).pullToRefresh({
+								up: {
+									callback: function() {
+										var self = this;
+										pullupRefresh();
+									}
+								}
+							});
+						});
+					});
+				})(mui);
+
+				function pullupRefresh() {
+					setTimeout(function() {
+						var is_fresh = (++count > pagenum);
+						var ajaxObj = {
+							url: "tools/list_ajax.ashx",
+							data: {
+								act: "news_list_index",
+								pageSize: pageSize,
+								p: count,
+								t: new Date()
+							},
+							dataType: 'text',
+							type: 'GET',
+							success: function(data) {
+								if(DEBUG) console.log('==========COM.ajax回调函数');
+								$("#data_list").append(data);
+							}
+						}
+						if(DEBUG) console.log('==========正在执行COM.ajax');
+						COM.ajax(ajaxObj);
+					}, 100);
+				}
+				//<!--meiqia-->
+				(function(m, ei, q, i, a, j, s) {
+					m[a] = m[a] || function() {
+						(m[a].a = m[a].a || []).push(arguments)
+					};
+					j = ei.createElement(q),
+						s = ei.getElementsByTagName(q)[0];
+					j.async = true;
+					j.charset = 'UTF-8';
+					j.src = i + '?v=' + new Date().getUTCDate();
+					//					s.parentNode.insertBefore(j, s);
+					console.log('=src====' + j.src);
+					ei.body.appendChild(j);
+				})(window, document, 'script', 'http://eco-api.meiqia.com/dist/meiqia.js?rnd=' + new Date(), '_MEIQIA');
+				_MEIQIA('entId', 6921);
+			}
+		</script>
+
+</html>

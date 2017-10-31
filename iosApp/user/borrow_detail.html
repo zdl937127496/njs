@@ -1,0 +1,522 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>操盘详细</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../css/stock.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">方案详情</h1>
+        <a class="mui-btn-link mui-pull-right white">资金记录</a>
+    </header>
+    <div class="mui-content">
+        <div class="stock-detail">
+            <p class="mui-clearfix" id="d_contract"><a class="mui-pull-right yellow">查看协议</a></p>
+            <div class="stock-detail-main">
+                <div class="stock-detail-money">
+                    <ul class="mui-table-view mui-grid-view">
+                        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+                            <p>您的操盘资金</p>
+                            <div class="stock-detail-money-p" id="d_d_d_d">
+                                
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell mui-media mui-col-xs-6">
+                            <p>保证金</p>
+                            <div class="stock-detail-money-p" id="f_f_f_f">
+                                
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+                <div class="stock-detail-money-list">
+                    <ul class="mui-table-view">
+                        <li class="mui-table-view-cell">
+                            <div class="table-cell mui-col-xs-5">配资产品</div>
+                            <div class="table-cell mui-col-xs-7" id="d_product_code"></div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="table-cell mui-col-xs-5">账户状态</div>
+                            <div class="table-cell mui-col-xs-7" id="d_b_status">
+                                
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="table-cell mui-col-xs-5">配资金额度</div>
+                            <div class="table-cell mui-col-xs-7" id="d_money_borrow"></div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="table-cell mui-col-xs-5">亏损警戒线</div>
+                            <div class="table-cell mui-col-xs-7" id="d_money_warn"></div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="table-cell mui-col-xs-5">亏损平仓线</div>
+                            <div class="table-cell mui-col-xs-7" id="d_money_open_line"></div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="table-cell mui-col-xs-5">管理费</div>
+                            <div class="table-cell mui-col-xs-7" id="d_money_rate"></div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="table-cell mui-col-xs-5">通道使用费</div>
+                            <div class="table-cell mui-col-xs-7" id="d_money_rate_commission"></div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="table-cell mui-col-xs-5">操盘期限</div>
+                            <div class="table-cell mui-col-xs-7" id="d_borrow_days"></div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="table-cell mui-col-xs-5">配资到期时间</div>
+                            <div class="table-cell mui-col-xs-7" id="d_money_end"></div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="table-cell mui-col-xs-5">
+                                <p class="c-red">交易账户</p>
+                                <p class="c-red">交易密码</p>
+                            </div>
+                            <div class="table-cell mui-col-xs-5">
+                                <p id="d_status_2">
+                                    
+                                </p>
+                                <p id="d_status_3">
+                                    
+                                </p>
+                            </div>
+                            <div class="table-cell mui-col-xs-2" style="display: none;">
+                                <p><a href="#" class="c-yel">复制</a></p>
+                                <p><a href="#" class="c-yel">复制</a></p>
+                            </div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="table-cell mui-col-xs-5">盈利分配</div>
+                            <div class="table-cell mui-col-xs-7">全部归您</div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="table-cell mui-col-xs-5">已付保证金</div>
+                            <div class="table-cell mui-col-xs-7"><a href="borrow_begin_list.html" id="d_money_deposit_all"></a></div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <div class="table-cell mui-col-xs-5">已付管理费</div>
+                            <div class="table-cell mui-col-xs-7"><a href="borrow_fee_list.html" id="d_money_fee_all"></a></div>
+                        </li>
+                        <li class="mui-table-view-cell">
+                            <p class="c-yel">仓位限制</p>
+                            <p class="last">配资资金10万以下单只股票不得超过总资金的80%，10万以上单只股票不得超过总资金的60%，创业板不得超过总资金的30%，账户资金200万以上创业板持仓不得超过账户总资金的20%。</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+    <input id="borrow_id" type="hidden" value="" />
+    <input id="flag" type="hidden" value="" />
+
+   
+    <div class="my-popup my-popup-in" id="addBorrowMoney" style="display: none;">
+        <div class="my-popup-inner">
+            <div class="my-popup-title">追加配额</div>
+            <div class="my-popup-input">
+                <input class="input-nob" type="text" autofocus="" placeholder="请输入追加的保证金额" id="openingMoney" name="5000000"  />
+            </div>
+            <div class="my-popup-text ml" id="d_product_flag"></div>
+
+             
+            <div class="my-popup-input">
+                <input class="input-nob" type="text" autofocus="" placeholder="当前可追加的配资额"  disabled value="" id="money_borrow2"/>
+            </div>
+        </div>
+        <div class="my-popup-buttons">
+            <span class="my-popup-button" id="closeBorrrow">取消</span>
+            <span class="my-popup-button" onclick="openingMoney();">确定追加</span>
+        </div>
+    </div>
+    <div class="my-popup my-popup-in" id="addDepositMoney" style="display: none;">
+        <div class="my-popup-inner">
+            <div class="my-popup-title">追加保证金</div>
+            <div class="my-popup-input">
+                <input class="input-nob" type="text" autofocus="" placeholder="请输入追加金额" id="depositvalue" name="5000000" onkeyup="textchange(this,0,0);" />
+            </div>
+            <div class="my-popup-text ml">每次追加保证金100元起，且须为100的整数倍，每天最多追加5次（包括取消次数）。</div>
+        </div>
+        <div class="my-popup-buttons">
+            <span class="my-popup-button" id="closeDeposit">取消</span>
+            <span class="my-popup-button" onclick="startAddDeposit();">确定追加</span>
+        </div>
+    </div>
+    <div class="my-popup my-popup-in" id="addProfitMoney" style="display: none;">
+        <div class="my-popup-inner">
+            <div class="my-popup-title">提取利润</div>
+            <div class="my-popup-input">
+                <input class="input-nob" type="text" autofocus="" placeholder="提取金额" id="tiqijine" name="5000000" onkeyup="textchange(this,0,0);" />
+            </div>
+            <div class="my-popup-text ml">盈利提取将按照股票账户资产大于账户初始资金的1.1倍以上部分方可提取，若盈利未达到提取要求将视为无效提取。</div>
+        </div>
+        <div class="my-popup-buttons">
+            <span class="my-popup-button" id="closeProfit">取消</span>
+            <span class="my-popup-button" onclick="tiqulirun();">确定提取</span>
+        </div>
+    </div>
+    <div id="myPopupBack" class="my-popup-backdrop my-popup-active" style="display: none;"></div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+	<script src="../scripts/mui.picker.min.js"></script>
+    <script src="../scripts/jquery/common.js"></script>
+    <script src="../scripts/user.js"></script>
+    <script>
+    	if(DEBUG) console.log('正在执行 user/borrow_detail.html');
+    	mui.init({
+				statusBarBackground: '#e63d34',
+			});
+    	mui('.header').on('tap','.mui-pull-left',function(){
+			COM.openWindow('user/borrow_list','borrow_list.html',false,true);
+		});
+    	mui('.header').on('tap','.mui-pull-right',function(){
+			COM.openWindow('user/borrow_begin_list','borrow_begin_list.html',true,true);
+		});
+    	mui('#d_contract').on('tap','a',function(){
+    		//../stock/contract.html
+			COM.openWindow('stock/contract','../stock/contract.html',true,true);
+		});
+		COM.addReload();
+		
+    	COM.createLoading();
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			detail_id = COM.getStorage(LOCAL_STORAGE.z_borrow_detail_id);
+			if(DEBUG)console.log('=detail_id===='+detail_id);
+			var ajaxObj = {
+				url: URL_DATA.userAjaxBorrow_detail,
+				type: 'get',
+				data:{id:detail_id},
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') { 
+						if(rs.goto){ 
+							COM.openWindow('default','../default.html');
+						}else{
+							initShow(rs);
+							COM.closeLoading();
+							oldCode(rs);
+						}
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+    </script>
+    <script>
+    	var initShow = function(rs){
+    		borrowInfo = rs.borrowInfo;
+    		if(DEBUG)console.log('=rs.money_all===='+COM.stringFormat(rs.money_all));
+    		var html_d = '<p class="d-money"><strong>'+ COM.stringFormat(rs.money_all) +'</strong>'+ (borrowInfo.flag==24?"港元":"元") +'</p>';
+    		var html_f = '<p class="d-money"><strong>'+ COM.stringFormat(borrowInfo.money_deposit) +'</strong>元</p>';
+    		var statusTxt = '';
+    		if(DEBUG) console.log('=borrowInfo.status===='+borrowInfo.status);
+    		if (borrowInfo.status == 1){
+    			html_d += '<button type="button" id="addBorrrow" class="mui-btn mui-btn-yellow mui-btn-outlined mui-btn-block">追加配额</button><button type="button" onclick="stopstock();" class="mui-btn mui-btn-yellow mui-btn-outlined mui-btn-block">终止操盘</button>';
+    			html_f += '<button type="button" id="addDeposit" class="mui-btn mui-btn-yellow mui-btn-outlined mui-btn-block">追加保证金</button><button type="button" id="addProfit" class="mui-btn mui-btn-yellow mui-btn-outlined mui-btn-block">提取利润</button>';
+    			statusTxt = '操盘中...';
+    			$('#d_status_2').html(borrowInfo.stockno);
+    			$('#d_status_3').html(rs.stock_pass);
+    		}else if(borrowInfo.status == 0){
+    			html_d += '<button type="button" onclick="stopstock();" class="mui-btn mui-btn-yellow mui-btn-outlined mui-btn-block">终止操盘</button>';
+    			html_f += '<button type="button" class="mui-btn mui-btn-yellow mui-btn-outlined mui-btn-block" style="border: none;">&nbsp;</button>';
+    			statusTxt = '申请开户中...';
+    			$('#d_status_2').html('未开户');
+    			$('#d_status_3').html('未开户'); 
+    		}else if(borrowInfo.status == 2){
+    			html_d += '<button type="button" onclick="cancelstopstock();" class="mui-btn mui-btn-yellow mui-btn-outlined mui-btn-block">恢复操盘</button>';
+    			html_f += '<button type="button" class="mui-btn mui-btn-yellow mui-btn-outlined mui-btn-block" style="border: none;">&nbsp;</button>';
+    			statusTxt = '结算中...';
+    			$('#d_status_2').html(borrowInfo.stockno);
+    			$('#d_status_3').html(rs.stock_pass);
+    		}else if(borrowInfo.status == 3){
+    			statusTxt = '操盘结束';
+    			$('#d_status_2').html(borrowInfo.stockno);
+    			$('#d_status_3').html(rs.stock_pass);
+    		}else if(borrowInfo.status == 4){
+    			statusTxt = '审核中...';
+    			$('#d_status_2').html(borrowInfo.stockno);
+    			$('#d_status_3').html(rs.stock_pass);
+    		}else if(borrowInfo.status == 5){
+    			statusTxt = '开户失败';
+    			$('#d_status_2').html('开户失败');
+    			$('#d_status_3').html('开户失败');
+    		}else{
+    			$('#d_status_2').html(borrowInfo.stockno);
+    			$('#d_status_3').html(rs.stock_pass);
+    		}
+    		console.log('=html_d===='+html_d);
+    		$('#d_d_d_d').html(html_d);
+    		$('#f_f_f_f').html(html_f);
+    		$('#d_b_status').html(statusTxt);
+    		$('#d_product_code').html(borrowInfo.product_code);
+    		$('#d_money_borrow').html(COM.stringFormat(borrowInfo.money_borrow)+'元');
+    		
+    		$('#d_money_warn').html(getHtmlByKey('money_warn'));
+    		$('#d_money_open_line').html(getHtmlByKey('money_open_line'));
+			
+			$('#d_money_rate').html(COM.stringFormat(borrowInfo.money_borrow*borrowInfo.money_rate) +'元/' + (borrowInfo.flag==2?"月":"交易日"));
+			$('#d_money_rate_commission').html(COM.stringFormat(borrowInfo.money_rate_commission) + '元/' + (borrowInfo.flag==2?"月":"交易日"));
+    		$('#d_borrow_days').html(borrowInfo.borrow_days + (borrowInfo.flag==2?"月":"天") + '(<span class="c-yel">到期自动顺延</span>)');
+    		if(DEBUG) console.log('=borrowInfo.money_end===='+borrowInfo.money_end);
+    		var money_end = parseInt(borrowInfo.money_end.replace(/[^\d]/g,""));
+    		$('#d_money_end').html(new Date(money_end).format('yyyy-MM-dd'));
+    		
+    		$('#d_money_deposit_all').html(COM.stringFormat(borrowInfo.money_deposit_all) +'元');
+    		$('#d_money_fee_all').html(COM.stringFormat(borrowInfo.money_fee_all) +'元');
+    		$('#borrow_id').val(detail_id);
+    		$('#flag').val(borrowInfo.flag);
+    		
+    		if(DEBUG) console.log('=rs.times===='+rs.times);
+    		document.getElementById('openingMoney').onkeyup = function(){
+    			textchangepz(this,0,0,rs.times);
+    		}
+    		product_flag = rs.product_flag
+    		$('#d_product_flag').html('账户追加配额，'+ (product_flag.indexOf(","+borrowInfo.flag+",") != -1 ? "1 至 100 手，每手" +rs.money_min+"元":"您支付的保证金必须为1000的整数倍！"));
+    	
+    	}
+    	var getHtmlByKey = function(key){
+    		return '<span class="c-red" >'+ COM.stringFormat(borrowInfo.flag==24?borrowInfo[key]*84/100:borrowInfo[key])
+    		+(borrowInfo.flag==24?"港元":"元")
+    		+('</span></br> <span class="c-red">'+(borrowInfo.flag==26?"约"+COM.stringFormat(borrowInfo[key]/7.2)+"美元":"")) +'</span>';
+    	}
+    </script>
+    <script>
+    	var oldCode = function(rs){
+    		if(document.getElementById("addBorrrow")){
+    			document.getElementById("addBorrrow").addEventListener('tap', function (e) {
+	                e.detail.gesture.preventDefault();
+	                $("#addBorrowMoney").show();
+	                $(".my-popup-backdrop").show();
+	            });
+    		}
+    		
+            document.getElementById("closeBorrrow").addEventListener('tap', function (e) {
+                $("#addBorrowMoney").hide();
+                $(".my-popup-backdrop").hide();
+            });
+			if(document.getElementById("addDeposit")){
+				document.getElementById("addDeposit").addEventListener('tap', function (e) {
+	                e.detail.gesture.preventDefault();
+	                $("#addDepositMoney").show();
+	                $(".my-popup-backdrop").show();
+	            });
+			}
+            
+            document.getElementById("closeDeposit").addEventListener('tap', function (e) {
+                $("#addDepositMoney").hide();
+                $(".my-popup-backdrop").hide();
+            });
+			
+			if(document.getElementById("addProfit")){
+				document.getElementById("addProfit").addEventListener('tap', function (e) {
+	                e.detail.gesture.preventDefault();
+	                $("#addProfitMoney").show();
+	                $(".my-popup-backdrop").show();
+	            });
+			}
+            
+            document.getElementById("closeProfit").addEventListener('tap', function (e) {
+                $("#addProfitMoney").hide();
+                $(".my-popup-backdrop").hide();
+            });
+    	}
+    </script>
+    <script type="text/javascript">
+
+        //恢复操盘
+        var cancelstopstock = function () {
+            mui.confirm('你确定要恢复该操盘？', '恢复操盘', ['确定', '取消'], function (e) {
+                if (e.index == 0) {
+                    layer.load(0, { shade: false, time: 1000 });
+                    var ajaxObj = {
+                    	url:"tools/user_opt_ajax.ashx?act=borrow_recover",
+                    	data: { "borrowid": $("#borrow_id").val() },
+                    	success: function (data, textStatus) {
+                    		if(DEBUG) console.log('==========COM.ajax回调函数');
+                            if (data.status == "y") {
+                                mui.confirm(data.info, '申请成功', ['知道啦'], function (e) {
+                                    if (e.index == 0) {
+                                        window.location.reload();
+                                    }
+                                });
+                            } else {
+                                layer.msg(data.info);
+                                return;
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            layer.msg("状态：" + textStatus + "；出错提示：" + errorThrown);
+                        }
+                    }
+                    if(DEBUG) console.log('==========正在执行COM.ajax');
+					COM.ajax(ajaxObj);
+                }
+            });
+        }
+        //终止操盘
+        var stopstock = function () {
+            mui.confirm('您确定要申请终止操盘吗？', '终止操盘', ['确定', '取消'], function (e) {
+                if (e.index == 0) {
+                    layer.load(0, { shade: false, time: 1000 });
+                    var ajaxObj = {
+                    	url:"tools/user_opt_ajax.ashx?act=borrow_stop",
+                    	data: { "borrowid": $("#borrow_id").val() },
+                    	success: function (data, textStatus) {
+                    		if(DEBUG) console.log('==========COM.ajax回调函数');
+                            if (data.status == "y") {
+                                mui.confirm(data.info, '申请成功', ['知道啦'], function (e) {
+                                    if (e.index == 0) {
+                                        window.location.reload();
+                                    }
+                                });
+                            } else {
+                                layer.msg(data.info);
+                                return;
+                            }
+                        },
+                        error: function (XMLHttpRequest, textStatus, errorThrown) {
+                            layer.msg("状态：" + textStatus + "；出错提示：" + errorThrown);
+                        }
+                    }
+                    if(DEBUG) console.log('==========正在执行COM.ajax');
+					COM.ajax(ajaxObj);
+                }
+            });
+        }
+        //提取利润
+        var tiqulirun = function () {
+            var depositvalue = $("#tiqijine").val();
+            if (parseInt(depositvalue) == "" || parseInt(depositvalue) == 0) {
+                layer.msg('亲!您忘了输入金额哟。');
+                return;
+            }
+            layer.load(0, { shade: false, time: 1000 });
+            var ajaxObj = {
+            	url:"tools/user_opt_ajax.ashx?act=profit_apply",
+            	data: { "borrowid": $("#borrow_id").val(), "money": depositvalue },
+            	success: function (data, textStatus) {
+            		if(DEBUG) console.log('==========COM.ajax回调函数');
+                    if (data.status == "y") {
+                        $("#addProfitMoney").hide();
+                        $(".my-popup-backdrop").hide();
+                        mui.confirm(data.info, '提取申请成功', ['知道啦'], function (e) {
+                            if (e.index == 0) {
+                                window.location.reload();
+                            }
+                        });
+                    } else {
+                        layer.msg(data.info);
+                        return;
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    layer.msg("状态：" + textStatus + "；出错提示：" + errorThrown);
+                }
+            }
+           	if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+        }
+        //追加保证金
+        var startAddDeposit = function () {
+            var depositvalue = $("#depositvalue").val();
+            if (depositvalue == "" || depositvalue == "NaN") {
+                layer.msg('亲!您忘了输入金额哟。');
+                return false;
+            }
+            if (parseInt(depositvalue) < 100) {
+                layer.msg('亲!每次追加保证金不能小于100元。');
+                return false;
+            }
+
+            if (parseInt(depositvalue) % 100 != 0) {
+                layer.msg('亲!金额必须是100的整数倍。');
+                return false;
+            }
+            layer.load(0, { shade: false, time: 1000 });
+            var ajaxObj = {
+            	url: "tools/user_opt_ajax.ashx?act=add_borrow_begin",
+            	data: { "borrowid": $("#borrow_id").val(), "money": depositvalue },
+            	success: function (data, textStatus) {
+            		if(DEBUG) console.log('==========COM.ajax回调函数');
+                    if (data.status == "y") {
+                        $("#addDepositMoney").hide();
+                        $(".my-popup-backdrop").hide();
+                        mui.confirm(data.info, '追加保证金成功', ['知道啦'], function (e) {
+                            if (e.index == 0) {
+                                window.location.reload();
+                            }  
+                        });
+                    } else {
+                        layer.msg(data.info);
+                        return;
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    layer.msg("状态：" + textStatus + "；出错提示：" + errorThrown);
+                }
+            }
+           	if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+        }
+        //增加配额
+        var openingMoney = function () {
+            var depositvalue = $("#openingMoney").val();
+            if (parseInt(depositvalue) == "" || parseInt(depositvalue) == 0) {
+                layer.msg('亲!您忘了输入追加的仓位哦。');
+                return false;
+            }
+            if(product_flag.indexOf("," + borrowInfo.flag + ",") != -1){
+            	if (parseInt(depositvalue) % 1 != 0) {
+	                layer.msg('亲!手数必须是1的整数倍。');
+	                return false;
+	            }
+            }else{
+            	if (parseInt(depositvalue) % 1000 != 0) {
+	                layer.msg('亲!金额必须是1000的整数倍。');
+	                return false;
+	            }
+            }
+            var  product_type = $("#flag").val();
+            var moneyborrow=$("#money_borrow2").val();
+            layer.load(0, { shade: false, time: 1000 });
+            var ajaxObj = {
+            	url: "tools/user_opt_ajax.ashx?act=add_borrow_money",
+            	data: { "borrowid": $("#borrow_id").val(), "money": depositvalue },
+            	success: function (data, textStatus) {
+            		if(DEBUG) console.log('==========COM.ajax回调函数');
+                    if (data.status == "y") {
+                        $("#addBorrowMoney").hide();
+                        $(".my-popup-backdrop").hide();
+                        mui.confirm(data.info, '增加配额成功', ['知道啦'], function (e) {
+                            if (e.index == 0) {
+                                window.location.reload();
+                            }
+                        });
+                    } else {
+                        layer.msg(data.info);
+                        return;
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    layer.msg("状态：" + textStatus + "；出错提示：" + errorThrown);
+                }
+            }
+            if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+        }
+    </script>
+</body>
+</html>

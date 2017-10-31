@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>盈利提取</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+    <link rel="stylesheet" href="../css/mui.picker.min.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class=" mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">盈利提取</h1>
+        <a class="mui-btn mui-btn-link mui-pull-right white"  onclick="COM.showEplain('exp_getprofit','../')">说明</a>
+    </header>
+    <div class="mui-content">
+        <div class="add-position">
+            <p class="p_top">选择提取盈利账户</p>
+            <div class="user-cash-bank">
+                <ul class="mui-table-view _notop _nobottom">
+                    <li class="mui-table-view-cell">
+                        <a class="mui-navigate-right" id="borrow_list" href="javascript:">
+                            
+                        </a>
+                    </li>
+                </ul>
+            </div>
+            <div class="user-cash-money">
+                <p>提取盈利金额</p>
+                <input type="text" class="user-cash-inp" id="tiqijine" name="5000000" onkeyup="textchange(this,0,0);" />
+                <p class="last">盈利提取将按照股票账户资产大于账户初始资金的1.1倍以上部分方可提取，若盈利未达到提取要求将视为无效提取。</p>
+            </div>
+            <div class="w70">
+                <button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" id="confirmCash" onclick="tiqulirun();">确认提交</button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+	<script src="../scripts/mui.picker.min.js"></script>
+    <script src="../scripts/jquery/common.js"></script>
+    <script src="../scripts/user.js"></script>
+    <script>		
+		if(DEBUG) console.log('正在执行 user/borrow_getprofit.html');
+		mui.init({
+				statusBarBackground: '#e63d34',
+			});
+		mui('.header').on('tap','.mui-pull-left',function(){
+			COM.openWindow(COM.getStorage(LOCAL_STORAGE.u_deal_prev_id));
+		});
+		COM.addReload();
+		COM.createLoading();
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			var ajaxObj = {
+				url: URL_DATA.userAjaxBorrow_getprofit,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						$('#borrow_list').html(rs.str_borrow_one);
+						COM.closeLoading();
+						oldCode(rs);
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+    </script>
+    <script>
+    	var oldCode = function(rs){
+    		var str_borrow_json = eval("(["+ rs.str_borrow_json +"])");
+    		$("#borrow_list").on('tap', function (e) {
+                var $this = $(this);
+                var picker = new mui.PopPicker();
+                picker.setData(str_borrow_json);
+                picker.show(function (selectItems) {
+                    var id = selectItems[0].value, tit = selectItems[0].text, type_id = selectItems[0].type_id, account = selectItems[0].account;
+                    $("#borrow_list .stock-icon").removeClass("stock-day").removeClass("stock-month").removeClass("stock-free").removeClass("stock-award").removeClass("stock-qi");
+                    $("#borrow_list .stock-icon").addClass(type_id);
+                    $("#borrow_list .bank").html(tit.replace(account, '').replace('（', '').replace('）', '') + "<p>" + account + "</p>");
+                    $("#borrow_id").val(id);
+                });
+           });
+    	}
+    	//提取利润
+        var tiqulirun = function () {
+            var depositvalue = $("#tiqijine").val();
+            if (parseInt(depositvalue) == "" || parseInt(depositvalue) == 0) {
+                layer.msg('亲!您忘了输入金额哟。');
+                return;
+            }
+            layer.load(0, { shade: false, time: 1000 });
+            var ajaxObj = {
+            	url:"tools/user_opt_ajax.ashx?act=profit_apply",
+            	data: { "borrowid": $("#borrow_id").val(), "money": depositvalue },
+            	success: function (data, textStatus) {
+            		if(DEBUG) console.log('==========COM.ajax回调函数');
+                    if (data.status == "y") {
+                        $("#addProfitMoney").hide();
+                        $(".my-popup-backdrop").hide();
+                        mui.confirm(data.info, '提取申请成功', ['知道啦'], function (e) {
+                            if (e.index == 0) {
+                                window.location.reload();
+                            }
+                        });
+                    } else {
+                        layer.msg(data.info);
+                        return;
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    layer.msg("状态：" + textStatus + "；出错提示：" + errorThrown);
+                }
+            }
+            if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+        }
+    </script>
+</body>
+</html>

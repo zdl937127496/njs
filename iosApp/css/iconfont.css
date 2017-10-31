@@ -1,0 +1,85 @@
+
+@font-face {font-family: "iconfont";
+  
+  src: url('../fonts/iconfont.ttf?t=1482300759018') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+ 
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon-shezhi:before { content: "\e600"; }
+
+.icon-weixin01:before { content: "\e608"; }
+
+.icon-qq01:before { content: "\e60a"; }
+
+.icon-wenhao:before { content: "\e607"; }
+
+.icon-qian-copy:before { content: "\e601"; }
+
+.icon-zhanghu:before { content: "\e60c"; }
+
+.icon-bao:before { content: "\e63e"; }
+
+.icon-laba:before { content: "\e6bf"; }
+
+
+.my-icon{height: 20px; line-height: 20px; width: 20px; display: inline-block; vertical-align: middle; margin-right: 5px;}
+.my-icon-recharge{background: url(../images/icon/charge.png) center no-repeat; background-size: contain;}
+.my-icon-cash{background: url(../images/icon/cash.png) center no-repeat; background-size: contain;}
+.my-icon-task{background: url(../images/icon/task.png) center no-repeat; background-size: contain;}
+.my-icon-user{background: url(../images/icon/footer_user.png) center no-repeat; background-size: contain; height: .26rem; width: .28rem;}
+.my-icon-user-f{background: url(../images/icon/footer_user_f.png) center no-repeat; background-size: contain; height: .26rem; width: .28rem;}
+
+.my-icon-user-b{background: url(../images/icon/user_b.png) center no-repeat; background-size: contain;}
+.my-icon-money-white{background: url(../images/icon/footer_pz.png) center no-repeat; background-size: contain;}
+.my-icon-home{background: url(../images/icon/footer_home.png) center no-repeat; background-size: contain;}
+.my-icon-gift{background: url(../images/icon/footer_deal.png) center no-repeat; background-size: contain;}
+.my-icon-balance-b{background: url(../images/icon/balance_b.png) center no-repeat; background-size: contain;}
+.my-icon-task-b{background: url(../images/icon/task_b.png) center no-repeat; background-size: contain;}
+.my-icon-bag{background: url(../images/icon/bag.png) center no-repeat; background-size: contain;}
+.my-icon-extend{background: url(../images/icon/extend.png) center no-repeat; background-size: contain;}
+.my-icon-msg{background: url(../images/icon/msg.png) center no-repeat; background-size: contain;}
+.my-icon-question{background: url(../images/icon/question.png) center no-repeat; background-size: contain;}
+.my-icon-question-w{background: url(../images/icon/question_w.png) center no-repeat; background-size: contain;}
+.my-icon-set{background: url(../images/icon/set.png) center no-repeat; background-size: contain;}
+.my-icon-checked{background: url(../images/icon/checked.png) center no-repeat; background-size: contain;}
+.my-icon-phone{background: url(../images/icon/phone.png) center no-repeat; background-size: contain;}
+.my-icon-pass{background: url(../images/icon/pass.png) center no-repeat; background-size: contain;}
+.my-icon-laba{background: url(../images/icon/laba.png) center no-repeat; background-size: contain;}
+.my-icon-qq{background: url(../images/icon/qq.png) center no-repeat; background-size: contain;}
+.my-icon-weixin{background: url(../images/icon/weixin.png) center no-repeat; background-size: contain;}
+.my-icon-weibo{background: url(../images/icon/weibo.png) center no-repeat; background-size: contain;}
+.my-icon-mark{background: url(../images/icon/mark.png) center no-repeat; background-size: contain; max-width: 23px;}
+.my-icon-ewm{background: url(../images/icon/ewm.png) center no-repeat; background-size: contain; max-width: 20px;}
+.my-icon-link{background: url(../images/icon/link.png) center no-repeat; background-size: contain; max-width: 19px;}
+.my-icon-yqm{background: url(../images/icon/yqm.png) center no-repeat; background-size: contain; max-width: 20px;}
+.my-icon-email{background: url(../images/icon/email.png) center no-repeat; background-size: contain;}
+.my-icon-up{background: url(../images/icon/up.png) center no-repeat; background-size: contain;}
+.my-icon-camera{background: url(../images/icon/camera.png) center no-repeat; background-size: contain;}
+/*add by 20170323*/
+.my-icon-menu-01{background: url(../images/icon/new_menu_01.png) no-repeat; background-size: contain;}
+.my-icon-menu-02{background: url(../images/icon/new_menu_02.png) no-repeat; background-size: contain;}
+.my-icon-menu-03{background: url(../images/icon/new_menu_03.png) no-repeat; background-size: contain;}
+.my-icon-menu-04{background: url(../images/icon/new_menu_04.png) no-repeat; background-size: contain;}
+.my-icon-menu-05{background: url(../images/icon/new_menu_05.png) no-repeat; background-size: contain;}
+.my-icon-menu-06{background: url(../images/icon/new_menu_06.png) no-repeat; background-size: contain;}
+.my-icon-menu-07{background: url(../images/icon/new_menu_07.png) no-repeat; background-size: contain;}
+.my-icon-menu-08{background: url(../images/icon/new_menu_08.png) no-repeat; background-size: contain;}
+.my-icon-menu-001{background: url(../images/icon/new_menu_icon_01.png) no-repeat; background-size: contain;}
+.my-icon-menu-002{background: url(../images/icon/new_menu_icon_02.png) no-repeat; background-size: contain;}
+.my-icon-menu-003{background: url(../images/icon/new_menu_icon_03.png) no-repeat; background-size: contain;}
+.my-icon-menu-004{background: url(../images/icon/new_menu_icon_04.png) no-repeat; background-size: contain;}
+.my-icon-menu-005{background: url(../images/icon/new_menu_icon_05.png) no-repeat; background-size: contain;}
+.my-icon-menu-006{background: url(../images/icon/new_menu_icon_06.png) no-repeat; background-size: contain;}
+.my-icon-menu-007{background: url(../images/icon/new_menu_icon_07.png) no-repeat; background-size: contain;}
+.my-icon-menu-008{background: url(../images/icon/new_menu_icon_08.png) no-repeat; background-size: contain;}
+.my-icon-menu-009{background: url(../images/icon/new_menu_icon_09.png) no-repeat; background-size: contain;}
+.my-icon-menu-010{background: url(../images/icon/new_menu_icon_10.png) no-repeat; background-size: contain;}
+.my-icon-menu-011{background: url(../images/icon/new_menu_icon_11.png) no-repeat; background-size: contain;}

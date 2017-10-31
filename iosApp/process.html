@@ -1,0 +1,80 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/process.css" />
+	</head>
+
+	<body style="display: block;">
+		<header class="mui-bar mui-bar-nav header">
+		    <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+		    <h1 class="mui-title">新手指引</h1>
+		</header>
+		<div class="mui-content">
+		    <div class="process">
+		    	<div class="process-banner"><img src="images/process/steps_01.jpg"/></div>
+		    	<div class="process-title"><img src="images/process/steps_04.jpg" width="68.4%"/></div>
+		    	<div class="process-steps">
+		    		<div class="title" onclick="COM.openWindow('reg','reg.html',true);"><img src="images/process/steps_07.jpg"/></div>
+		    		<div class="steps">
+		    			<img src="images/process/steps_09.jpg"/>
+		    			<img src="images/process/steps_10.jpg"/>
+		    		</div>
+		    	</div>
+		    	<div class="process-steps">
+		    		<div class="title" onclick="COM.openWindow('user/real_name','user/real_name.html',true);"><img src="images/process/steps_12.jpg"/></div>
+		    		<div class="steps">
+		    			<img src="images/process/steps_14.jpg" />
+		    			<img src="images/process/steps_15.jpg" />
+		    		</div>
+		    	</div>
+		    	<div class="process-steps">
+		    		<div class="title" onclick="COM.openWindow('user/pay','user/pay.html',true);"><img src="images/process/steps_17.jpg" /></div>
+		    		<div class="steps">
+		    			<img src="images/process/steps_19.jpg" />
+		    			<img src="images/process/steps_20.jpg" />
+		    		</div>
+		    	</div>
+		    	<div class="process-steps">
+		    		<div class="title" onclick="COM.openWindow('stock/day','stock/day.html',true);"><img src="images/process/steps_22.jpg" /></div>
+		    		<div class="steps">
+		    			<img src="images/process/steps_24.jpg" />
+		    			<img src="images/process/steps_25.jpg" />
+		    		</div>
+		    	</div>
+		    	<div class="process-steps">
+		    		<div class="title" onclick="COM.openWindow('user/borrow_list','user/borrow_list.html',true);"><img src="images/process/steps_27.jpg" /></div>
+		    		<div class="steps">
+		    			<img src="images/process/steps_29.jpg" />
+		    			<img src="images/process/steps_30.jpg" />
+		    		</div>
+		    	</div>
+		    	<div class="process-steps">
+		    		<div class="title" onclick="COM.openWindow('user/borrow_getprofit','user/borrow_getprofit.html',true);"><img src="images/process/steps_32.jpg" /></div>
+		    		<div class="steps">
+		    			<img src="images/process/steps_34.jpg" />
+		    			<img src="images/process/steps_35.jpg" />
+		    			<img src="images/process/steps_36.jpg" />
+		    		</div>
+		    	</div>
+		    </div>
+		</div>
+
+        <script src="scripts/mui.min.js"></script>
+        <script src="scripts/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript">
+		    mui.init({
+				statusBarBackground: '#e63d34',
+			});
+			COM.addReload(function(){
+				plus.navigator.setStatusBarBackground("#e63d34");
+			});
+		</script>
+	</body>
+
+</html>

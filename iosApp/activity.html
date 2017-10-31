@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>最新活动</title>
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="css/style.css" />
+		<link rel="stylesheet" href="css/iconfont.css" />
+		<link rel="stylesheet" href="css/activity.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" onclick="COM.openWindow('default')"></a>
+			<h1 class="mui-title">最新活动</h1>
+			<a class="mui-btn-link mui-pull-right white" onclick="COM.openWindow('user/reward_list','user/reward_list.html',true)">优惠券</a>
+		</header>
+		<div class="mui-content">
+			<div class="activity">
+				<div class="activity-list" id="d_list">
+					<!--<asp:Repeater ID="rptList" runat="server">
+                    <ItemTemplate>
+                        <div class="mui-card">
+                            <div class="mui-card-content">
+                                <a href="<%#Eval("link_url") %>" target="_blank">
+                                    <div class="activity-list-head">
+                                        <span class="activity-state activity-state-<%#Container.ItemIndex==0?"yellow":(int.Parse(Eval("sort_id").ToString())<10?"red":"") %>"><%#Container.ItemIndex==0?"最新":(int.Parse(Eval("sort_id").ToString())<10?"最热":"") %></span>
+                                        <%#Eval("title") %>
+                                    </div>
+                                    <div class="activity-list-img">
+                                        <img src="<%#Eval("img_url") %>" />
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    </ItemTemplate>
+                </asp:Repeater>-->
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="scripts/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="scripts/mui.min.js"></script>
+		<script src="scripts/layer/layer.js"></script>
+		<script src="scripts/mui.picker.min.js"></script>
+		<script>
+			if(DEBUG) console.log('正在执行 activity.html');
+			COM.createLoading();
+			mui('#d_list').on('tap','.my-link',function(){
+				COM.openWindow(this.getAttribute('title'),this.getAttribute('url'),true);
+			});
+			mui.init({
+				statusBarBackground: '#e63d34',
+			});
+			COM.addReload();
+			mui.plusReady(function() {
+				COM.createMenu('default');
+				var ajaxObj = {
+					url: URL_DATA.defaultActivity,
+					type: 'get',
+					success: function(rs) {
+						if(DEBUG) console.log('==========COM.ajax回调函数');
+						var list = JSON.parse(rs.list).ds;
+						if(DEBUG) console.log('=rs.list====' + list);
+						var html = '';
+						for(var i = 0; i < list.length; i++) {
+							var obj = list[i];
+							var linkUrl = obj.link_url.replace(URL_DATA.http168, '').replace(URL_DATA.httpM,'').replace('free.aspx','free.html');
+							if(linkUrl.startsWith('/')){
+								linkUrl = linkUrl.substr(1,linkUrl.length);
+							}
+							if(DEBUG) console.log('=link_url===='+linkUrl);
+							if(linkUrl.indexOf('.html') === -1){
+								continue;
+							}
+							var t = "";
+							if(i === 0) {
+								t = '<span class="activity-state activity-state-yellow">最新</span>';
+							} else if(obj.sort_id < 10) {
+								t = '<span class="activity-state activity-state-red">最热</span>';
+							}
+							html += '<div class="mui-card"><div class="mui-card-content">' +
+								'<a class="my-link" url="' + linkUrl + '" title="'+ linkUrl.replace('.html','') +'"><div class="activity-list-head">' +
+								t + obj.title + '</div>' +
+								'<div class="activity-list-img"><img src="' + obj.img_url + '" /></div></a></div></div>';
+						}
+						$('#d_list').html(html);
+						COM.closeLoading();
+					}
+				}
+				if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+			});
+		</script>
+	</body>
+
+</html>

@@ -1,0 +1,37 @@
+.login-body{height: 100%;}
+.login{background: url(../images/login/login_bg.jpg); background-size: cover; position: relative;}
+.login .logo,.reg .logo{padding-top: 20%; width: 100%;}
+.login .logo img,.reg .logo img{display: block; margin: 0 auto; width: 33%; border-radius: 100%; box-shadow: 0px 0px 6px #666;}
+.login-form{width: 70%; margin: 0 auto; padding-top: 30px;}
+.login-form .login-inp{ height: 40px; background: none; border: 1px solid rgba(255,255,255,.8); color: #fff;}
+.login-btn{background: #ff7814; height: 40px; line-height: 40px; padding: 0; border: 0;}
+.login-link a{color: #FF7814; font-size: 14px;}
+.login-third{margin-top: 30px;}
+.login-third-tit{width: 100%; text-align: center; background: url(../images/login/login_third_tit.png) center no-repeat; 
+background-size: 100%; font-size: 14px; color: #FF7814;} 
+.login-third-main{margin-top: 20px;text-align: center;}
+.login-third-main a{ margin: 0 10px; font-size: 24px; color: #fff;}
+.login-third-main .my-icon{height: 30px; width: 30px;}
+.login-bottom{position: absolute; bottom: 20px; width: 100%;}
+.login-bottom img{display: block; margin: 0 auto; min-width: 100px;}
+/*third-login*/
+.third-login{padding-top: 10%; width: 70%; margin: 0 auto;}
+.third-login-main{width: 90%; margin: 0 auto;}
+.third-login-item{width: 33%;}
+.third-login-item img{display: block; margin: 0 auto;}
+.third-login .third-login-ex{margin-top: 30px; color: #FF7814; font-size: 15px; margin-bottom: 10px;}
+/*bind-phone*/
+.bind-phone{padding-top: 10%;}
+.find_ex{color: #999; font-size: 14px;}
+/*reg*/
+.reg .logo{padding-top: 20%;}
+.reg-ad{margin: 20px 0 40px;}
+.reg-ad img{display: block; margin: 0 auto; width: 45%;}
+.reg-check{font-size: 14px; margin-top: 15px; text-align: center; color: #999;}
+
+/*suc*/
+.suc_main{}
+.suc_main .suc_ico{padding-top: 15%;}
+.suc_main .suc_ico img{width: 50%; display: block; margin: 0 auto;}
+.suc_main .suc_msg{text-align: center; margin-top: 20px;}
+.suc_main .suc_btn{border:1px solid #ccc; padding: 10px 0; margin-top: 40px;}

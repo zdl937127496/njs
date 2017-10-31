@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head runat="server">
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>系统设置</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/user.css" />
+	</head>
+
+	<body style="display: block;">
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">设置</h1>
+		</header>
+		<div class="mui-content">
+			<div class="user-info">
+				<ul class="mui-table-view user-info-list _notop _nobottom">
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" id="d_protocol">平台协议<span class="mui-pull-right"></span></a>
+					</li>
+					<li class="mui-table-view-cell" id="wxshow">
+						<a class="" href="JavaScript:void(0);">微信公众号<span class="mui-pull-right">牛金所</span></a>
+					</li>
+					<li class="mui-table-view-cell">
+						<a class="mui-navigate-right" id="suggest" href="JavaScript:void(0);">反馈与建议<span class="mui-pull-right"></span></a>
+					</li>
+				</ul>
+			</div>
+			<div class="login-exit" style="bottom: 0;">
+				<button type="button" class="mui-btn mui-btn-red mui-btn-block my-btn-block" onclick="COM.loginOut('../',true);">退出登录</button>
+			</div>
+		</div>
+
+		<div id="jiathis_weixin_share" style="position: fixed; z-index: 2147483647; display:none;">
+			<div id="jiathis_weixin_modal" style="background-clip: padding-box;background-color: #FFFFFF;border: 1px solid rgba(0, 0, 0, 0.3);border-radius: 6px 6px 6px 6px;box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);left: 67%;margin: -200px 0 0 -200px;overflow: hidden;position: fixed;top: 50%;width: 292px;height: 356px;overflow:hidden;margin-top: -189px;" class="jiathis_weixin_modal">
+				<div class="jiathis_modal_header" id="jiathis_modal_header" style="border-bottom: 1px solid #EEEEEE; padding: 9px 15px;">
+					<a style="text-decoration:none;  margin-top: 2px; color: #000000; float: right;  font-size: 20px;  font-weight: bold; cursor:pointer;line-height: 20px; opacity: 0.2; text-shadow: 0 1px 0 #FFFFFF;width: 30px;height: 30px;line-height: 30px;text-align: center;" class="jiathis_weixin_close" id="jiathis_weixin_close" onclick="jiathis_cancel()" target="_self">×</a>
+					<h3 id="jiathis_weixin_h3" style=" line-height: 30px; margin: 0; font-weight:normal; font-family:" 微软雅黑 ";"="">牛金所公众号</h3></div>
+				<div class="jiathis_modal_body" id="jiathis_modal_body" style="text-align:center;height:251px;">
+					<p id="jiathis_webchat">
+						<img src="http://www.njs168.net/images/njswx.jpg" width="220" height="220" alt="二维码加载失败..." style="margin-top: 15px;"></p>
+				</div>
+				<div class="jiathis_modal_footer" id="jiathis_modal_footer" style="border-radius: 0 0 6px 6px; border-top: 1px solid #DDDDDD; box-shadow: 0 1px 0 #FFFFFF inset; height:100%;padding:0 10px;padding-top:11px;text-align: right; font-size:12px;">
+					<div id="jiathis_weixin_tip" style="text-align:left;margin:0; padding:0;font-size:12px;">打开微信，点击底部的“发现”，使用 “扫一扫” 即可关注牛金所官方公众号。
+					</div>
+				</div>
+			</div>
+			<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+			<script type="text/javascript" src="../scripts/mui.min.js"></script>
+			<script src="../scripts/jquery.cookie.js"></script>
+			<script src="../scripts/user.js"></script>
+			<script>
+				if(DEBUG) console.log('正在执行 user/sys_set.html');
+
+				function jiathis_cancel() {
+					$("#jiathis_weixin_share").hide();
+				}
+
+				function weixinshow() {
+					$("#jiathis_weixin_share").show();
+				}
+			</script>
+			<script type="text/javascript">
+				mui.init();
+				$("#MEIQIA-BTN").hide();
+
+				mui("body").on('tap', '#d_protocol', function() {
+					COM.openWindow('protocol','../protocol.html');
+				});
+				mui("body").on('tap', '#suggest', function() {
+					open_hide();
+				});
+				mui("body").on('tap', '#wxshow', function() {
+					weixinshow();
+				});
+
+				//$("#suggest").click(function () {
+				//    open_hide();
+				//});
+				var open_hide = function() {
+					//$("#MEIQIA-BTN").css("display", "block");
+					console.log(document.getElementById('MEIQIA-BTN-ICON'));
+
+					$("#MEIQIA-BTN-ICON").trigger("click"); //模拟执行id=a的事件 
+				}
+			</script>
+			<!--meiqia-->
+			<script type='text/javascript'>
+				(function(m, ei, q, i, a, j, s) {
+					m[a] = m[a] || function() {
+						(m[a].a = m[a].a || []).push(arguments)
+					};
+					j = ei.createElement(q),
+						s = ei.getElementsByTagName(q)[0];
+					j.async = true;
+					j.charset = 'UTF-8';
+					j.src = i + '?v=' + new Date().getUTCDate();
+					console.log('=src===='+j.src);
+					ei.body.appendChild(j);
+//					s.parentNode.insertBefore(j, s);
+				})(window, document, 'script', 'http://eco-api.meiqia.com/dist/meiqia.js?rnd=' + new Date(), '_MEIQIA');
+				_MEIQIA('entId', 6921);
+			</script>
+			<style>
+				#MEIQIA-BTN {
+					display: none;
+				}
+			</style>
+	</body>
+
+</html>

@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>奖励资金</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">我的优惠券</h1>
+        <a class="mui-btn mui-btn-link mui-pull-right white" onclick="COM.showEplain('exp_reward','../')">使用说明</a>
+    </header>
+    <div class="mui-content">
+        <div class="coupon">
+            <div class="coupon-list">
+                <div class="coupon-list-tit">奖励资金兑换券</div>
+                <ul class="mui-table-view _nobottom _notop" id="list1">
+                    <!--<asp:Repeater ID="rptList" runat="server">
+                        <ItemTemplate>
+                            <li class="mui-table-view-cell">
+                                <div class="mui-pull-left">
+                                    ￥<strong class="c-red"><%#Utils.StrToInt(Eval("money_reward").ToString(),0) %></strong>元
+                                </div>
+                                <div class="mui-pull-right">
+                                    <span class="c-gray">有效期至：<%#Utils.StrToDateTime(Eval("time_end").ToString()).ToString("yyyy-MM-dd") %></span>
+                                    &nbsp;<a class="<%# Utils.getDayOfDiff(Utils.StrToDateTime(Eval("time_end").ToString()),DateTime.Now)>0?"c-gray":(Eval("status").ToString()=="1"?"c-red":"") %>" href="<%#Utils.getDayOfDiff(Utils.StrToDateTime(Eval("time_end").ToString()),DateTime.Now)>0?"JavaScript:void(0);":(Eval("status").ToString()=="1"?"/stock/reward/"+Eval("id").ToString()+".html":"/user/borrow_detail/"+Eval("borrow_id").ToString()+".html") %>"><%#Utils.getDayOfDiff(Utils.StrToDateTime(Eval("time_end").ToString()),DateTime.Now)>0?"已过期":Eval("status").ToString()=="1"?"立即使用":(Eval("status").ToString()=="2"?"已激活":"查看详情") %> </a>
+                                </div>
+
+                            </li>
+                        </ItemTemplate>
+                    </asp:Repeater>-->
+                </ul>
+                <div class="coupon-list-tit">管理费优惠券</div>
+                <ul class="mui-table-view _nobottom _notop" id="list2">
+                    <!--<asp:Repeater ID="rptList2" runat="server">
+                        <ItemTemplate>
+                            <li class="mui-table-view-cell">
+                                <div class="mui-pull-left">
+                                    ￥<strong class="c-red"><%#Utils.StrToInt(Eval("money_reward").ToString(),0) %></strong>元
+                                </div>
+                                <div class="mui-pull-right">
+                                    <span class="c-gray">有效期至：<%#Utils.StrToDateTime(Eval("time_end").ToString()).ToString("yyyy-MM-dd") %></span>
+                                    
+
+                                    <a class="<%#Utils.getDayOfDiff(Utils.StrToDateTime(Eval("time_end").ToString()),DateTime.Now)>0?"c-gray":(Eval("status").ToString()=="1"?"c-red":"") %>" href="<%#Utils.getDayOfDiff(Utils.StrToDateTime(Eval("time_end").ToString()),DateTime.Now)>0?"JavaScript:void(0);":(Eval("status").ToString()=="1"?"/stock/month/"+Eval("id").ToString()+".html":"/user/borrow_detail/"+Eval("borrow_id").ToString()+".html") %>"><%#Utils.getDayOfDiff(Utils.StrToDateTime(Eval("time_end").ToString()),DateTime.Now)>0?"已过期":Eval("status").ToString()=="1"?"立即使用":(Eval("status").ToString()=="2"?"已激活":"查看详情") %> </a>
+                                </div>
+                            </li>
+                        </ItemTemplate>
+                    </asp:Repeater>-->
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+	<script src="../scripts/mui.picker.min.js"></script>
+    <script>
+    	if(DEBUG) console.log('正在执行 user/reward_list.html');
+    	COM.createLoading();
+    	COM.addReload();
+    	mui.init({
+				statusBarBackground: '#e63d34',
+			});
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			var ajaxObj = {
+				url: URL_DATA.userAjaxReward_list,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						$('#list1').html(rs.list1);
+						$('#list2').html(rs.list2);
+						COM.closeLoading();
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				} 
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+		mui('#list1').on('tap','a',function(){
+			var goid = this.getAttribute("goid");
+			var arr = goid.split("|");
+			if(arr[0] === "reward"){
+				COM.showReward(arr[1],"../stock/");
+			}else if(arr[0]==="borrow_detail"){
+				COM.showBorrow_detail(arr[1]);
+			}
+			console.log('=goid===='+goid);
+		})
+   </script>
+</body>
+</html>

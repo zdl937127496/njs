@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>追加配额</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/user.css" />
+		<link rel="stylesheet" href="../css/mui.picker.min.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">追加配额</h1>
+			<a class="mui-btn mui-btn-link mui-pull-right white" onclick="COM.showEplain('exp_addbond','../')">说明</a>
+		</header>
+		<div class="mui-content">
+			<div class="add-position">
+				<p class="p_top">选择追加配额账户</p>
+				<div class="user-cash-bank">
+					<ul class="mui-table-view _notop _nobottom">
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" id="borrow_list" href="javascript:">
+
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="user-cash-money">
+					<p>填写追加配额保证金</p>
+					<input type="text" class="user-cash-inp" id="openingMoney" name="5000000" onkeyup="textchangepzs(this,0,0,0,0);" />
+					<p>您本次追加配额为</p>
+					<input type="text" class="user-cash-inp" id="money_borrow2" name="5000000" disabled />
+					<p class="last" id="d_tips"></p>
+				</div>
+				<div class="w70">
+					<button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" id="confirmCash" onclick="openingMoney();">确认提交</button>
+				</div>
+			</div>
+		</div>
+
+		<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../scripts/mui.min.js"></script>
+		<script src="../scripts/mui.picker.min.js"></script>
+		<script src="../scripts/layer/layer.js"></script>
+		<script src="../scripts/jquery/common.js"></script>
+		<script src="../scripts/user.js"></script>
+		<script>
+			if(DEBUG) console.log('正在执行 user/borrow_addbond.html');
+			mui('.header').on('tap','.mui-pull-left',function(){
+				COM.openWindow(COM.getStorage(LOCAL_STORAGE.u_deal_prev_id));
+			});
+			mui.init({
+				statusBarBackground: '#e63d34',
+			});
+			COM.addReload();
+			COM.createLoading();
+			mui.plusReady(function() {
+				COM.createMenu('user/default', '../');
+				var ajaxObj = {
+					url: URL_DATA.userAjaxBorrow_addbond,
+					type: 'get',
+					success: function(rs) {
+						if(DEBUG) console.log('==========COM.ajax回调函数');
+						if(rs.status === 'y') {
+							$('#borrow_list').html(rs.str_borrow_one);
+							$('#d_tips').html(rs.tips);
+							COM.closeLoading();
+							oldCode(rs);
+						} else {
+							COM.cacheUrl();
+							COM.openWindow('login','../login.html');
+						}
+					}
+				}
+				if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+			});
+			var oldCode = function(rs) {
+				var str_borrow_json = eval('([' + rs.str_borrow_json + '])') ;
+				if(DEBUG) console.log('=str_borrow_json====' + str_borrow_json);
+				$("#borrow_list").on('tap', function(e) {
+					var $this = $(this);
+					var picker = new mui.PopPicker();
+					picker.setData(str_borrow_json);
+					picker.show(function(selectItems) {
+						var product_flag = ',11,12,14,16,17,',
+							id = selectItems[0].value,
+							tit = selectItems[0].text || "",
+							type_id = selectItems[0].type_id,
+							account = selectItems[0].account,
+							flag = selectItems[0].flag,
+							times = selectItems[0].times;
+						if(flag == 0) {
+							layer.msg('亲!免息体验不能追加配额。');
+							return;
+						}
+
+						$("#borrow_list .stock-icon").removeClass("stock-day").removeClass("stock-month").removeClass("stock-free").removeClass("stock-award").removeClass("stock-qi");
+						$("#borrow_list .stock-icon").addClass(type_id);
+						$("#borrow_list .bank").html(tit.replace(account, '').replace('（', '').replace('）', '') + "<p>" + account + "</p>");
+						$("#borrow_id").val(id);
+						$("#times").val(times);
+						$("#flag").val(flag);
+						if(product_flag.indexOf(',' + flag + ',') > 0) {
+							$(".user-cash-money .last").html("账户追加配额，1 至 100 手");
+						} else {
+							$(".user-cash-money .last").html("账户追加配额，您支付的保证金必须为1000的整数倍，如需合并盈利追加配资额，请联系客服处理，或先提取盈利后再进行追加配资额操作。");
+						}
+
+					});
+				});
+			}
+			//增加配额
+			var openingMoney = function() {
+				var depositvalue = $("#openingMoney").val();
+				var moneyborrow = $("#money_borrow2").val();
+				if(parseInt(depositvalue) == "" || parseInt(depositvalue) == 0) {
+					layer.msg('亲!您忘了输入追加的仓位哦。');
+					return false;
+				}
+				layer.load(0, {
+					shade: false,
+					time: 1000
+				});
+				var product_type = $("#flag").val();
+				var ajaxObj = {
+					url: "tools/user_opt_ajax.ashx?act=add_borrow_money",
+					data: {
+						"borrowid": $("#borrow_id").val(),
+						"money": depositvalue
+					},
+					success: function(data, textStatus) {
+						if(DEBUG) console.log('==========COM.ajax回调函数');
+						if(data.status == "y") {
+							$("#addBorrowMoney").hide();
+							$(".my-popup-backdrop").hide();
+							mui.confirm(data.info, '追加配额成功', ['知道啦'], function(e) {
+								if(e.index == 0) {
+									window.location.reload();
+								}
+							});
+						} else {
+							layer.msg(data.info);
+							return;
+						}
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						layer.msg("状态：" + textStatus + "；出错提示：" + errorThrown);
+					}
+				}
+				if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+			}
+		</script>
+	</body>
+
+</html>

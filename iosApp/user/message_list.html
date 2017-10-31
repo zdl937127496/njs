@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>消息中心</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/user.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">消息中心</h1>
+		</header>
+		<div class="mui-content">
+			<div class="message">
+				<div class="mui-slider">
+					<div id="d_d_d_d" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted message-tit">
+						<a class="mui-control-item" title="message" >消息通知</a>
+						<a class="mui-control-item mui-active" title="message_list" style="border-bottom:2px solid #FF7814;">公告消息</a>
+					</div>
+					<div class="mui-slider-group">
+						<div id="item2" class="mui-slider-item mui-control-content message-list">
+							<ul class="mui-table-view" id="d_list">
+								
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../scripts/mui.min.js"></script>
+		<script src="scripts/user.js"></script>
+		<script type="text/javascript">
+			if(DEBUG) console.log('正在执行user/message_list.html');
+			mui('.header').on('tap','.mui-pull-left',function(){
+				COM.openWindow('user/default');
+			});
+			mui("#d_list").on('tap', 'a', function() {
+				var goid = $(this).attr('goid');
+				if(goid){
+					COM.showNewsDetail(goid,'../news/',true);
+				}
+			});
+			mui('#d_d_d_d').on('tap','a',function(){
+				var title = this.getAttribute('title');
+				COM.openWindow('user/'+title,title+'.html',true,true);
+			})
+			COM.addReload(function(){
+				COM.createLoading();
+				$('#d_list').html('');
+				_getData();
+			})
+			var _getData = function(){
+				var ajaxObj = {
+					url: URL_DATA.userAjaxMessage_list,
+					type: 'get',
+					success: function(rs) {
+						COM.closeLoading();
+						if(DEBUG) console.log('==========COM.ajax回调函数');
+						if(rs.status === 'y') {
+							if(DEBUG) console.log('=rs.list====' + rs.list);
+							$('#d_list').html(rs.list);
+							COM.closeLoading();
+						} else {
+							COM.cacheUrl();
+							COM.openWindow('login','../login.html');
+						}
+					}
+				}
+				if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+			}
+			
+			COM.createLoading();
+			mui.plusReady(function() {
+				_getData();				
+			});
+		</script>
+	</body>
+
+</html>

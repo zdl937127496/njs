@@ -1,0 +1,186 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>更换头像</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+    <link href="../css/user_avator.css" rel="stylesheet" />
+    <link href="../scripts/avator/cropper.min.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="mui-bar account-head">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" style="color: #fff;"></a>
+        <h1 class="mui-title c-white">设置个人头像</h1>
+    </header>
+    <div class="mui-content">
+        <div class="user-set-img">
+            <div class="user-set-img-top">
+                <div class="user-set-img-img">
+                    <div class="user-img">
+                        <div class="user-img-bg"></div>
+                        <img id="d_avator"  width="100%" />
+                    </div>
+                </div>
+            </div>
+            <div class="user-set-img-btns w70">
+                <button type="button" class="mui-btn mui-btn-black mui-btn-block my-btn-block" onclick="upload_img()">
+                    <span class="my-icon my-icon-up"></span>从相册中选一张	
+                </button>
+                <button type="button" class="mui-btn mui-btn-black mui-btn-block my-btn-block" style="display: none;">
+                    <span class="my-icon my-icon-camera"></span>拍一张照片
+                </button>
+            </div>
+            <div class="w-loading"><b class="w-loading-ico"></b><span class="w-loading-txt">正在努力处理中…</span></div>
+            <div id="update-touxiang2" onclick="upload_img2()" style="display: none;">更换头像2</div>
+        </div>
+    </div>
+    <input id="user_id" value="" type="hidden" />
+    <input id="vip-file" style="display: none;" onchange="upload(this)" type="file" accept="image/*" />
+    <input id="vip-file2" style="display: none;" onchange="upload(this)" type="file" />
+	
+	<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+    <script src="../scripts/avator/layer-mobile-v1.6.js"></script>
+    <script src="../scripts/avator/lrz.bundle.js"></script>
+    <script src="../scripts/avator/cropper.min.js"></script>
+    <script src="../scripts/avator/1.chunk.js" type="text/javascript"></script>
+    <script src="../scripts/avator/2.chunk.js" type="text/javascript"></script>
+    <script>
+    	if(DEBUG) console.log('正在执行user/avator.html');
+
+		mui.init({
+				statusBarBackground: '#e63d34',
+			});
+    	COM.createLoading();
+    	COM.addReload();
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			var ajaxObj = {
+				url: URL_DATA.userAjaxAvator,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						initShow(rs);
+						COM.closeLoading();
+						oldCode(rs);
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+    </script>
+    <script>
+    	var config =null;
+    	var initShow = function(rs){
+    		config = rs.config;
+    		var userModel = rs.userModel;
+    		
+    		var avator = userModel.avator;
+    		if(DEBUG) console.log('=userModel.avator===='+avator);
+    		if(DEBUG) console.log('=config.weburl===='+config.weburl);
+    		$('#d_avator').attr('src',config.weburl+avator+'?t='+new Date().getTime());
+    		
+    		if(DEBUG) console.log('=userModel.id===='+userModel.id);
+    		$('#user_id').val(userModel.id);
+    	}
+    </script>
+    <script>
+    	var oldCode = function(rs){
+	        $("#header .top_home").on("click", function () { $("#header .home_menu").toggle(); });
+    	}
+        
+        //更换头像
+        function upload_img() {
+            $("#vip-file").trigger("click");
+        }
+        function upload_img2() {
+            $("#vip-file2").trigger("click");
+        }
+        //图像压缩
+        function upload(the) {
+            $(".tx-touxiang").hide();
+            $("#update-touxiang").hide();
+            $(".w-loading").show();
+            lrz(the.files[0], { width: 640 })
+                .then(function (rst) {
+                	console.log('====');
+                    //把处理的好的图片给用户看看呗
+                    var img = new Image();
+                    img.src = rst.base64;
+                    img.onload = function () {
+                        var load = layer.open({
+                            type: 1,
+                            shadeClose: false,
+                            content: '<div class="container" style="width:100%; overflow:hidden"><div class="tx-head"><a href="JavaScript:void(0);" id="img-save" style="float:right; font-size:16px; margin-right:15px; border:1px solid #9CD4F9; line-height:25px; padding:1px 8px; margin-top:8px;  border-radius:3px;">保存</a><a href="/user/avator.html" id="tx-head-close" style="background:url(/images/back.png) no-repeat; background-size:100%; width:45px; height:45px; display:block;"></a></div><img id="base64" src="' + rst.base64 + '"></div>',
+                            style: 'width:100%; height:' + document.documentElement.clientHeight + 'px; background-color:#F2F2F2; border:none; overflow:hidden'
+                        });
+                        //裁剪框比例
+                        $('#base64').cropper({
+                            aspectRatio: 1 / 1,
+                            crop: function (data) { },
+                            guides: false,  //是否在剪裁框上显示虚线
+                            movable: false,  //是否允许移动剪裁框
+                            resizable: false,  //是否允许改变剪裁框的大小
+                            dragCrop: false,  //是否允许移除当前的剪裁框，并通过拖动来新建一个剪裁框区域
+                            minContainerWidth: 200,  //容器的最小宽度
+                            minContainerHeight: 200  //容器的最小高度
+                        });
+                        //保存裁剪图片
+
+
+                        mui("body").on('tap', '#img-save', function () {
+                            var touxiang = $('#base64').cropper('getCroppedCanvas', { width: 200, height: 200 }).toDataURL("image/jpeg", 0.9);
+                            var loading = layer.open({
+                                type: 2,
+                                shadeClose: false
+                            });
+                            //这里的base64数据上传给后端
+                            var ajaxObj = {
+                            	url:config.weburl + 'tools/avator_ajax.ashx?act=avator',
+                            	data: { img: touxiang, user_id: $("#user_id").val() },
+                            	success: function (data) {
+                            		if(DEBUG) console.log('==========COM.ajax回调函数');
+                                    layer.close(loading);
+                                    if (data.status == 1) {
+                                        alert("头像上传成功");
+                                        location.href =location.href ;
+                                     } else {
+                                        alert(data.info);
+                                        return;
+                                    }
+                                },
+                                error:function(){
+                                	alert('上传失败');
+                                	location.href =location.href ;
+
+                                }
+                            }
+							if(DEBUG) console.log('==========正在执行COM.ajax');
+							COM.ajax(ajaxObj);
+                        });
+                    };
+                })
+                .catch(function (err) {
+                    // 万一出错了，这里可以捕捉到错误信息
+                    // 而且以上的then都不会执行
+                    layer.open({
+                        content: err,
+                        time: 2
+                    });
+                })
+                .always(function () {
+                });
+            };
+    </script>
+</body>
+</html>

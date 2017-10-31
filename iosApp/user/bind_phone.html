@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<title>绑定手机号码</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="../css/style.css" />
+		<link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+		<link rel="stylesheet" type="text/css" href="../css/login.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left black"></a>
+			<h1 class="mui-title">绑定手机</h1>
+		</header>
+		<div class="mui-content">
+			<form id="form1" method="post" onsubmit="return false;" url="/tools/user_ajax.ashx?act=bind_phone">
+				<div class="bind-phone w70" id="step1">
+					<div class="mui-row">
+						<label>验证原手机：</label><span id="oldphone" data_phone=""></span>
+					</div>
+					<div class="mui-row njs_yzm">
+						<input type="text" id="code_mobile2" name="code_mobile2" class="com-inp" placeholder="原手机验证码" />
+						<input type="button" id="btnOnece2" class="mui-btn mui-btn-yellow mui-btn-outlined yzm" onclick="old_sms();" value="获取验证码" />
+					</div>
+					<button id="Button2" type="button" class="mui-btn mui-btn-blue mui-btn-block login-btn">下一步</button>
+				</div>
+
+				<div class="bind-phone w70" id="step2" style="display:none;">
+					<div class="mui-row">
+						<input type="text" id="mobile" name="mobile" class="com-inp" placeholder="手机号" />
+					</div>
+					<div class="mui-row njs_yzm">
+						<input type="text" id="code_mobile" name="code_mobile" class="com-inp" placeholder="手机验证码" />
+						<input type="button" id="btnOnece" class="mui-btn mui-btn-yellow mui-btn-outlined yzm" onclick="reg_sms();" value="获取验证码" />
+					</div>
+					<button id="next" type="button" class="mui-btn mui-btn-blue mui-btn-block login-btn">下一步</button>
+				</div>
+			</form>
+		</div>
+		<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../scripts/mui.min.js"></script>
+		<script src="../scripts/layer/layer.js"></script>
+
+		<script src="../scripts/jquery/Cookie.js"></script>
+		<script src="../scripts/user.js"></script>
+		<script>
+			if(DEBUG) console.log('正在执行user/bind_phone.html');
+			COM.createLoading();
+			mui.init({
+				statusBarBackground: '#e63d34',
+			});
+			COM.addReload();
+			mui.plusReady(function() {
+				COM.createMenu('user/default', '../');
+				var ajaxObj = {
+					url: URL_DATA.userAjaxBind_phone,
+					type: 'get',
+					success: function(rs) {
+						if(DEBUG) console.log('==========COM.ajax回调函数');
+						if(rs.status === 'y') {
+							initShow(rs);
+							COM.closeLoading();
+							oldCode(rs);
+						} else {
+							COM.cacheUrl();
+							COM.openWindow('login','../login.html');
+						}
+					}
+				}
+				if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+			});
+		</script>
+		<script>
+			var initShow = function(rs) {
+				var userModel = rs.userModel;
+
+				var phone_mobile = userModel.phone_mobile;
+				if(DEBUG) console.log('=phone_mobile====' + phone_mobile);
+				$('#oldphone').attr('data_phone', phone_mobile).html(Utils.ReplaceWithSpecialChar(phone_mobile,3));
+			}
+		</script>
+		<script type="text/javascript">
+			var oldCode = function() {
+
+			}
+			$(function() {
+				var refrenstime = getCookie("refresht");
+				if(refrenstime > 0) {
+					refreshmsg(getCookie("refreshid"), refrenstime);
+				}
+			});
+			mui(".bind-phone").on('tap', '#next', function() {
+				var mobile = $("#mobile").val(),
+					code_mobile = $("#code_mobile").val();
+				/*电话验证*/
+				if(!ValidateMobile(mobile)) {
+					$("#mobile").focus();
+					layer.msg("请输入正确的手机号码");
+					return;
+				}
+				if(code_mobile.length != 4) {
+					layer.msg("请输入正确的短信验证码");
+					$("#code_mobile").focus();
+					return;
+				}
+				var ajaxObj = {
+					url: 'tools/user_ajax.ashx?act=bind_phone',
+					data: {
+						"mobile": mobile,
+						code_mobile: code_mobile
+					},
+					beforeSend: function(XMLHttpRequest) {
+						$("#next").attr("disabled", true);
+						layer.load(0, {
+							shade: false,
+							time: 1000
+						});
+					},
+					success: function(data, textStatus) {
+						if(DEBUG) console.log('==========COM.ajax回调函数');
+						if(data.status == "y") {
+							mui.alert(
+								'恭喜你绑定手机成功',
+								'绑定成功', ['确定'],
+								function(e) {
+									if(e.index == 0) {
+										COM.openWindow('login','../login.html');
+									}
+								}
+							);
+						} else {
+							layer.msg(data.info);
+							$("#next").attr("disabled", false);
+						}
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						if(DEBUG) console.log('==========COM.ajax回调函数');
+						layer.msg("状态：" + textStatus + "；出错提示：" + errorThrown);
+						$("#next").attr("disabled", false);
+					}
+				}
+				if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+			});
+
+			mui(".bind-phone").on('tap', '#Button2', function() {
+				var mobile = $("#oldphone").attr("data_phone"),
+					code_mobile = $("#code_mobile2").val();
+				/*电话验证*/
+				if(!ValidateMobile(mobile)) {
+					$("#oldphone").focus();
+					layer.msg("请输入正确的手机号码");
+					return;
+				}
+				if(code_mobile.length != 4) {
+					layer.msg("请输入正确的短信验证码");
+					$("#code_mobile2").focus();
+					return;
+				}
+				var ajaxObj = {
+					url:'tools/user_ajax.ashx?act=pwd_code',
+					data: {
+						"mobile": mobile,
+						code2: code_mobile
+					},beforeSend: function(XMLHttpRequest) {
+						$("#Button2").attr("disabled", true);
+						layer.load(0, {
+							shade: false,
+							time: 1000
+						});
+					},
+					success: function(data, textStatus) {
+						if(DEBUG) console.log('==========COM.ajax回调函数');
+						if(data.status == "y") {
+							$("#step2").show();
+							$("#step1").hide();
+
+						} else {
+							layer.msg(data.info);
+							$("#Button2").attr("disabled", false);
+						}
+					},
+					error: function(XMLHttpRequest, textStatus, errorThrown) {
+						layer.msg("状态：" + textStatus + "；出错提示：" + errorThrown);
+						$("#next").attr("disabled", false);
+					}
+				}
+				if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+			});
+		</script>
+	</body>
+
+</html>

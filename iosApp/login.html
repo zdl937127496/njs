@@ -1,0 +1,69 @@
+﻿<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>登录_牛金所</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+
+</head>
+<body>
+    <div class="mui-content" style="padding-bottom:0;">
+        <div class="login" style="min-height: 560px;">
+        	<a class="mui-icon mui-icon-left-nav mui-pull-left z-com-back"></a>
+            <div class="login-bg"></div>
+            <div class="login-main">
+                <div class="logo">
+                    <img src="images/logo.png" alt="牛金所" />
+                </div>
+                <div class="login-form">
+                    <form id="form1" method="post">
+                    	<!--18602822821 18980753442-->
+                        <input id="mobile" name="mobile" value="" class="login-inp" type="tel" placeholder="请输入手机号码" />
+                        <!--895664 511888haol-->
+                        <input id="pwd" name="pwd" value="" class="login-inp" type="password" placeholder="请输入密码" />
+                        <button type="button" id="btnSubmit" onclick="login();" class="mui-btn mui-btn-warning mui-btn-block login-btn">登录</button>
+                    </form>
+                    <div id="d_d_go" class="login-link mui-clearfix">
+                        <a title="finduserpwd" class="mui-pull-left">忘记密码</a>
+                        <a title="reg" class="mui-pull-right">新用户注册</a>
+                    </div>
+                </div>
+                <div class="login-bottom">
+                    <img src="images/login/login_bottom_txt.png" alt="开启你的理财生活" width="26%" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts/jquery/jquery-1.11.2.min.js"></script>
+    <script src="scripts/layer/layer.js"></script>
+    <script src="scripts/mui.min.js"></script>
+    <script src="scripts/user.js"></script>
+    <script type="text/javascript">
+    	if(DEBUG) console.log('正在执行 login.html');
+    	mui.init({
+			statusBarBackground: '#e63d34',
+		});
+		mui('#d_d_go').on('tap','a',function(){
+			var t = this.getAttribute('title');
+			COM.openWindow(t,'',true);
+		});
+		mui('.login').on('tap','.z-com-back',function(){
+			if(COM.getStorage(LOCAL_STORAGE.u_start)){
+				COM.openWindow('start','',true);
+			}else{
+				COM.openWindow(COM.getStorage(LOCAL_STORAGE.u_deal_prev_id),'',true);
+			}
+			
+		});
+		COM.addReload();
+    	mui.plusReady(function(){
+    		COM.loginOut();
+        	$(".login").css("height", $(window).height());
+    	});
+	</script>
+</body>
+</html>

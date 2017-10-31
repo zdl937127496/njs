@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title></title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../css/stock.css" />
+    <link rel="stylesheet" href="../css/mui.picker.min.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">检查订单</h1>
+        <a class="mui-btn-link mui-pull-right white" onclick="COM.go_borrow_list('','','','../user/')">记录</a>
+    </header>
+    <div class="mui-content">
+        <div class="stock-check">
+            <ul class="mui-table-view _noleft _nobottom _notop">
+                <li class="mui-table-view-cell" id="d_box">
+                    <p class="tit">您的配资详情如下：</p>
+                    <p>配资产品<span class="mui-pull-right"><span class="c-red" id="d_product_code"></span></span></p>
+                    <p>投资本金<span class="mui-pull-right"><span class="c-red" id="d_money"></span>元</span></p>
+                    <p>配资金额<span class="mui-pull-right"><span class="c-red" id="d_money_borrow"></span>元</span></p>
+                    <p>总操盘资金<span class="mui-pull-right"><span class="c-red" id="d_m_m"></span>元</span></p>
+
+                </li>
+                <li class="mui-table-view-cell">
+                    <p class="tit c-yel">您需支付：</p>
+                    <p>支付本金<span class="mui-pull-right"><span class="c-red" id="d_money_2"></span>元</span></p>
+                    <p>平台费用<span class="mui-pull-right"><span class="c-red" id="d_money_fee2"></span>元</span></p>
+
+                    <p >活动优惠<span class="mui-pull-right"><span class="c-red" id="d_fee_tips"></span></span></p>
+                </li>
+                <li class="mui-table-view-cell">
+                    <p class="tit">合计<span class="mui-pull-right"><span class="c-red" id="d_m_m2_ff"></span>元</span></p>
+                    <p class="no-money">
+                        <span class="mui-pull-left" id="d_vailable_balance_money">
+                        </span>
+                        <span class="mui-pull-right">
+                           <button  class="mui-btn mui-btn-yellow" onclick="COM.openWindow('user/pay','../user/pay.html',true)">充值</button>
+                        </span>
+                    </p>
+                </li>
+            </ul>
+            <div class="stock-check-btn">
+                <button type="button" class=" mui-pull-left mui-btn-grey mui-btn-block my-btn-block" onclick="COM.openWindow(COM.getStorage(LOCAL_STORAGE.zLinkClickBackId));" >返回修改</button>  
+                <button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" onclick="sure();">确定操盘</button>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+    <script src="../scripts/jquery/common.js"></script>
+    <script>
+		if(DEBUG) console.log('正在执行 stock/pay.html');
+		mui('.header').on('tap','.mui-pull-left',function(){
+			COM.openWindow(COM.getStorage(LOCAL_STORAGE.zLinkClickBackId),'',false,true);
+		});
+		COM.createLoading();
+		COM.addReload();
+		mui.init({
+			statusBarBackground: '#e63d34',
+		});
+		mui.plusReady(function() {
+			COM.createMenu('stock/day', '../');
+			var postData = JSON.parse(COM.getStorage(LOCAL_STORAGE.zLinkClickPostData));
+			if(DEBUG) console.log('=postData===='+JSON.stringify(postData));
+			var ajaxObj = {
+				url: URL_DATA.stockAjaxPay,
+				type: 'POST',
+				data:postData,
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						if(rs.goto){
+							COM.openWindow('default');
+						}else{   
+							initShow(rs);  
+							COM.closeLoading();
+						}
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+		
+    </script>
+    <script>
+    	var userModel = null;
+    	var productInfo = null;
+    	var ajaxRs = null;
+		var initShow = function(rs){
+			ajaxRs = rs;
+    		userModel = rs.userModel;
+    		productInfo = rs.productInfo;
+    		
+    		var product_code = productInfo.product_code;
+    		if(DEBUG) console.log('=productInfo.product_code===='+productInfo.product_code);
+    		$('#d_product_code').html(product_code);
+    		
+    		var money = rs.money;
+    		if(DEBUG) console.log('=rs.money===='+money);
+    		$('#d_money').html(COM.stringFormat(money));
+    		$('#d_money_2').html(COM.stringFormat(money));
+    		
+    		var money_borrow = rs.money_borrow;
+    		if(DEBUG) console.log('=rs.money_borrow===='+money_borrow);
+    		$('#d_money_borrow').html(COM.stringFormat(money_borrow));
+    		
+    		$('#d_m_m').html(COM.stringFormat(money + money_borrow));
+    		
+    		var html = '';
+			if(productInfo.product_type >= 10 && productInfo.product_type <= 20){
+				var t1 = COM.stringFormat(productInfo.money_times*productInfo.rate_warn+money_borrow);
+				var t2 = COM.stringFormat(productInfo.money_times*productInfo.rate_open_line+money_borrow);
+				html += ' <p>亏损警戒线<span class="mui-pull-right"><span class="c-red">'+ t1 
+				+'</span>元</span></p><p>亏损平仓线<span class="mui-pull-right">'
+				+'<span class="c-red">'+ t2 +'</span>元</span></p>';
+			}else{
+				var t1 = COM.stringFormat(money_borrow+money*productInfo.rate_warn);
+				var t2 = COM.stringFormat(money_borrow+money*productInfo.rate_open_line);
+				html += '<p>亏损警戒线<span class="mui-pull-right"><span class="c-red">'+ t1 
+				+'</span>元</span></p><p>亏损平仓线<span class="mui-pull-right">'
+				+'<span class="c-red">'+ t2 +'</span>元</span></p>';
+			}
+
+    		html += '<p>平台费用<span class="mui-pull-right"><span class="c-red">'+rs.money_fee+'</span>元/'+rs.unit+'</span></p>'
+    		+'<p>开始时间<span class="mui-pull-right"><span class="c-red">'+ rs.getMoneyDate +'</span></span></p>'
+    		
+    		$('#d_box').append(html);
+    		
+    		var money_fee2 = rs.money_fee2;
+    		if(DEBUG) console.log('=rs.money_fee2===='+money_fee2);
+    		$('#d_money_fee2').html(COM.stringFormat(money_fee2));
+    		
+    		var fee_tips = rs.fee_tips;
+    		var free_fee = rs.free_fee;
+    		if(DEBUG) console.log('=rs.fee_tips===='+fee_tips);
+    		if(DEBUG) console.log('=rs.free_fee===='+free_fee);
+    		if(!fee_tips){
+    			$('#d_fee_tips').html('-'+COM.stringFormat(free_fee)+'元');
+    		}else{
+    			$('#d_fee_tips').html('-'+fee_tips);
+    		}
+    		
+    		$('#d_m_m2_ff').html(COM.stringFormat(money+money_fee2-free_fee));
+    		
+    		var vailable_balance_money = rs.vailable_balance_money;
+    		if(DEBUG) console.log('=rs.vailable_balance_money===='+vailable_balance_money);
+    		 
+    		var html2 = '您的账户余额为'+ COM.stringFormat(vailable_balance_money)+ '元';
+    		if(vailable_balance_money<money+money_fee2){
+    			html2 += '<br />还差' + COM.stringFormat(money+money_fee2-vailable_balance_money-free_fee) +'元';
+    		}
+    		console.log('=html2===='+html2);
+    		$('#d_vailable_balance_money').html(html2);
+    	}
+		var sure = function(){
+			if(productInfo.product_type == 27){
+				startReward();
+			}else{
+				startstock()
+			}
+		}
+    </script>
+    <script type="text/javascript">
+        function startstock() {
+        	if(userModel.name_true != 2){
+        		mui.confirm('系统检测到您还没有进行实名认证', '实名认证', ['立即认证', '我在想想'], function (e) {
+	                if (e.index == 0) {
+	                	COM.openWindow('user/real_name','../user/real_name.html',true);
+	                }
+	            });
+        	}else{
+        		layer.load(0, { shade: false, time: 1000 });
+        		var ajaxObj = {
+        			url:'tools/user_opt_ajax.ashx?act=AstockPay',
+        			type: "POST",
+        			data: { "productId": ajaxRs.product_id, "money": ajaxRs.money, "money_borrow": ajaxRs.money_borrow, "isTomorrowGetMoney": ajaxRs.isTomorrowGetMoney, "days": ajaxRs.days, "is_user_integral": ajaxRs.is_user_integral, "integral": ajaxRs.integral,"reward_id":ajaxRs.reward_id },
+        			success: function (data, textStatus) {
+        				if(DEBUG) console.log('==========COM.ajax回调函数');
+	                    if (data.status == "y") {
+	                        mui.confirm('请保持手机畅通，客服稍后以电话形式联系您，也可以拨打专线了解开户进度  '+ajaxRs.config.webtel, '操盘申请成功', ['我的配资', '拨打电话'], function (e) {
+	                            if (e.index == 0) {
+	                            	COM.go_borrow_list(false,false,false,'../user/')
+	                            }else
+	                            {
+	                                phone(ajaxRs.config.webtel+'');
+	                            }
+	                        });
+	                    }else if (data.status == "m") {
+	                        mui.confirm(data.info, '操盘申请失败', ['前往充值', '个人中心'], function (e) {
+	                            if (e.index == 0) {
+	                            	COM.openWindow('user/pay','../user/pay.html',true);
+	                            }else
+	                            {
+	                            	COM.openWindow('user/default','../user/default.html',true);
+	                            }
+	                        });
+	                    } else {
+	                        layer.msg(data.info);
+	                        return;
+	                    }
+	                },
+	                error: function (XMLHttpRequest, textStatus, errorThrown) {
+	                    layer.msg("状态：" + textStatus + "；出错提示：" + errorThrown);
+	                }
+        		}
+        	}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+
+        }
+        function startReward() {
+        	if (userModel.name_true != 2){
+        		mui.confirm('系统检测到您还没有进行实名认证', '实名认证', ['立即认证', '我在想想'], function (e) {
+	                if (e.index == 0) {
+	                    COM.openWindow('user/real_name','../user/real_name.html',true);
+	                }
+                });
+        	}else{
+        		layer.load(0, { shade: false, time: 1000 });
+        		var ajaxObj = {
+        			url:'tools/user_opt_ajax.ashx?act=AstockPayReward',
+        			type: "POST",
+        			data: { "id": ajaxRs.id, "productId": ajaxRs.product_id, "money": ajaxRs.money, "money_borrow": ajaxRs.money_borrow, "isTomorrowGetMoney": ajaxRs.isTomorrowGetMoney, "months": ajaxRs.days },
+        			success: function (data, textStatus) {
+        				if(DEBUG) console.log('==========COM.ajax回调函数');
+	                    if (data.status == "y") {
+	                        mui.confirm('请保持手机畅通，客服稍后以电话形式联系您，也可以拨打专线了解开户进度'+ajaxRs.config.webtel, '操盘申请成功', ['我的配资', '拨打电话'], function (e) {
+	                            if (e.index == 0) {
+	                            	COM.go_borrow_list(false,false,false,'../user/')
+	                            }else
+	                            {
+	                                phone(ajaxRs.config.webtel);
+	                            }
+	                        });
+	                    } else if (data.status == "m") {
+	                        mui.confirm(data.info, '操盘申请失败', ['前往充值', '个人中心'], function (e) {
+	                            if (e.index == 0) {
+	                            	COM.openWindow('user/pay','../user/pay.html',true);
+	                            }else
+	                            {
+	                            	COM.openWindow('user/default','../user/default.html',true);
+	                            }
+	                        });
+	                    } else {
+	                        layer.msg(data.info);
+	                        return;
+	                    }
+	                },
+	                error: function (XMLHttpRequest, textStatus, errorThrown) {
+	                    layer.msg("状态：" + textStatus + "；出错提示：" + errorThrown);
+	                }
+        		}
+        		if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+        	}
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>设置账户信息</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+    <style type="text/css">
+        .span2 {
+            display: inline-block;
+            height: 36px;
+            line-height: 36px;
+                width: 65%;
+        }
+    </style>
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">设置账户信息</h1>
+        <a class="mui-btn mui-btn-link mui-pull-right white" onclick="user_opt();">保存</a>
+    </header>
+    <div class="mui-content">
+        <form id="form1" method="post" onsubmit="return false;">
+            <div class="set-nick">
+                <div class="mui-input-row">
+                    <label>昵称</label>
+                    <input type="text" id="nick_name" name="nick_name" class="mui-input-clear" placeholder="输入您的昵称" value="" />
+                </div>
+                <div class="set-tip">设置后，其他人将看到你的昵称</div>
+            </div>
+            <div class="set-nick">
+                <div class="mui-input-row">
+                    <label>性别</label>
+                    <span class="span2" id="d_sex">
+                        <input name="sex" id="d_sex_1" value="1" type="radio" />男&nbsp;&nbsp;
+   						<input name="sex" id="d_sex_0" value="0" type="radio" />女
+                    </span>
+                </div>
+            </div>
+
+            <div class="set-nick">
+                <div class="mui-input-row">
+                    <label>所在省</label>
+                    <span class="span2">
+                        <input type="hidden" id="hprovince" name="hprovince" value="" />
+                        <input type="hidden" id="hcity" name="hcity" value="" />
+                        <select id="provincecode"
+                            onchange="javascript:selectchange(province,city)"
+                            class="s1">
+                        </select>
+                    </span>
+                </div>
+            </div>
+
+            <div class="set-nick">
+                <div class="mui-input-row">
+                    <label>所在市</label>
+                    <span class="span2">
+                        <select class="s1"
+                            id="citycode">
+                            <option></option>
+                        </select>
+                    </span>
+                </div>
+            </div>
+            <div class="set-nick">
+                <div class="mui-input-row">
+                    <label>居住地</label>
+                    <input type="text" id="area" name="area" class="mui-input-clear" placeholder="输入您的居住地" value="" />
+                </div>
+            </div>
+            <div class="set-nick">
+                <div class="mui-input-row">
+                    <label>QQ</label>
+                    <input type="text" id="qq" name="qq" class="mui-input-clear" placeholder="输入您的QQ号码" value="" />
+                </div>
+            </div>
+        </form>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+	
+    <script src="../scripts/jquery/city.js"></script>
+    <script src="../scripts/user.js"></script>
+    <script>
+    	if(DEBUG) console.log('正在执行user/user_opt.html');
+    	COM.createLoading();
+    	COM.addReload();
+    	mui.init({
+				statusBarBackground: '#e63d34',
+			});
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../'); 
+			var ajaxObj = {
+				url: URL_DATA.userAjaxUser_opt,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						initShow(rs);
+						COM.closeLoading();
+						oldCode(rs);
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+    </script>
+    <script>
+    	var initShow = function(rs){
+    		var userModel = rs.userModel;
+    		
+    		var nick_name = userModel.nick_name;
+    		if(DEBUG) console.log('=userModel.nick_name===='+nick_name);
+    		$('#nick_name').val(nick_name);
+
+    		var sex = userModel.sex;
+    		if(DEBUG) console.log('=userModel.sex===='+sex);
+    		if(sex == 1){
+    			$('#d_sex_1').attr('checked','checked');
+    		}else if(sex == 0){
+    			$('#d_sex_0').attr('checked','checked');
+    		}
+    		
+    		var area = userModel.area;
+    		if(DEBUG) console.log('=userModel.area===='+area);
+    		$('#area').val(area);
+    		
+    		var qq = userModel.qq;
+    		if(DEBUG) console.log('=userModel.qq===='+qq);
+    		$('#qq').val(qq);
+    		
+    	}
+    </script>
+    <script>
+    	var oldCode = function(rs){
+    		var userModel = rs.userModel;
+    		initialize(userModel.province, userModel.city);
+            $(".xgxi").click(function () {
+                $(".usein2").show();
+                $(".usein1").hide();
+            });
+            $(".qxxg").click(function () {
+                $(".usein1").show();
+                $(".usein2").hide();
+            });
+            $("#userInfo a").addClass("now");
+    	}
+    </script>
+</body>
+</html>

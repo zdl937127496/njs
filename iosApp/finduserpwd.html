@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>忘记密码_牛金所</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left black"></a>
+        <h1 class="mui-title">手机号找回密码</h1>
+    </header>
+    <div class="mui-content">
+        <form id="form1" method="post" onsubmit="return false;">
+            <div class="bind-phone w70" id="step1">
+                <div class="mui-row">
+                    <input type="text" value="" id="mobile" name="mobile" class="com-inp" placeholder="手机号" />
+                </div>
+                <div class="mui-row njs_yzm">
+                    <input type="text" id="code2" name="code2" class="com-inp" placeholder="手机验证码" />
+                    <input id="btnOnece" value="获取验证码" type="button" class="mui-btn mui-btn-yellow mui-btn-outlined yzm" onclick="pwd_mobile();" />
+                </div>
+                <button id="next" type="button" class="mui-btn mui-btn-blue mui-btn-block login-btn" onclick="pwd_code();">下一步</button>
+            </div>
+            <div class="bind-phone w70" id="step2" style="display: none;">
+                <div class="mui-row">
+                    <input type="password" id="pwd1" name="pwd1" class="com-inp" placeholder="新密码" />
+                </div>
+                <div class="mui-row">
+                    <input type="password" id="pwd2" name="pwd2" class="com-inp" placeholder="确认密码" />
+                </div>
+                <button id="btn_reset" type="button" class="mui-btn mui-btn-blue mui-btn-block login-btn">确定</button>
+            </div>
+        </form>
+    </div>
+    <script src="scripts/jquery/jquery-1.11.2.min.js"></script>
+    <script src="scripts/layer/layer.js"></script>
+    <script src="scripts/mui.min.js"></script>
+    <script src="scripts/jquery/Cookie.js"></script>
+    <script src="scripts/user.js"></script>
+    <script type="text/javascript">
+    	if(DEBUG) console.log('正在执行 ');
+    	mui.init({
+			statusBarBackground: '#e63d34',
+		});
+		COM.addReload();
+    	COM.closeLoading();
+        $(function () {
+            var refrenstime = getCookie("refresht");
+            if (refrenstime > 0) {
+                refreshmsg(getCookie("refreshid"), refrenstime);
+            }
+        });
+        
+        mui(".bind-phone").on('tap', '#btn_reset', function () {
+            var pwd1 = $.trim($("#pwd1").val()), pwd2 = $.trim($("#pwd2").val());
+            if (!ValidateChar(pwd1)) {
+                $("#pwd1").focus();
+                layer.msg("密码由6-24位的字母数字或下划线组成");
+                return;
+            }
+            if (pwd1 != pwd2) {
+                $("#pwd2").focus();
+                layer.msg("两次密码不一致");
+                return;
+            }
+            var ajaxObj = {
+            	url:URL_DATA.https + 'tools/user_ajax.ashx?act=pwd_reset',
+            	data:$("#form1").serialize(),
+            	success:function(obj){
+            		if(DEBUG) console.log('==========COM.ajax回调函数');
+            		if (obj.status == "y") {
+            			COM.openWindow('set_pass_suc','set_pass_suc.html');
+                        return;
+                    }
+                    else {
+                        layer.msg(obj.info);
+                        $("#btn_reset").focus();
+                        return;
+                    }
+            	}
+            }
+        	if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+        });
+	</script>
+</body>
+</html>

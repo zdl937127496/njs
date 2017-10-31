@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的牛币</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left my-link" title="user/default" url="default.html"></a>
+        <h1 class="mui-title">我的牛币</h1>
+        <a class="mui-btn mui-btn-link mui-pull-right white my-link" title="user/integral_list" url="integral_list.html">牛币明细</a>
+    </header>
+    <div class="mui-content">
+        <div class="user-balance">
+            <div class="user-balance-top">
+                <p>账户余额</p>
+                <div class="user-balance-top-money"><strong id="d_integral"></strong></div>
+            </div>
+            <div class="user-balance-list">
+                <ul class="mui-table-view _notop _nobottom">
+                    <li class="mui-table-view-cell my-link" title="user/task_list" url="task_list.html">
+                        <a class="mui-navigate-right">
+                            <span class="mui-icon my-icon my-icon-task"></span>任务中心
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script>
+		if(DEBUG) console.log('正在执行 user/integral.html');
+		COM.createLoading();
+		COM.addReload(function(){
+			plus.navigator.setStatusBarBackground("#e63d34");
+			var ajaxObj = {
+				url: URL_DATA.userAjaxIntegral,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						$('#d_integral').html(COM.stringFormat(rs.userModel.integral));
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+		mui.init({
+				statusBarBackground: '#e63d34',
+			});
+		mui('body').on('tap','.my-link',function(){
+			COM.openWindow(this.getAttribute('title'),this.getAttribute('url'),true);
+		});
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			var ajaxObj = {
+				url: URL_DATA.userAjaxIntegral,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						$('#d_integral').html(COM.stringFormat(rs.userModel.integral));
+						COM.closeLoading();
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+	</script>
+</body>
+</html>

@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>设置提现密码</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left my-link" title="user/default" url="default.html"></a>
+        <h1 class="mui-title" id="d_trade_pass"></h1>
+    </header>
+    <div class="mui-content">
+        <div class="user-set">
+            <div class="w70">
+                <form id="form1" method="post" onsubmit="return false;">
+      				<div id="d_trade_pass_1" style="display: none;">
+      					<div class="mui-input-row">
+	                        <input value="" type="password" id="pwd" name="pwd" class="user-set-inp" placeholder="请输入提现密码" />
+	                    </div>
+	                    <div class="mui-input-row">
+	                        <input value="" type="password" id="pwd_check" name="pwd_check" class="user-set-inp" placeholder="请确认提现密码" />
+	                    </div>
+      				</div>
+                    
+   					<div id="d_trade_pass_2" style="display: none;">
+   						<div class="mui-input-row">
+	                        <input value="" type="password" id="pwd_old" name="pwd_old" class="user-set-inp" placeholder="请输入旧提现密码" />
+	                    </div>
+	                    <div class="mui-input-row">
+	                        <input value="" type="password" id="pwd_new" name="pwd_new" class="user-set-inp" placeholder="请输入新提现密码" />
+	                    </div>
+	                    <div class="mui-input-row">
+	                        <input value="" type="password" id="pwd_new_check" name="pwd_new_check" class="user-set-inp" placeholder="请确认新提现密码" />
+	                    </div>
+   					</div>
+
+                    <input id="type_id" type="hidden" value="" />
+                    <button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" id="confirmModify" onclick="opt_trade_pwd();"></button>
+                       <p style="text-align: right;"><a class="my-link" title="user/forgetTradepwd" url="forgetTradepwd.html" href="forgetTradepwd.html" style="color: red;"> 忘记密码</a></p>
+             
+                </form>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+	<script src="../scripts/user.js"></script>
+	<script type="text/javascript">
+		if(DEBUG) console.log('正在执行user/trade_pwd.html');
+		COM.createLoading();
+		mui('body').on('tap','.my-link',function(){
+			COM.openWindow(this.getAttribute('title'),this.getAttribute('url'),true);
+		});
+		COM.addReload();
+		mui.init({
+				statusBarBackground: '#e63d34',
+			});
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			var ajaxObj = {
+				url: URL_DATA.userAjaxTrade_pwd,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						var userModel = rs.userModel;
+						if(DEBUG) console.log('=userModel.trade_pass====' + userModel.trade_pass);
+						var trade_pass = userModel.trade_pass;
+						if(trade_pass.trim().length < 6) {
+							$('#d_trade_pass').html('设置提现密码');
+							$('#d_trade_pass_1').show();
+							$('#type_id').val('0');
+							$('#confirmModify').html('确认设置');
+						} else {
+							$('#d_trade_pass').html('修改提现密码');
+							$('#d_trade_pass_2').show();
+							$('#type_id').val('1');
+							$('#confirmModify').html('确认修改');
+						}
+						COM.closeLoading();
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+	</script>
+</body>
+</html>

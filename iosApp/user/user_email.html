@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>绑定邮箱</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">绑定邮箱</h1>
+    </header>
+    <div class="mui-content">
+        <div class="user-set">
+            <form id="form1" method="post" onsubmit="return false;">
+                <div class="w70" id="step1" style="display: none;">
+                    <a class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" onclick="show_hide(1);">通过原邮箱修改</a>
+                    <a class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" onclick="show_hide(2);">通过原手机修改</a>
+                </div>
+                <div class="w70" id="step2" style="display: none;">
+                    <div id="d_email" class="mui-input-row" style="line-height: 45px;">
+                        <!--已验证邮箱:<%=Common.Utils.rpEmail(userModel.email) %>-->
+                        <!--<input id="email_old" name="email_old" type="hidden" value="<%=userModel.email %>" />-->
+                    </div>
+                    <div class="mui-row njs_yzm">
+                        <input type="text" id="email_old_code" name="email_old_code" class="com-inp" placeholder="输入邮箱验证码" />
+                        <input id="btn_email_old" value="获取验证码" type="button" class="mui-btn mui-btn-yellow mui-btn-outlined yzm" onclick="getemailcode2();" />
+                    </div>
+                    <button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" onclick="changeEmail2();">下一步</button>
+                </div>
+                <div class="w70" id="step3" style="display: none;">
+                    <div class="mui-input-row">
+                        <input id="reg_mobile" type="hidden" value=">" />
+                        <input type="text" id="mobile" name="mobile" class="user-set-inp" placeholder="输入手机号码" />
+                    </div>
+                    <div class="mui-row njs_yzm">
+                        <input type="text" id="email_mobile_code" name="email_mobile_code" class="com-inp" placeholder="输入手机验证码" />
+                        <input id="btn_email_mobile" value="获取验证码" type="button" class="mui-btn mui-btn-yellow mui-btn-outlined yzm" onclick="getsmscode_email();" />
+                    </div>
+                    <button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" onclick="changeEmail3();">下一步</button>
+                </div>
+                <div class="w70" id="step4" style="display: none;">
+                    <div class="mui-input-row">
+                        <input type="text" id="email_new" name="email_new" value="" class="user-set-inp" placeholder="输入邮箱" />
+                    </div>
+                    <div class="mui-row njs_yzm">
+                        <input type="text" id="code_email_new" name="code_email_new" class="com-inp" placeholder="输入邮箱验证码" />
+                        <input id="btn_email_new" value="获取验证码" type="button" class="mui-btn mui-btn-yellow mui-btn-outlined yzm" onclick="getemailcode();" />
+                    </div>
+                    <button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" id="Button4" onclick="changeEmail();">确认提交</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+    <script src="../scripts/jquery/Cookie.js"></script>
+    <script src="../scripts/user.js"></script>
+    <script type="text/javascript">
+		if(DEBUG) console.log('正在执行user/user_email.html');
+		COM.createLoading();
+		mui.init({
+				statusBarBackground: '#e63d34',
+			});
+			COM.addReload();
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			var ajaxObj = {
+				url: URL_DATA.userAjaxUser_email,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						initShow(rs);
+						COM.closeLoading();
+						oldCode(rs);
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+	</script>
+	<script type="text/javascript">
+		var initShow = function(rs) {
+			var userModel = rs.userModel;
+			var email = userModel.email;
+			if(DEBUG) console.log('=userModel.email====' + userModel.email);
+			if(email.length >= 6){
+				$('#step1').show();
+				$('#d_email').html('已验证邮箱:'+ COM.rpEmail(email) +' <input id="email_old" name="email_old" type="hidden" value="'+ email +'"/>');
+			}else{
+				$('#step4').show();
+				$('#d_email').html('已验证邮箱: <input id="email_old" name="email_old" type="hidden" value=""');
+			}
+			$('#reg_mobile').val(userModel.phone_mobile);
+			
+		}
+	</script>
+    <script type="text/javascript">
+    	var oldCode = function(rs){
+    		var refrenstime = getCookie("refresht");
+            if (refrenstime > 0) {
+                refreshmsg2(getCookie("refreshid"), getCookie("refresht"));
+            }
+            
+    	}
+        var show_hide = function (type_id) {
+            if (type_id == 1) {
+                $("#step1").hide();
+                $("#step2").show();
+            } else {
+                $("#step1").hide();
+                $("#step3").show();
+            }
+        }
+    </script>
+</body>
+</html>

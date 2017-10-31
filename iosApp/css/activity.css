@@ -1,0 +1,8 @@
+.activity-list .mui-card{box-shadow: none;}
+.activity-list .mui-card-content{padding-bottom: 8px;}
+.activity-list .activity-list-head{position: relative;border-radius: 0; font-size: 15px; text-align: center; padding: 11px 15px;}
+.activity-list .activity-list-head .activity-state{position: absolute;left: 0; top:0; padding: 2px 6px; font-size: 12px;}
+.activity-list .activity-list-head .activity-state-yellow{background: #FF7814; color: #fff;}
+.activity-list .activity-list-head .activity-state-red{background: #e53638; color: #fff;}
+.activity-list .activity-list-img{padding: 0 10px;}
+.activity-list .activity-list-img img{width: 100%;}

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>消息详情</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/activity.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left" href="message.html"></a>
+        <h1 class="mui-title">消息详情</h1>
+        <a class="mui-btn mui-btn-link mui-pull-right white" href="message.html"></a>
+    </header>
+    <div class="mui-content">
+        <div class="activity">
+            <div class="activity-list">
+                <div class="mui-card">
+                    <div class="mui-card-header" id="d_title"></div>
+                    <div class="mui-card-content" id="d_content" style="padding: 10px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script>
+		if(DEBUG) console.log('正在执行user/message_d.html');
+		COM.createLoading();
+		COM.addReload();
+		mui.init({
+				statusBarBackground: '#e63d34',
+			});
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			var id = COM.getStorage(LOCAL_STORAGE.zMessage_dID);
+			var ajaxObj = {
+				url: URL_DATA.userAjaxMessage_d,
+				data:{id:id},
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						if(rs.arModel){
+							var arModel = rs.arModel;
+							$('#d_title').html(arModel.title);
+							$('#d_content').html(arModel.content.replaceAll('/upload/',"http://www.njs168.net/upload/"));
+							$('#d_content a').each(function(){
+								this.setAttribute('href','javascript:void(0);');
+							});
+							COM.closeLoading();
+						}else{
+							COM.openWindow('user/default','default.html');
+						}
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+	</script>
+</body>
+</html>

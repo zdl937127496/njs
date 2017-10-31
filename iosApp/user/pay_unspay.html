@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>银联快捷支付</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/user.css" />
+		<style>
+			.bank-select-tit {
+				background: #f7f7f7;
+				padding: 11px 15px;
+				border-bottom: 1px solid #c8c7cc;
+				text-align: center;
+			}
+			
+			.bank-select-tit .mui-pull-left {}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">银联快捷支付</h1>
+		</header>
+		<div class="mui-content">
+			<div class="pay-mode mt10">
+				<div class="user-cash-bank">
+					<ul class="mui-table-view _notop _nobottom">
+						<li class="mui-table-view-cell">
+							<a class="mui-navigate-right" href="#bankSheet" id="bank_list">
+
+							</a>
+						</li>
+					</ul>
+				</div>
+				<p class="pay-mode-limit" onclick="COM.showEplain('exp_union','../');">点击查看《限额说明》</p>
+
+				<div class="mui-input-row pay-mode-input">
+					<label>金额</label>
+					<input type="number" value="" id="rz_money" name="rz_money" placeholder="请输入充值金额" />
+				</div>
+				<div class="w70 mt20" id="d_show_btn">
+
+				</div>
+			</div>
+		</div>
+		<div id="bankSheet" class="mui-popover mui-popover-bottom mui-popover-action user-bank-select mui-active" style="display: none;">
+			<div class="bank-select-tit">
+				<a href="JavaScript:vodi(0)" id="close" class="mui-pull-left">X</a>
+				选择付款方式
+			</div>
+			<!-- 可选择菜单 -->
+			<ul id="rptList" class="mui-table-view mui-table-view-radio _nobottom">
+				<li class="mui-table-view-cell">
+					<a class="mui-navigate-right text-left" id="0">使用新卡付款</a>
+				</li>
+			</ul>
+		</div>
+		<input type="hidden" id="card_no2" />
+		<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../scripts/mui.min.js"></script>
+		<script src="../scripts/layer/layer.js"></script>
+		<script src="../scripts/user.js"></script>
+		<script>
+			if(DEBUG) console.log('正在执行user/pay_unspay.html');
+			COM.createLoading();
+			COM.addReload();
+			mui.plusReady(function() {
+				var ajaxObj = {
+					url: URL_DATA.userAjaxPay_unspay,
+					type: 'get',
+					success: function(rs) {
+						if(DEBUG) console.log('==========COM.ajax回调函数');
+						if(rs.status === 'y') {
+							initShow(rs);
+							COM.closeLoading();
+							oldCode(rs);
+						} else {
+							COM.cacheUrl();
+							COM.openWindow('login', '../login.html');
+						}
+					}
+				}
+				if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+			});
+		</script>
+		<script>
+			var initShow = function(rs) {
+				var userModel = rs.userModel;
+				if(DEBUG) console.log('=rs.str_bank_one====' + rs.str_bank_one);
+				$('#bank_list').html(rs.str_bank_one);
+
+				if(userModel.name_true != 2) {
+					$('#d_show_btn').html('<button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" onclick="COM.openWindow(\'user/real_name\',\'real_name.html\',true);">立即实名认证</button>');
+				} else if(rs.str_bank_one.toString().trim().length < 10) {
+					$('#d_show_btn').html('<button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" onclick="COM.openWindow(\'user/bank_add\',\'bank_add.html\',true);">立即绑定银行卡</button>');
+				} else {
+					$('#d_show_btn').html('<button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" onclick="money_rz_in();">下一步</button>');
+				}
+				if(DEBUG) console.log('=rs.list====' + rs.list);
+				var list = JSON.parse(rs.list).ds || [];
+				var html = '';
+				for(var i = 0; i < list.length; i++) {
+					console.log('=i====' + i);
+					var obj = list[i];
+					var last4 = obj.card_no.substr(obj.card_no.length - 4, 4);
+					html += '<li class="mui-table-view-cell"><a class="mui-navigate-right" ' +
+						' id="' + obj.card_no + '" ' +
+						'cls="' + Utils.bank_cls(obj.bank_name + '') + '" ed="10000" name="' + obj.bank_name +
+						'"><div class="user-bank-select-item mui-clearfix"><div class="user-bank-select-img mui-pull-left">' +
+						'<img src="../images/bank/' + Utils.bank_cls(obj.bank_name + '') + '.png" /></div>' +
+						'<div class="user-bank-select-info mui-pull-left"><span>' + obj.bank_name + '(尾号' + last4 + ')</span><p>可用额度10,000元</p></div></div></a></li>';
+				}
+				console.log(html);
+				$('#rptList').prepend(html);
+			}
+		</script>
+		<script type="text/javascript">
+			var oldCode = function(rs) {
+				var list = document.querySelector('.mui-table-view.mui-table-view-radio');
+				list.addEventListener('selected', function(e) {
+					var card_no = $(e.target).find("a").attr("id");
+					var cls = $(e.target).find("a").attr("cls");
+					var ed = $(e.target).find("a").attr("ed");
+					var name = $(e.target).find("a").attr("name");
+					var val = e.detail.el.innerText;
+					if(card_no == 0) {
+						COM.openWindow('user/bank_add', 'bank_add.html', true);
+					} else {
+						console.log('=card_no===='+card_no);
+						$("#card_no2").val(card_no);
+//						$(".pay-mode-limit").html("该卡本次最多可充值" + ed + "元");
+						$("#bank_list").html("<span class='bank bank-" + cls + "'>" + name + "<p>尾号" + card_no.substr(card_no.length - 4, 4) + "</p></span>");
+						mui("#bankSheet").popover('hide');
+					}
+
+				});
+				$("#close").on('tap', function() {
+					mui("#bankSheet").popover('hide');
+				})
+			}
+		</script>
+	</body>
+
+</html>

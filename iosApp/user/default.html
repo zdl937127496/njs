@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title>用户中心</title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/user.css" />
+		<link rel="stylesheet" href="../css/mui.picker.min.css" />
+		<style>
+			.mui-media-body {
+				margin-top: 15px !important;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar header">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left white my-link" title="default" url="../default.html"></a>
+			<h1 class="mui-title c-white">个人中心</h1>
+			<a class="mui-btn mui-btn-link mui-pull-right white my-link"  title="user/message" url="message.html"><span class="mui-icon my-icon my-icon-email" style="top: -4px;"></span></a>
+		</header>
+		<div class="mui-content">
+			<div class="account">
+				<div class="account-top">
+					<div class="account-user mui-clearfix">
+						<div class="mui-pull-left" id="header_nickname">
+							<div class="user-img">
+								<div class="user-img-bg"></div>
+								<img id="d_avator" width="100%" />
+							</div>
+							<span id="d_nick_name">
+								
+							</span>
+						</div>
+						<div class="mui-pull-right">
+							<div class="user-info">
+								<p>我的余额</p>
+								<span class="user-balance" id="d_available_balance_money">
+									
+								</span>
+							</div>
+						</div>
+					</div>
+					<div class="account-user-ident">
+						<ul class="mui-clearfix my-ul mui-table">
+							<li id="d_email" class="mui-table-cell mui-col-xs-3">
+								
+							</li>
+							<li id="d_phone_mobile" class="mui-table-cell mui-col-xs-3">
+								
+							</li>
+							<li id="d_name_true" class="mui-table-cell mui-col-xs-3">
+								
+							</li>
+							<li id="d_trade_pass" onclick="COM.openWindow('user/trade_pwd','trade_pwd.html',true)" class="mui-table-cell mui-col-xs-3">
+								
+							</li>
+						</ul>
+					</div>
+				</div>
+				<div class="account-func">
+					<ul class="mui-table my-ul">
+						<li class="mui-table-cell mui-col-xs-6 my-link" title="user/pay" url="pay.html">
+							<a class="recharge">充值</a>
+						</li>
+						<li class="mui-table-cell mui-col-xs-6 my-link" title="user/withdrawal" url="withdrawal.html">
+							<a class="cash">提现</a>
+						</li>
+					</ul>
+				</div>
+				<div class="account-menu">
+					<div class="account-menu-list">
+						<div class="account-menu-tit">交易认证</div>
+						<ul class="mui-table-view mui-grid-view _nobottom _notop">
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a id="d_name_true_1">
+									<span class="mui-icon my-icon my-icon-menu-001"></span>
+									<div class="mui-media-body">实名认证</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 my-link" title="user/bank" url="bank.html">
+								<a>
+									<span class="mui-icon my-icon my-icon-menu-002"></span>
+									<div class="mui-media-body">银行绑定</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 my-link" title="user/trade_pwd" url="trade_pwd.html">
+								<a>
+									<span class="mui-icon my-icon my-icon-menu-003"></span>
+									<div class="mui-media-body">提现密码</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 my-link" title="user/money_list" url="money_list.html">
+								<a>
+									<span class="mui-icon my-icon my-icon-menu-004"></span>
+									<div class="mui-media-body">资金明细</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="account-menu-list">
+						<div class="account-menu-tit">配资账户操作</div>
+						<ul class="mui-table-view mui-grid-view _nobottom _notop">
+							<li class="mui-table-view-cell mui-media mui-col-xs-3" onclick="COM.go_borrow_list()">
+								<a>
+									<span class="mui-icon my-icon my-icon-menu-005"></span>
+									<div class="mui-media-body">我的配资</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 my-link" title="user/borrow_addbond" url="borrow_addbond.html">
+								<a>
+									<span class="mui-icon my-icon my-icon-menu-006"></span>
+									<div class="mui-media-body">追加配额</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 my-link" title="user/borrow_adddeposit" url="borrow_adddeposit.html">
+								<a >
+									<span class="mui-icon my-icon my-icon-menu-007"></span>
+									<div class="mui-media-body">追加保证金</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 my-link" title="user/borrow_getprofit" url="borrow_getprofit.html">
+								<a>
+									<span class="mui-icon my-icon my-icon-menu-008"></span>
+									<div class="mui-media-body">提取利润</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3">
+								<a href="javascript:" id="borrow_list">
+									<span class="mui-icon my-icon my-icon-menu-009"></span>
+									<div class="mui-media-body">终止操盘</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+					<div class="account-menu-list">
+						<div class="account-menu-tit">活动与优惠</div>
+						<ul class="mui-table-view mui-grid-view _nobottom _notop">
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 my-link" title="user/integral" url="integral.html">
+								<a >
+									<span class="mui-icon my-icon my-icon-menu-010"></span>
+									<div class="mui-media-body">我的牛币</div>
+								</a>
+							</li>
+							<li class="mui-table-view-cell mui-media mui-col-xs-3 my-link" title="user/reward_list" url="reward_list.html">
+								<a>
+									<span class="mui-icon my-icon my-icon-menu-011"></span>
+									<div class="mui-media-body">我的优惠</div>
+								</a>
+							</li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<input id='borrow_id' name='borrow_id' type='hidden' value='' />
+	</body>
+	<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+	<script src="../scripts/mui.picker.min.js"></script>
+	<script src="../scripts/user.js"></script>
+	<script type="text/javascript"> 
+		if(DEBUG) console.log('正在执行user/default.html');
+		mui.init({
+			statusBarBackground: '#e63d34',
+		});
+		mui('body').on('tap','.my-link',function(){
+			COM.openWindow(this.getAttribute('title'),this.getAttribute('url'),true);
+		});
+		var reloadFlag = false;
+		COM.addReload(function(){
+			plus.navigator.setStatusBarBackground("#e63d34");
+			if(DEBUG) console.log('==========addReload');
+			var ajaxObj = {
+				url: URL_DATA.userAjaxDefault,
+				type: 'get',
+				success: function(rs) {
+					reloadFlag= false;
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						initShow(rs);
+						if(DEBUG) console.log('=rs.str_borrow_json====' + rs.str_borrow_json);
+						str_borrow_json_obj = eval('(['+ rs.str_borrow_json +'])');
+						picker.setData(str_borrow_json_obj);
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				},
+				error:function(){
+					reloadFlag= false;
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			if(!reloadFlag){
+				reloadFlag = true;
+				setTimeout(function(){
+					COM.ajax(ajaxObj);
+				},100);
+			}
+		});
+		COM.createLoading();
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			var ajaxObj = {
+				url: URL_DATA.userAjaxDefault,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						initShow(rs);
+						COM.closeLoading();
+						oldCode(rs);
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+	</script>
+	<script type="text/javascript">
+		var initShow = function(rs) {
+			var userModel = rs.userModel;
+			COM.setStorage(LOCAL_STORAGE.zUserModel, JSON.stringify(userModel));
+			if(DEBUG) console.log('=userModel.avator====' + userModel.avator);
+			if(userModel.avator.trim().length < 16) {
+				$('#d_avator').attr('src', '../images/user_img.jpg');
+			} else {
+				$('#d_avator').attr('src', URL_DATA.http168 + userModel.avator +'?t='+new Date().getTime());
+			}
+			var nick_name = userModel.nick_name;
+			if(DEBUG) console.log('=userModel.nick_name====' + userModel.nick_name);
+			if(userModel.nick_name.trim().length < 1) {
+				$('#d_nick_name').html(COM.rpMobile(userModel.phone_mobile));
+			} else {
+				$('#d_nick_name').html(userModel.nick_name);
+			}
+			if(DEBUG) console.log('=rs.available_balance_money====' + rs.available_balance_money);
+			$('#d_available_balance_money').html(COM.stringFormat(rs.available_balance_money));
+
+			if(DEBUG) console.log('=userModel.email====' + userModel.email);
+			if(userModel.email.trim().length < 2) {
+				$('#d_email').html('<img src="../images/icon/emial.png" />未验证');
+			} else {
+				$('#d_email').html('<img src="../images/icon/emial.png" />已验证');
+			}
+			$('#d_email').click(function() {
+				COM.openWindow('user/user_email','user_email.html',true);
+			});
+			if(DEBUG) console.log('=userModel.phone_mobile====' + userModel.phone_mobile);
+			if(userModel.phone_mobile.trim().length != 11) {
+				$('#d_phone_mobile').html('<img src="../images/icon/phone.png" />未验证').click(function() {
+					COM.openWindow('user/bind_phone','bind_phone.html',true);
+				});
+			} else {
+				$('#d_phone_mobile').html('<img src="../images/icon/phone.png" />已验证');
+			}
+
+			if(DEBUG) console.log('=userModel.name_true====' + userModel.name_true);
+			if(userModel.name_true == 2) {
+				$('#d_name_true').html('<img src="../images/icon/user.png" />已实名');
+			} else {
+				$('#d_name_true').html('<img src="../images/icon/user.png" />未实名').click(function() {
+					COM.openWindow('user/real_name','real_name.html',true);
+				});
+				$('#d_name_true_1').click(function() {
+					COM.openWindow('user/real_name','real_name.html',true);
+				});
+			}
+			if(DEBUG) console.log('=userModel.trade_pass====' + userModel.trade_pass);
+			if(userModel.trade_pass.trim().length < 6) {
+				$('#d_trade_pass').html('<img src="../images/icon/pass.png" />请设交易码');
+			} else {
+				$('#d_trade_pass').html('<img src="../images/icon/pass.png" />提现密码');
+			}
+			$('#d_trade_pass').click(function() {
+				COM.openWindow('user/trade_pwd','trade_pwd.html',true);
+			});
+		}
+	</script>
+	<script type="text/javascript">
+		window.picker = new mui.PopPicker();
+		
+		var oldCode = function(rs) {
+			$("#select4").addClass("mui-active");
+			mui("body").on('tap', '.user-info', function() {
+				COM.openWindow('user/money','money.html',true);
+			});
+			mui("body").on('tap', '#header_nickname', function() {
+				COM.openWindow('user/userinfo','userinfo.html',true);
+			});
+			if(DEBUG) console.log('=rs.str_borrow_json====' + rs.str_borrow_json);
+			var str_borrow_json = "[" + rs.str_borrow_json + "]";
+			str_borrow_json_obj = eval('('+ str_borrow_json +')');
+			$("#borrow_list").on('tap', function(e) {
+				var $this = $(this);
+				picker.setData(str_borrow_json_obj);
+				picker.show(function(selectItems) {
+					var id = selectItems[0].value,
+						tit = selectItems[0].text,
+						type_id = selectItems[0].type_id,
+						account = selectItems[0].account;
+					$("#borrow_id").val(id);
+					stopstock();
+				});
+			});
+		}
+		//终止操盘
+		var stopstock = function() {
+			var id = $("#borrow_id").val();
+			if(DEBUG) console.log('=id===='+id);
+			if($("#borrow_id").val() == null || $("#borrow_id").val() == "" || $("#borrow_id").val() == undefined) {
+				layer.msg("暂无可终止操盘的方案！");
+				return;
+			}
+
+			mui.confirm('您确定要申请终止操盘吗？', '终止操盘', ['确定', '取消'], function(e) {
+				if(e.index == 0) {
+					layer.load(0, {
+						shade: false,
+						time: 1000
+					});
+					var ajaxObj = {
+						url: 'tools/user_opt_ajax.ashx?act=borrow_stop',
+						data: {
+							"borrowid": $("#borrow_id").val()
+						},
+						success: function(data, textStatus) {
+							if(data.status == "y") {
+								mui.confirm(data.info, '申请成功', ['知道啦'], function(e) {
+									if(e.index == 0) {
+										var ajaxObj = {
+											url: URL_DATA.userAjaxDefault,
+											type: 'get',
+											success: function(rs) {
+												reloadFlag= false;
+												if(DEBUG) console.log('==========COM.ajax回调函数');
+												if(rs.status === 'y') {
+													initShow(rs);
+													if(DEBUG) console.log('=rs.str_borrow_json====' + rs.str_borrow_json);
+													var str_borrow_json = "[" + rs.str_borrow_json + "]";
+													str_borrow_json_obj = eval('('+ str_borrow_json +')');
+													picker.setData(str_borrow_json_obj);
+												} else {
+													COM.cacheUrl();
+													COM.openWindow('login','../login.html');
+												}
+											},
+											error:function(){
+												reloadFlag= false;
+											}
+										} 
+										if(DEBUG) console.log('==========正在执行COM.ajax');
+										COM.ajax(ajaxObj);
+									}
+								});
+							} else {
+								layer.msg(data.info);
+								return;
+							}
+						},
+						error: function(XMLHttpRequest, textStatus, errorThrown) {
+							layer.msg("状态：" + textStatus + "；出错提示：" + errorThrown);
+						}
+					}
+					if(DEBUG) console.log('==========正在执行COM.ajax');
+					COM.ajax(ajaxObj);
+				}
+			});
+		}
+	</script>
+
+</html>

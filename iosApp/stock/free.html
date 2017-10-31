@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>免费体验配资</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../css/stock.css" />
+    <link rel="stylesheet" href="../css/mui.picker.min.css" />
+</head>
+<body style="display: block;">
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back  mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">免费体验</h1>
+    </header>
+    <div class="mui-content">
+        <div class="stock-free">
+            <ul class="mui-table-view _nobottom _notop">
+                <li class="mui-table-view-cell">
+                    <div class="stock-free-tit">
+                        <p>您的免息资金</p>
+                        <strong class="money_all load-reset" title="￥0.00">￥0.00</strong>元
+	    	        
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="stock-free-li">
+                        <span class="dot dot-1"></span>
+                        <span class="mui-pull-left">您的出资</span>
+                        <span class="mui-pull-right money">0.00</span>
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="stock-free-li">
+                        <span class="dot dot-2"></span>
+                        <span class="mui-pull-left">您的配资</span>
+                        <span class="mui-pull-right money_borrow">0.00</span>
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="stock-free-li">
+                        <span class="dot dot-3"></span>
+                        <span class="mui-pull-left">使用天数</span>
+                        <span class="mui-pull-right stocktime">5天</span>
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="stock-free-li">
+                        <span class="dot dot-4"></span>
+                        <span class="mui-pull-left">配资利息</span>
+                        <span class="mui-pull-right fee">0.00元</span>
+                    </div>
+                </li>
+                <li class="mui-table-view-cell">
+                    <div class="stock-free-tips">
+                        <h3><span class="c-red">特别提醒</span></h3>
+                        <p class="mui-clearfix"><span class="mui-pull-left" style="width:15px">1、</span><span class="mui-pull-left" style="width:80%">第五个交易日14:50前必须卖出股份</span></p>
+                        <p class="mui-clearfix"><span class="mui-pull-left" style="width:15px">2、</span><span class="mui-pull-left" style="width:80%">免费体验“股票交易账户”会在下个交易日9：15前开出</span></p>
+                        <p class="mui-clearfix"><span class="mui-pull-left" style="width:15px">3、</span><span class="mui-pull-left" style="width:80%">到期后如需继续交易，请联系客服开天配或月配账户。 联系电话400-800-1613</span></p>
+                    </div>
+                </li>
+            </ul>
+            <div class="w70">
+                <button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" id="stockFree" onclick="return startstock();">确认提交免息体验</button>
+            </div>
+        </div>
+    </div>
+    
+    <input id="moneylimit" name="moneylimit" type="hidden" value="" />
+    <input id="money_times" name="money_times" type="hidden" value="0" />
+    <input id="productId" name="productId" type="hidden" value="0" />
+    <input id="productList" name="product" type="hidden" value="" />
+    <input id="daysCheckList" name="product" type="hidden" value="" />
+    <input id="rateWarn" name="rateWarn" type="hidden" value="0" />
+    <input id="rateOpenLine" name="rateOpenLine" type="hidden" value="0" />
+    <input id="money" name="money" type="hidden" value="0" />
+    <input id="money_borrow" name="money_borrow" type="hidden" value="0" />
+    <input id="money_all" name="money_all" type="hidden" value="0" />
+    <input id="days" name="days" type="hidden" value="5" />
+    <input id="fee" name="fee" type="hidden" value="0" />
+    <input id="fee_val" name="fee_val" type="hidden" value="0" />
+    <input id="isTomorrowGetMoney" name="tradeStart" type="hidden" value="0" />
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+    <script src="../scripts/jquery/common.js"></script>
+    <script src="../scripts/product.js"></script>
+    <script>
+    	if(DEBUG) console.log('正在执行 stock/free.html'); 
+
+    	var userModel = null;
+    	mui.init({
+			statusBarBackground: '#e63d34',
+		});
+		mui.plusReady(function() { 
+			COM.createMenu('stock/day', '../');
+			var ajaxObj = {
+				url: URL_DATA.stockAjaxFree, 
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						userModel = rs.userModel; 
+						oldCode();
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				} 
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+    </script>
+    <script>
+    	var oldCode = function(rs){
+    		$("#select3").addClass("mui-active");
+
+
+            /* 初始化产品 */
+            innitFreeProduct(0);
+            $("#stockType").on('tap', function (e) {
+                var $this = $(this);
+                var picker = new mui.PopPicker();
+                picker.setData([{
+                    value: "1",
+                    text: "按天",
+                }, {
+                    value: "2",
+                    text: "按月"
+                }, {
+                    value: "3",
+                    text: "免息"
+                }]);
+                picker.show(function (selectItems) {
+                    if (selectItems[0].value == 1) {
+                        COM.openWindow('stock/day','day.html',true);
+                    } else if (selectItems[0].value == 2) {
+                    	COM.openWindow('stock/month','month.html',true);
+                    } else {
+
+                    }
+                });
+            });
+            COM.closeLoading();
+    	}
+    </script>
+    <script type="text/javascript">
+        /* 提交申请 */
+        function startstock() {
+        	if(userModel.name_true != 2){
+        		mui.confirm('系统检测到您还没有进行实名认证', '实名认证', ['立即认证', '我在想想'], function (e) {
+	                if (e.index == 0) {
+	                	COM.openWindow('user/real_name','../user/real_name.html');
+	                }
+	            });
+        	}else{
+        		if (productsfree.length < 1) {
+	                layer.msg("该产品人数已满不能继续参加");
+	                return;
+	            }
+	            layer.load(0, { shade: false, time: 1000 });
+	            var url = "pay.html?id=" + productsfree[0]["id"] + "&money=" + productsfree[0]["moneyMin"] + "&money_borrow=" + productsfree[0]["moneyMax"] + "&isTomorrowGetMoney=1&days=" + productsfree[0]["monthMin"];
+	            linkClick(url);
+        	}
+            
+        }
+    </script>
+</body>
+</html>

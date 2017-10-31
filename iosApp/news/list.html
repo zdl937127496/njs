@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>news 列表</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<link href="../css/pager.css" rel="stylesheet" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left" href="../default.html"></a>
+			<h1 class="mui-title" id="d_title"></h1>
+		</header>
+		<div class="mui-content">
+			<div id="newHL" style="position: relative;">
+				<!--下拉刷新容器-->
+				<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+					<div class="mui-scroll">
+						<!--数据列表-->
+						<ul class="mui-table-view news-list" id="news_list">
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="page">
+				<div id="pager_news_list" class="page flickr" style="display: none;"></div>
+			</div>
+		</div>
+
+		<input id="call_index" type="hidden" value="<%=call_index%>" />
+		<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../scripts/mui.min.js"></script>
+		<script src="../scripts/layer/layer.js"></script>
+		<script src="../scripts/mui.picker.min.js"></script>
+		<script>
+			if(DEBUG) console.log('正在执行 news/list.html');
+			COM.createLoading();
+			mui.plusReady(function() {
+				COM.createMenu('', '../');
+				call_index = COM.getStorage(LOCAL_STORAGE.z_list_call_index);
+				var ajaxObj = {
+					url: URL_DATA.newsAjaxList,
+					type: 'get',
+					data: {
+						call_index: call_index
+					},
+					success: function(rs) {
+						if(DEBUG) console.log('==========COM.ajax回调函数');
+						if(rs.ct_model) {
+							COM.closeLoading();
+							$('#d_title').html(rs.ct_model.title);
+							$('#call_index').val(call_index);
+							oldCode(rs);
+						} else {
+							location.href = '../default.html';
+						}
+					}
+				}
+				if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+			});
+		</script>
+		<script>
+		</script>
+		<script type="text/javascript">
+			var oldCode = function(rs) {
+
+				mui.init({
+					pullRefresh: {
+						container: '#pullrefresh',
+						up: {
+							contentrefresh: '正在加载...',
+							callback: pullupRefresh
+						}
+					}
+				});
+				mui('.mui-table-view').on('tap', '.mui-table-view-cell', function() {
+					var _href = $(this).find("a").attr("href");
+					if(_href != null || _href != undefined) {
+						location.href = _href;
+					}
+
+				});
+				/**上拉加载具体业务实现**/
+				count = 0,
+					pageSize = rs.pageSize,
+					pagenum = rs.newsPageNum,
+					call_index = $("#call_index").val();
+				$("#newHL").css({
+					"height": ($(window).height() - 44) + "px"
+				});
+
+				function pullupRefresh() {
+					setTimeout(function() {
+						var is_fresh = (++count > pagenum);
+						var ajaxObj = {
+							url:'tools/list_ajax.ashx',
+							type:'get',
+							dataType:'text',
+							data:{
+								act: "news_list",
+								call_index: call_index,
+								pageSize: pageSize,
+								p: count,
+								t: new Date()
+							},
+							success:function(data){
+								if(DEBUG) console.log('==========COM.ajax回调函数');
+								$("#news_list").append(data);
+								mui('#pullrefresh').pullRefresh().endPullupToRefresh(is_fresh);//参数为true代表没有更多数据了。 
+							}
+						}
+						if(DEBUG) console.log('==========正在执行COM.ajax');
+						COM.ajax(ajaxObj);
+					}, 1500);
+				}
+				if(mui.os.plus) {
+					mui.plusReady(function() {
+						setTimeout(function() {
+							mui('#pullrefresh').pullRefresh().pullupLoading();
+						}, 1000);
+
+					});
+				} else {
+					mui.ready(function() {
+						mui('#pullrefresh').pullRefresh().pullupLoading();
+					});
+				}
+			}
+		</script>
+	</body>
+
+</html>

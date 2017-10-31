@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>银行转账</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+</head>
+<body style="display: block;">
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">转账汇款</h1>
+    </header>
+    <div class="mui-content">
+        <div class="pay-mode mt10">
+            <div class="pay-mode-outline">
+                <h3>你可以通过网上银行、银行柜台、ATM等方式向牛金所转账(手续费最多一笔50元)</h3>
+                <h3>牛金所账户如下：</h3>
+                <div class="pay-mode-bank-list">
+                    <ul class="my-ul">
+                        <li>
+                            <p>帐号：6228 4504 6006 7035 610</p>
+                            <p>户名：帅婧</p>
+                            <p>开户行：农业银行成都武城支行  </p>
+                        </li>
+                        <li>
+                            <p>帐号：6215 5844 0200 5031 372</p>
+                            <p>户名：帅婧</p>
+                            <p>开户行：工商银行成都东大支行营业部  </p>
+                        </li>
+
+                    </ul>
+                </div>
+                <p>1、转账是金额最好有些零头（1000.85），方便我们确认是您的汇款</p>
+                <p>2、转账是请务必在备中填写您的注册手机号和注册用户名,以便我们确认是您的汇款</p>
+                <p>3、柜台、ATM或网银转账成功后点击正文填写转账回执单并联系在线客户或拨打<span class="c-red">400-800-1613</span>完成充值</p>
+                <p>4、到账时间：08:30-18:00（半小时内到帐），18:00以后（次日09:15前到帐）</p>
+                <div class="w70">
+                    <div class="pay-mode-check my-checkbox">
+                        <input type="checkbox" id="checkBox" />
+                        <label for="checkBox">我已成功转账</label>
+                    </div>
+                    <button type="button" class="mui-btn mui-btn-yellow mui-btn-grey mui-btn-block my-btn-block">确认转账并填写回执单</button>
+                </div>
+            </div>
+        </div>
+    </div>
+ 	<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+    <script type="text/javascript">
+    	if(DEBUG) console.log('正在执行 pay_bank.html');
+        $(function () {
+            $("#checkBox").prop("checked", false);
+        })
+        $(".pay-mode-check").on('tap', function () {
+            if ($(this).parent().hasClass("pay-mode-checked")) {
+                $(this).parent().removeClass("pay-mode-checked");
+                $(this).find("#checkBox").prop("checked", true);
+                $(this).siblings(".mui-btn").addClass("mui-btn-grey");
+                $(this).siblings(".mui-btn").removeAttr("onclick", "gourl();");
+            }
+            else{
+                $(this).parent().addClass("pay-mode-checked");
+                $(this).find("#checkBox").prop("checked", false);
+                $(this).siblings(".mui-btn").removeClass("mui-btn-grey");
+                $(this).siblings(".mui-btn").attr("onclick", "gourl();");
+            }
+            //$(this).parent().toggleClass("pay-mode-checked");
+            //$(this).siblings(".mui-btn").toggleClass("mui-btn-grey");
+            //$(this).siblings(".mui-btn").attr("onclick", "gourl();");
+        });
+        function gourl() {
+        	COM.openWindow('user/pay_bank_sub','pay_bank_sub.html',true);
+        }
+    </script>
+</body>
+</html>

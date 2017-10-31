@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+	<title>消息中心</title>
+	<link href="../css/mui.min.css" rel="stylesheet" />
+	<link rel="stylesheet" href="../css/style.css" />
+	<link rel="stylesheet" href="../css/iconfont.css" />
+	<link rel="stylesheet" href="../css/user.css" />
+</head>
+
+<body style="display: block;">
+	<header class="mui-bar mui-bar-nav header">
+		<a class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+		<h1 class="mui-title">消息中心</h1>
+	</header>
+	<div class="mui-content">
+		<div class="message">
+			<div class="mui-slider">
+				<div id="d_d_d_d" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted message-tit">
+					<a class="mui-control-item mui-active" title="message" >消息通知</a>
+					<a class="mui-control-item" title="message_list">公告消息</a>
+				</div>
+				<div id="sliderProgressBar" class="mui-slider-progress-bar mui-col-xs-6 message-tit-bar"></div>
+				<div class="mui-slider-group">
+					<div id="item1" class="mui-slider-item mui-control-content mui-active message-list">
+						<div id="newHL" style="position: relative;">
+							<!--下拉刷新容器-->
+							<div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+								<div class="mui-scroll">
+									<!--数据列表-->
+									<ul class="mui-table-view" id="data_list">
+									</ul>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="scripts/user.js"></script>
+	<script type="text/javascript">
+		if(DEBUG) console.log('正在执行user/message.html');
+		function pullupRefresh() {
+			setTimeout(function() {
+				var is_fresh = (++count > pagenum);
+				var ajaxObj = {
+					url:"tools/user_opt_ajax.ashx",
+					data:{act:'user_msg_list',pageSize:pageSize,p:count,t:new Date()},
+					dataType:'text',
+					type:'GET',
+					success:function(data){
+						if(DEBUG) console.log('==========COM.ajax回调函数');
+						$("#data_list").append(data);	
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(is_fresh);//参数为true代表没有更多数据了。 
+					}
+				}
+				if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+			}, 1000);
+		}
+		count = 0,
+		pageSize = 0, 
+		pagenum = 0;
+		mui('.header').on('tap','.mui-pull-left',function(){
+			COM.openWindow('user/default');
+		});
+		mui('#d_d_d_d').on('tap','a',function(){
+			var title = this.getAttribute('title');
+			COM.openWindow('user/'+title,title+'.html',true,true);
+		})
+		$("#newHL").css({
+			"height": ($(window).height() - 94) + "px"
+		}); 
+		mui("#data_list").on('tap', 'a', function() {
+			var goid = $(this).attr('goid');
+			COM.showMessage_d(goid);
+		});
+		
+		var _getData = function(){
+			$('#data_list').html('');
+			var ajaxObj = {
+				url: URL_DATA.userAjaxMessage,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						count = 0;
+						pageSize = rs.pageSize;
+						pagenum = rs.newsPageNum;
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+						mui('#pullrefresh').pullRefresh().pullupLoading();
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		}
+		COM.addReload(function(){
+			if(DEBUG) console.log('=addReload');
+			plus.navigator.setStatusBarBackground("#e63d34");
+			_getData();
+		});
+		
+		mui.plusReady(function() {
+			mui.init({
+				pullRefresh: {
+					container: '#pullrefresh',
+					up: {
+						contentrefresh: '正在加载...',
+						callback: pullupRefresh
+					}
+				}
+			});
+			_getData();
+		});
+	</script>

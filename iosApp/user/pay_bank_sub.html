@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>转账确认</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+</head>
+<body style="display: block;">
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">提交转账回执单</h1>
+    </header>
+    <div class="mui-content">
+        <div class="pay-mode mt10">
+            <div class="pay-mode-receipt">
+                <form id="form1" method="post" onsubmit="return false;">
+                    <div class="mui-input-row">
+                        <a href="#bankSheet">
+                            <label>到账银行</label>
+                            <input id="bankpayCardId" name="bankpayCardId" type="hidden" value="#" />
+                            <input type="text" id="bankpayCard" name="bankpayCard" placeholder="请选择到账银行" />
+                        </a>
+                    </div>
+                    <div class="mui-input-row">
+                        <label>转账金额</label>
+                        <input type="text" id="bannkrechargemoney" name="bannkrechargemoney" placeholder="请输入转账金额" />
+                    </div>
+                    <div class="mui-input-row"  style="display:none;">
+                        <label>转账卡号</label>
+                        <input type="text" id="bankrechargeno" name="bankrechargeno" placeholder="您的汇款账号" />
+                    </div>
+                    <div class="mui-input-row">
+                        <textarea rows="3" class="text-area" placeholder="备注信息：请填写姓名、手机号和转账方式" id="bankremark" name="bankremark"></textarea>
+                    </div>
+                    <p>到账时间：08:30-18:00（两小时内到账）18:00以后(次日09:15前到账)</p>
+                    <p>如需马上到账或者长时间未到账，可拨打客服电话：400-800-1613</p>
+                    <button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" id="btnRecharge" onclick="bankRecharge();">确认提交</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div id="bankSheet" class="mui-popover mui-popover-bottom mui-popover-action user-bank-select mui-active">
+        <!-- 可选择菜单 -->
+        <ul class="mui-table-view mui-table-view-radio _nobottom">
+            <li class="mui-table-view-cell mui-disabled">
+                <!--<a href="#bankSheet" class="mui-pull-left">X</a>-->
+                选择汇款账户
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="javascript:">
+                    <div class="user-bank-select-item mui-clearfix">
+                        <div class="user-bank-select-img mui-pull-left">
+                            <img src="../images/bank/ny.png" />
+                        </div>
+                        <div class="user-bank-select-info mui-pull-left">
+                            <span>中国农业银行</span>
+                            <p>6228 4504 6006 7035 610</p>
+                        </div>
+                    </div>
+                </a>
+            </li>
+            <li class="mui-table-view-cell">
+                <a class="mui-navigate-right" href="javascript:">
+                    <div class="user-bank-select-item mui-clearfix">
+                        <div class="user-bank-select-img mui-pull-left">
+                            <img src="../images/bank/gs.png" />
+                        </div>
+                        <div class="user-bank-select-info mui-pull-left">
+                            <span>中国工商银行</span>
+                            <p>6215 5844 0200 5031 372</p>
+                        </div>
+                    </div>
+                </a>
+            </li>
+        </ul>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+    <script src="../scripts/user.js"></script>
+    <script type="text/javascript">
+        mui("#bankSheet").popover('toggle');
+        var list = document.querySelector('.mui-table-view.mui-table-view-radio');
+        list.addEventListener('selected', function (e) {
+            var tit = e.detail.el.innerText;
+            tit = tit.replace('\n', '');
+            $("#bankpayCard").val(tit);
+            if (tit.indexOf("农业") > 0) {
+                $("#bankpayCardId").val(27);
+            }
+            if (tit.indexOf("工商") > 0) {
+                $("#bankpayCardId").val(29);
+            }
+            if (tit.indexOf("招商") > 0) {
+                $("#bankpayCardId").val(30);
+            }
+            mui("#bankSheet").popover('hide');
+        });
+    </script>
+</body>
+</html>

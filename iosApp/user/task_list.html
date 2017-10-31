@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>任务中心</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">任务中心</h1>
+        <a class="mui-btn-link mui-pull-right white"  onclick="COM.showEplain('exp_task','../');">规则</a>
+    </header>
+    <div class="mui-content">
+        <div class="task">
+            <div class="mui-slider">
+                <div class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted task-tit">
+                    <a class="mui-control-item mui-active mui-btn" href="#item1">每日任务</a>
+                    <a class="mui-control-item mui-btn" href="#item2">成长任务</a>
+                   
+                </div>
+
+                <div class="mui-slider-group">
+                    <div id="item1" class="mui-slider-item mui-control-content mui-active">
+                        <ul class="mui-table-view task-list mt10">
+                            <li class="mui-table-view-cell">
+                                <span class="mui-pull-left">登录签到</span>
+                                <div class="mui-pull-right" id="d_signInfo">
+
+                                </div>
+                            </li>
+                            <li class="mui-table-view-cell">
+                                <span class="mui-pull-left">邀请好友</span>
+                                <div class="mui-pull-right" id="d_reg_by_code">
+
+                                </div>
+                            </li>
+                            <li class="mui-table-view-cell">
+                                <span class="mui-pull-left">每日分享</span>
+                                <div class="mui-pull-right" id="d_reg_by_code_1">
+                                    
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div id="item2" class="mui-slider-item mui-control-content">
+                        <ul class="mui-table-view task-list mt10" id="d_reference">
+                            
+                            <li class="mui-table-view-cell">
+                                <span class="mui-pull-left">绑定银行卡</span>
+                                <div class="mui-pull-right" id="d_bind_bank">
+  
+                                </div>
+                            </li>
+                            <li class="mui-table-view-cell">
+                                <span class="mui-pull-left">设置提现密码</span>
+                                <div class="mui-pull-right" id="d_trade_pass">
+
+                                </div>
+                            </li>
+                            <li class="mui-table-view-cell">
+                                <span class="mui-pull-left">完善个人信息</span>
+                                <div class="mui-pull-right" id="d_user_info">
+  
+                                </div>
+                            </li>
+                            <li class="mui-table-view-cell">
+                                <span class="mui-pull-left">实名认证</span>
+                                <div class="mui-pull-right" id="d_name_true">
+
+                                </div>
+                            </li>
+                            <li class="mui-table-view-cell">
+                                <span class="mui-pull-left">首次充值</span>
+                                <div class="mui-pull-right" id="d_recharge_first">
+
+                                </div>
+                            </li>
+                            <li class="mui-table-view-cell">
+                                <span class="mui-pull-left">首次配资</span>
+                                <div class="mui-pull-right" id="d_stock_first">
+
+                                </div>
+                            </li>
+                            <li class="mui-table-view-cell" style="display: none;">
+                                <span class="mui-pull-left">参加有奖模拟大赛</span>
+                                <div class="mui-pull-right" id="d_prizes">
+
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/user.js"></script>
+    <script>
+    	if(DEBUG) console.log('正在执行user/task_list.html');
+//  	mui('.header').on('tap','.mui-pull-left',function(){
+//			COM.openWindow(COM.getStorage(LOCAL_STORAGE.u_deal_prev_id));
+//		});
+		mui.init({
+				statusBarBackground: '#e63d34',
+			});
+    	COM.createLoading();
+    	COM.addReload(function(){
+    		plus.navigator.setStatusBarBackground("#e63d34");
+    		var ajaxObj = {
+				url: URL_DATA.userAjaxTask_list,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						initShow(rs);
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+    		if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+    	});
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			var ajaxObj = {
+				url: URL_DATA.userAjaxTask_list,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						initShow(rs);
+						COM.closeLoading();
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+    </script>
+    <script>
+    	var initShow = function(rs){
+    		var userModel = rs.userModel;
+    		
+    		var signInfo = rs.signInfo;//登陆签到
+    		if(DEBUG) console.log('=rs.signInfo===='+signInfo);
+    		if(signInfo){
+    			$('#d_signInfo').html('<span class="span">1/1</span><button type="button" class="mui-btn mui-btn-black task-btn mui-pull-right">已领取<p>10牛币</p></button>');
+    		}else{ 
+    			$('#d_signInfo').html('<span class="span">0/1</span><button type="button" class="mui-btn mui-btn-yellow task-btn mui-pull-right" onclick="gourl(\'sign.html\');">去签到<p>10牛币</p></button>');
+    		}
+    		var reg_by_code = rs.reg_by_code;//邀请好友
+    		if(DEBUG) console.log('=rs.reg_by_code===='+reg_by_code);
+    		if(reg_by_code > 0){
+    			$('#d_reg_by_code').html('<span class="span">'+reg_by_code
+    			+'人</span><button type="button" class="mui-btn mui-btn-black task-btn mui-pull-right">'
+    			+'已领取<p>300牛币</p></button>');
+    			
+    			$('#d_reg_by_code_1').html('<span class="span">1/1</span><button type="button" class="mui-btn mui-btn-black task-btn mui-pull-right">已领取<p>10牛币</p></button>');
+    		}else{
+    			$('#d_reg_by_code').html('<span class="span">0/1</span>'
+    			+'<button type="button" class="mui-btn mui-btn-red task-btn mui-pull-right" '
+    			+'onclick="gourl(\'extension.html\');">去完成<p>300牛币</p></button>');
+    			
+    			$('#d_reg_by_code_1').html('<span class="span">0/1</span><button type="button" class="mui-btn mui-btn-red task-btn mui-pull-right" onclick="gourl(\'extension.html\');">去完成<p>10牛币</p></button>');
+    		}
+    		
+    		var reference = userModel.reference;// 注册
+    		if(DEBUG) console.log('=userModel.reference===='+reference);
+    		if(reference == 0){
+    			$('#d_reference').prepend('<li class="mui-table-view-cell"><span class="mui-pull-left">注册成功</span><div class="mui-pull-right"><span class="span">1/1</span><button type="button" class="mui-btn mui-btn-black task-btn mui-pull-right">已领取<p>100牛币</p></button></div></li>');
+    		}else{
+    			$('#d_reference').prepend('<li class="mui-table-view-cell"><span class="mui-pull-left">注册成功</span><div class="mui-pull-right"><span class="span">1/1</span><button type="button" class="mui-btn mui-btn-black task-btn mui-pull-right">已领取<p>300牛币</p></button></div></li>')
+    		}
+    		
+    		var bind_bank = rs.bind_bank;//绑定银行卡
+    		if(DEBUG) console.log('=rs.bind_bank===='+bind_bank);
+    		if(bind_bank > 0){
+    			$('#d_bind_bank').html('<span class="span">1/1</span><button type="button" class="mui-btn mui-btn-black task-btn mui-pull-right">已领取<p>200牛币</p></button>');
+    		}else{
+    			$('#d_bind_bank').html('<span class="span">0/1</span><button type="button" class="mui-btn mui-btn-red task-btn mui-pull-right" onclick="gourl(\'bank_add.html\');">去完成<p>200牛币</p></button>');
+    		}
+    		
+    		var trade_pass = rs.trade_pass.trim();//设置提现密码
+    		if(DEBUG) console.log('=rs.trade_pass===='+trade_pass);
+    		if(trade_pass.length >= 6){
+    			$('#d_trade_pass').html('<span class="span">1/1</span><button type="button" class="mui-btn mui-btn-black task-btn mui-pull-right">已领取<p>50牛币</p></button>');
+    		}else{
+    			$('#d_trade_pass').html('<span class="span">0/1</span><button type="button" class="mui-btn mui-btn-red task-btn mui-pull-right" onclick="gourl(\'trade_pwd.html\');">去完成<p>50牛币</p></button>');
+    		}
+    		
+    		var user_info = rs.user_info;//完善个人信息
+    		if(DEBUG) console.log('=rs.user_info===='+user_info);
+    		if(user_info > 0){
+    			$('#d_user_info').html('<span class="span">1/1</span><button type="button" class="mui-btn mui-btn-black task-btn mui-pull-right">已领取<p>50牛币</p></button>');
+    		}else{
+    			$('#d_user_info').html('<span class="span">0/1</span><button type="button" class="mui-btn mui-btn-red task-btn mui-pull-right" onclick="gourl(\'userinfo.html\');">去完成<p>50牛币</p></button>');
+    		}
+    		
+    		var name_true = rs.name_true;//实名认证
+    		if(DEBUG) console.log('=rs.name_true===='+name_true);
+    		if(name_true == 2){
+    			$('#d_name_true').html('<span class="span">1/1</span><button type="button" class="mui-btn mui-btn-black task-btn mui-pull-right">已领取<p>200牛币</p></button>');
+    		}else{
+    			$('#d_name_true').html('<span class="span">0/1</span><button type="button" class="mui-btn mui-btn-red task-btn mui-pull-right" onclick="gourl(\'real_name.html\');">去完成<p>200牛币</p></button>');
+    		}
+    		
+    		var recharge_first = rs.recharge_first;//首次充值
+    		if(DEBUG) console.log('=rs.recharge_first===='+recharge_first);
+    		if(recharge_first > 0){
+    			$('#d_recharge_first').html('<span class="span">1/1</span><button type="button" class="mui-btn mui-btn-black task-btn mui-pull-right">已领取<p>200牛币</p></button>');
+    		}else{
+    			$('#d_recharge_first').html('<span class="span">0/1</span><button type="button" class="mui-btn mui-btn-red task-btn mui-pull-right" onclick="gourl(\'pay.html\');">去完成<p>200牛币</p></button>');
+    		}
+    		
+    		var stock_first = rs.stock_first;//首次配资
+    		if(DEBUG) console.log('=rs.stock_first===='+stock_first);
+    		if(stock_first > 0){
+    			$('#d_stock_first').html('<span class="span">1/1</span><button type="button" class="mui-btn mui-btn-black task-btn mui-pull-right">已领取<p>200牛币</p></button>');
+    		}else{
+    			$('#d_stock_first').html('<span class="span">0/1</span><button type="button" class="mui-btn mui-btn-red task-btn mui-pull-right" onclick="gourl(\'../stock/month.html\');">去完成<p>200牛币</p></button>');
+    		}
+    		
+    		var prizes = rs.prizes;//参加有奖模拟大赛
+    		if(DEBUG) console.log('=rs.prizes===='+prizes);
+    		if(prizes > 0){
+    			$('#d_prizes').html('<span class="span">1/1</span><button type="button" class="mui-btn mui-btn-black task-btn mui-pull-right">已领取<p>100牛币</p></button>');
+    		}else{
+    			$('#d_prizes').html('<span class="span">0/1</span><button type="button" class="mui-btn mui-btn-red task-btn mui-pull-right" onclick="alert(\'请使用电脑版操作\');">去完成<p>100牛币</p></button>');
+    		}
+    	}
+    </script>
+    <script type="text/javascript">
+        var gourl = function (urls) {
+        	var id = 'user/'+urls.replace('.html','');
+        	COM.openWindow(id,urls,true,true);
+        }
+    </script>
+</body>
+</html>

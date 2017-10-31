@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>优惠券</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../css/stock.css" />
+    <link rel="stylesheet" href="../css/mui.picker.min.css" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header" style="box-shadow: none;">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">股票配资</h1>
+        <a class="mui-btn mui-btn-link mui-pull-right white" id="r_record">记录</a>
+    </header>
+    <div class="mui-content">
+        <div class="stock">
+            <div class="stock-top">
+                <p class="c-white">你的可操盘资金</p>
+                <div class="stock-money">
+                    <ul>
+                        <li class="mui-clearfix">
+                            <strong class="money_all">0</strong>元
+								<span class="mui-pull-right mui-icon my-icon my-icon-question-w"></span>
+                        </li>
+                        <li class="mui-clearfix">
+                            <div class="mui-pull-left">管理费<span class="fee">0</span>元/月</div>
+                            <div class="mui-pull-right">
+                                <p>警戒线 <span class="rateWarn">0</span>元</p>
+                                <p>平仓线 <span class="rateOpenLine">0</span>元</p>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="stock-main">
+                <ul class="mui-table-view _noleft _nobottom">
+                    <li class="mui-table-view-cell">
+                        <span class="mui-pull-left">配资方式</span>
+                        <span class="mui-pull-right" id="stockType">
+                            <span class="stock-type">奖励配资</span>
+                        </span>
+                    </li>  
+                    <li class="mui-table-view-cell">
+                        <span class="mui-pull-left">本次最高可配</span>
+                        <span class="mui-pull-right">
+                            <span class="stock-type" style="color: red; text-align: center;" id="d_money_reward"></span>
+                        </span>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <span class="mui-pull-left">配资本金</span>
+                        <span class="mui-pull-right" id="stockMoney">
+                            <span class="mui-icon mui-icon-arrowdown mui-pull-right"></span>
+                            <span class="stock-type">1,000</span>
+                        </span>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <span class="mui-pull-left">配资倍数</span>
+                        <span class="mui-pull-right">
+                            <span class="stock-type">5倍</span>
+                        </span>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <span class="mui-pull-left">资金使用期</span>
+                        <span class="mui-pull-right" id="daysCheck">
+                            <span class="stock-type">1个月</span>
+                        </span>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <span class="mui-pull-left">交易开始时间</span>
+                        <span class="mui-pull-right" id="stockStart">
+                            <span class="mui-icon mui-icon-arrowdown mui-pull-right"></span>
+                            <span class="stock-type">今日</span>
+                        </span>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <span class="mui-pull-left">借款协议
+                        </span>
+                        <span class="mui-pull-right">
+                            <span class="my-checkbox">
+                                <input type="checkbox" id="agree" name="agree" checked="checked" />
+                                <label for="checkBox">是否同意<a href="/protocol/monthtraderagreement.html" class="c-yel">《借款协议》</a></label>
+                            </span>
+                        </span>
+                    </li>
+                    <li>
+                        <button type="button" class="mui-btn mui-btn-yellow mui-btn-block stock-submit" onclick="return startstock();">确定，提交配资方案</button>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <h3>说明：</h3>
+                        <p>1、奖励资金只能通过参与牛金所平台活动获得。</p>
+                        <p>2、奖励资金仅限于本平台使用。</p>
+                        <p>3、奖励资金进行配资每笔资金只有一次兑换机会，可自行选择使用金额。</p>
+                        <p>4、奖励资金可通过“我的账户”-“我的操盘”-“奖励资金”进行查询。</p>
+                        <p>5、本活动最终解释权归牛金所平台所有。</p>
+                    </li>
+                </ul>
+
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+	<script src="../scripts/mui.picker.min.js"></script>
+	
+    <input id="money_reward" type="hidden" value="" />
+    <input id="money_times" type="hidden" value="" />
+    <input id="money" name="money" type="hidden" value="0" />
+    <input id="money_borrow" name="money_borrow" type="hidden" value="0" />
+    <input id="money_all" name="money_all" type="hidden" value="0" />
+    <input id="cycle" type="hidden" value="1" />
+    <input id="id" type="hidden" value="" />
+    <input id="productId" type="hidden" value="" />
+    <input id="rate_warn" type="hidden" value="" />
+    <input id="rate_open_line" type="hidden" value="" />
+    <input type="hidden" name="isTomorrowGetMoney" id="isTomorrowGetMoney" value="0" />
+    <script src="../scripts/jquery/common.js"></script>
+    <script>
+    	if(DEBUG) console.log('正在执行 user/reward.html');
+    	COM.createLoading();
+    	COM.addReload();
+    	mui.init({
+			statusBarBackground: '#e63d34',
+		});
+		mui.plusReady(function() {
+			COM.createMenu('stock/day', '../');
+			var id = COM.getStorage(LOCAL_STORAGE.z_reward_id);
+			var ajaxObj = {
+				url: URL_DATA.stockAjaxReward,
+				type: 'get',  
+				data:{id:id},
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						initShow(rs);
+						COM.closeLoading();
+						oldCode(rs);
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+    </script>
+    <script>
+    	var initShow = function(rs){
+    		rewardInfo = rs.rewardInfo;
+    		console.log('=rewardInfo===='+rewardInfo);
+    		productInfo = rs.productInfo;
+    		userModel = rs.userModel;
+    		
+    		$('#d_money_reward').html(COM.stringFormat(rewardInfo.money_reward) + rewardInfo.status>1?"&nbsp;&nbsp;已激活":"");
+    		$('#money_reward').val(rewardInfo.money_reward);
+    		$('#money_times').val(productInfo.money_times);
+    		$('#id').val(rs.id);
+    		$('#productId').val(productInfo.id);
+    		$('#rate_warn').val(productInfo.rate_warn);
+    		$('#rate_open_line').val(productInfo.rate_open_line);
+    	}
+    </script>
+    <script>
+    	mui('body').on('tap','#r_record',function(){
+    		COM.go_borrow_list(false,false,false,'../');
+		});
+		
+    	var oldCode = function(rs){
+    		$("#select3").addClass("mui-active");
+    		checkonproduct(1000);
+    		var money_list_json = "["+rs.money_list_json+"]";
+    		if(DEBUG) console.log('=money_list_json===='+money_list_json);
+    		$("#stockMoney").on('tap', function (e) {
+                var $this = $(this);
+                var picker = new mui.PopPicker();
+                picker.setData( eval("("+ money_list_json +")"));
+                picker.show(function (selectItems) {
+                    var money = selectItems[0].value, tit = selectItems[0].text;
+                    $("#stockMoney .stock-type").html(money);
+                    checkonproduct(money);
+                });
+            });
+            $("#stockStart").on('tap', function (e) {
+                var $this = $(this);
+                var picker = new mui.PopPicker();
+                picker.setData([{
+                    value: "0",
+                    text: "今日",
+                }, {
+                    value: "1",
+                    text: "下个交易日"
+                }]);
+                picker.show(function (selectItems) {
+                    var val = selectItems[0].value, tit = selectItems[0].text;
+                    $("#isTomorrowGetMoney").val(val);
+                    $("#stockStart").find(".stock-type").html(tit);
+                }); 
+            });
+    	}
+    </script>
+    <script type="text/javascript">
+        /* 快速操盘选择产品 */
+        function checkonproduct(value) {
+            var money_reward = parseInt($("#money_reward").val());
+            var money_times = parseInt($("#money_times").val());
+            var rate_warn = parseFloat($("#rate_warn").val());
+            var rate_open_line = parseFloat($("#rate_open_line").val());
+            var money_borrow = value * money_times;
+            if (money_borrow > money_reward) {
+                layer.msg("亲，最大配资金额不能超过" + money_reward + "元！");
+                return;
+            }
+            var total = money_borrow + parseFloat(value);
+            $("#money").val(value);
+            $("#money_borrow").val(money_borrow);
+            $("#money_all").val(total);
+            $(".money_borrow").html(money_borrow);
+            $(".money_warn").html(money_borrow + value * rate_warn);
+            $(".money_open_line").html(money_borrow + value * rate_open_line);
+
+            $(".rateWarn").html(fMoney(money_borrow + value * rate_warn, 2));
+            $(".rateOpenLine").html(fMoney(money_borrow + value * rate_open_line, 2));
+            $(".money_all").html(fMoney(total, 2));
+        }
+        function startstock() {
+        	if(userModel.name_true != 2){
+        		mui.confirm('系统检测到您还没有进行实名认证', '实名认证', ['立即认证', '我在想想'], function (e) {
+	                if (e.index == 0) {
+	                	COM.openWindow('user/real_name','../user/real_name.html',true);
+	                }
+	            });
+        	}else{
+	            var id = parseInt($("#id").val());
+	            var money = parseInt($("#money").val());
+	            var isTomorrowGetMoney = $("#isTomorrowGetMoney").val();
+	            var money_reward = parseInt($("#money_reward").val());
+	            var money_borrow = parseInt($("#money_borrow").val());
+	            var days = $("#cycle").val();
+	            var productId = $("#productId").val();
+	            if (productId == "" || productId == 0) {
+	                layer.msg("该产品暂未开通");
+	                return;
+	            }
+	            if (isNaN(money)) {
+	                layer.msg("亲，请输入您的本金。");
+	                return false;
+	            }
+	            if (money < 1000) {
+	                layer.msg("亲，操盘本金不能小于1000元!");
+	                return false;
+	            }
+	            if ((money % 1000 != 0)) {
+	                layer.msg("亲，操盘本金必须是1000的整数倍");
+	                return false;
+	            }
+	            if (isTomorrowGetMoney == "" || isTomorrowGetMoney == null) {
+	                layer.msg("请选择交易开始时间！");
+	                return false;
+	            }
+	            if ($("#agree").is(':checked')) {
+	                layer.load("请求处理中，请稍后...", 2);
+//	                + "#indexdiv"
+	                var url = "pay.html?reward_id=" + id + "&id=" + productId + "&money=" + money + "&money_borrow=" + money_borrow + "&isTomorrowGetMoney=" + isTomorrowGetMoney + "&days=" + days ;
+	                linkClick(url);
+	            }
+	            else {
+	                layer.msg("请先阅读《配资借款协议》并同意");
+	            }
+        	}
+        }
+    </script>
+</body>
+</html>

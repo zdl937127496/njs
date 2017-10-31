@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>消息详情</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/activity.css" />
+		<style>
+			#jiathis_weixin_modal {
+				background-clip: padding-box;
+				background-color: #FFFFFF;
+				border: 1px solid rgba(0, 0, 0, 0.3);
+				border-radius: 6px 6px 6px 6px;
+				box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+				left: 69% !important;
+				margin: -200px 0 0 -200px;
+				overflow: hidden;
+				position: fixed;
+				top: 50%;
+				width: 278px !important;
+				height: 360px;
+				overflow: hidden;
+			}
+		</style>
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title" id="category_name"></h1>
+			<a class="mui-btn mui-btn-link mui-pull-right white"></a>
+		</header>
+		<div class="mui-content">
+			<div class="news-detail">
+				<div class="news-detail-tit">
+					<div class="tit" id="d_title"></div>
+					<span class="time" id="d_add_time"></span>
+				</div>
+				<div class="news-detail-con" id="d_img_url">
+
+				</div>
+				<p style="display: none;">将该文章分享到：</p>
+				<div class="news-share" style="display: none;">
+					<ul class="my-ul mui-clearfix">
+						<li>
+							<a class="jiathis_button_weixin nohref">
+								<img src="../images/icon/wx_line.png" />
+								<span>微信</span>
+							</a>
+						</li>
+						<li>
+							<a class="jiathis_button_cqq nohref">
+								<img src="../images/icon/qq_line.png" />
+								<span>QQ</span>
+							</a>
+						</li>
+						<li>
+							<a class="jiathis_button_tsina nohref">
+								<img src="../images/icon/wb_line.png" />
+								<span>微博</span>
+							</a>
+						</li>
+					</ul>
+				</div>
+				<div class="news-recommend" style="display: none;">
+					<div class="news-recommend-tit">推荐阅读</div>
+					<div class="news-recommend-con">
+						<ul class="mui-table-view news-list _notop" id="d_list">
+							
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
+<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+<script type="text/javascript" src="../scripts/mui.min.js"></script>
+<script>
+	if(DEBUG) console.log('正在执行 news/detail.html');
+	mui('.header').on('tap','.mui-pull-left',function(){
+		COM.openWindow(COM.getStorage(LOCAL_STORAGE.u_deal_prev_id));
+	});
+	COM.addReload(function(){
+		plus.navigator.setStatusBarBackground("#e63d34");
+		COM.createLoading();
+		$('#category_name').html('');
+		$('#d_title').html('');
+		$('#d_add_time').html('');
+		$('#d_img_url').html('');
+		_getData();
+	});
+	var _getData = function(oldFlag){
+		var id = COM.getStorage(LOCAL_STORAGE.zMessage_dID);
+		var ajaxObj = {
+			url: URL_DATA.newsAjaxDetail,
+			type: 'get', 
+			data:{id:id},
+			success: function(rs) {
+				if(DEBUG) console.log('==========COM.ajax回调函数');
+				initShow(rs);
+				COM.closeLoading();
+				if(oldFlag){
+					oldCode(rs);
+				}
+			}
+		}
+		if(DEBUG) console.log('==========正在执行COM.ajax');
+		COM.ajax(ajaxObj);
+	}
+	
+	COM.createLoading();
+	mui.plusReady(function() {  
+		COM.createMenu('', '../');
+		_getData(1);
+	});
+	mui('#d_list').on('tap','li',function(){
+		var goid = $(this).attr('goid');
+		COM.showNewsDetail(goid);
+	});
+</script>
+<script>
+	
+	var initShow = function(rs) {
+		var arModel = rs.arModel;
+
+		var category_name = arModel.category_name;
+		if(DEBUG) console.log('=arModel.category_name====' + category_name);
+		$('#category_name').html(category_name);
+
+		var title = arModel.title;
+		if(DEBUG) console.log('=arModel.title====' + title);
+		$('#d_title').html(title);
+
+		var add_time = arModel.add_time.replace(/[^\d]/g,"");
+		if(DEBUG) console.log('=arModel.add_time====' + add_time);
+		add_time = new Date(parseInt(add_time)).format('yyyy-MM-dd hh:mm')
+		if(DEBUG) console.log('=arModel.add_time====' + add_time);
+		$('#d_add_time').html(add_time);
+
+		var img_url = arModel.img_url.trim();
+		if(DEBUG) console.log('=arModel.img_url====' + img_url);
+		if(img_url.length > 12) {
+			img_url = img_url.replace('/upload/', 'http://www.njs168.net/upload/');
+			$('#d_img_url').html('<img src="' + img_url + '" />');
+		} 
+		$('#d_img_url').append(arModel.content.replaceAll("/upload/", "http://www.njs168.net/upload/"));
+		$('#d_img_url a').each(function(){
+			var hrefLink = "javascript:COM.goExternalLinks('"+ this.getAttribute('href')+"','../');";
+			if(DEBUG)console.log(this.getAttribute('href'));
+			this.setAttribute('href','javascript:void(0);');
+		});
+		if(DEBUG) console.log('=rs.list====' + rs.list);
+		$('#d_list').html(rs.list);
+		
+//		if(COM.getStorage(LOCAL_STORAGE.zMessageBackUrl)){
+//			$('#d_back').attr('href',COM.getStorage(LOCAL_STORAGE.zMessageBackUrl));
+//		}else{
+//			var call_index = rs.call_index || 'ann';
+//			$('#d_back').attr('href','javascript:COM.showNewsList(\''+ call_index +'\')');
+//			if(DEBUG) console.log('=href===='+$('#d_back').attr('href'));
+//		}
+	}
+	//分享状态监测
+	var is_share_succ = function() {
+		$("#myPopupBack").hide();
+		$("#share").hide();
+		$("#myExtendLink").hide();
+		$("#myExtendEwm").hide();
+		$("#myExtendYqm").hide();
+		mui.confirm('您已经分享成功了？', '分享状态', ['是的', '没有'], function(e) {
+			if(e.index == 0) {
+				$.ajax({
+					url: "/tools/user_opt_ajax.ashx?act=is_share_succ",
+					dataType: "text",
+					type: "post",
+					success: function(data) {
+						var obj = eval('(' + data + ')');
+						alert(obj.info);
+						window.location.reload();
+					}
+				});
+			}
+		});
+	}
+</script>
+<script type="text/javascript">
+	var jiathis_config = null;
+	var oldCode = function(rs){
+    	jiathis_config = {
+			data_track_clickback: true,
+			url: rs.ref_url,
+			summary: "牛金所配资-90%的股民都会选择的互联网在线配资平台,更安全！快来注册啦",
+			title: "牛金所配资-90%的股民都会选择的互联网在线配资平台,更安全！快来注册啦",
+			pic: rs.config.webmobileurl + rs.QRCodeImages,
+			shortUrl: false,
+			hideMore: true
+		}
+
+        var bp = document.createElement('script');
+        bp.src = 'http://v3.jiathis.com/code/jia.js?uid=1829167';
+        bp.charset = 'utf-8';
+        bp.type = 'text/javascript';
+        var s = document.getElementsByTagName("script")[0];
+        s.parentNode.insertBefore(bp, s);
+   }
+</script>

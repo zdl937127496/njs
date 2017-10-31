@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>资金记录</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../css/stock.css" />
+    <link href="../css/pager.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-icon mui-icon-left-nav"></a>
+        <h1 class="mui-title">资金记录</h1>
+        <a class="mui-btn mui-btn-link mui-pull-right white">说明</a>
+    </header>
+    <div class="mui-content">
+        <div class="mui-slider">
+            <div id="d_d_d_d" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted stock-tit-list">
+                <a class="mui-control-item my-link" title="user/borrow_fee_list" url="borrow_fee_list.html">管理费</a>
+                <a class="mui-control-item mui-active" >保证金</a>
+            </div>
+
+            <div class="mui-slider-group">
+                <div id="item1" class="mui-slider-item mui-control-content mui-active">
+                    <div class="fund-list">
+                        <ul class="mui-table-view _noleft" id="borrow_begin_list">
+                            <li>加载中，请稍后...</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="page">
+                <div id="pager_borrow_begin_list" class="page flickr" style="display: none;"></div>
+            </div>
+        </div>
+    </div>
+    <input id="borrow_id" type="hidden" value="" />
+    <input id="borrow_beigin_list_count" type="hidden" value="" />
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+	<script src="../scripts/mui.picker.min.js"></script>
+    <script src="../scripts/jquery/pagination.js"></script>
+    <script src="../scripts/pager.js"></script>
+    <script>
+    	if(DEBUG) console.log('正在执行 user/borrow_begin_list.html');
+    	mui('.header').on('tap','.mui-icon-left-nav',function(){
+			COM.openWindow('user/borrow_detail','borrow_detail.html',false,true);
+		});
+    	mui('.header').on('tap','.mui-pull-right',function(){
+			COM.showEplain('exp_borrow_deposit','../')
+		});
+    	mui('#d_d_d_d').on('tap','.my-link',function(){
+			COM.openWindow(this.getAttribute('title'),this.getAttribute('url'),true,true);
+		});
+		mui.init({
+				statusBarBackground: '#e63d34',
+			});
+    	COM.createLoading();
+    	COM.addReload();
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			detail_id = COM.getStorage(LOCAL_STORAGE.z_borrow_detail_id);
+			var ajaxObj = {
+				url: URL_DATA.userAjaxBorrow_begin_list,
+				type: 'get',
+				data:{id:detail_id},
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						if(rs.goto){
+							COM.openWindow('default');
+						}else{  
+							$('#borrow_id').val(rs.id);
+							$('#borrow_beigin_list_count').val(rs.borrow_beigin_list_count);
+							COM.closeLoading();
+							console.log('==========正在调用BorrowBeginListData');
+							BorrowBeginListData(0);
+						}
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		});
+   </script>
+</body>
+</html>

@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>注册_牛金所</title>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="css/style.css" />
+    <link rel="stylesheet" type="text/css" href="css/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="css/login.css" />
+</head>
+<body style="display: block;">
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left black"></a>
+        <h1 class="mui-title">注册</h1>
+    </header>
+    <div class="mui-content">
+        <div class="reg">
+            <div class="logo">
+                <img src="images/logo.png" alt="牛金所" />
+            </div>
+            <div class="reg-ad">
+                <img src="images/login/reg_ad.png" alt="随时随地炒牛股" />
+            </div>
+            <form id="form1" method="post" onsubmit="return false;" url="/tools/user_ajax.ashx?act=reg">
+                <div class="reg-form w70" id="step1">
+                    <div class="mui-row">
+                        <input type="text" value="" id="mobile" name="mobile" class="com-inp" placeholder="手机号码" />
+                    </div>
+
+                    <div class="mui-row njs_yzm">
+                        <input type="text" id="code" name="code" class="com-inp" placeholder="输入图像验证码" />
+                        <img width="100" id="vCodeImg" alt="验证码"
+                            title="点击切换验证码" onclick="ToggleCode(this, 'tools/verify_code_sub.aspx');return false;" class="mui-btn mui-btn-yellow mui-btn-outlined yzm" />
+                    </div>
+                    <p style="margin-top:-10px; color:red;">验证码请填写图中公式答案，必须为阿拉伯数字</p>
+                    <div class="mui-row njs_yzm">
+                        <input type="text" id="code_mobile" name="code_mobile" class="com-inp" placeholder="输入验证码" />
+                        <input id="btnOnece" value="获取验证码" type="button" class="mui-btn mui-btn-yellow mui-btn-outlined yzm" onclick="reg_code();" />
+                    </div>
+                    <div class="mui-row">
+                        <input type="text" id="ref_mobile" name="ref_mobile" class="com-inp" placeholder="请输入推荐人手机，可为空" />
+                    </div>
+                    <button id="next" type="button" class="mui-btn mui-btn-blue mui-btn-block login-btn" onclick="reg_next();">下一步</button>
+                    <div class="mui-row reg-check" id="d_d_d_d">
+                        <label>
+                            <input type="checkbox" id="agree" name="agree" />是否同意</label><a id="protocol" title="protocol" class="yellow">《用户协议》</a>
+                    </div>
+                </div>
+                <div class="reg-form w70" id="step2" style="display: none;">
+                    <div class="mui-row">
+                        <input type="password" id="pwd" name="pwd" class="com-inp" placeholder="请输入密码" />
+                    </div>
+                    <div class="mui-row">
+                        <input type="password" id="pwd2" name="pwd2" class="com-inp" placeholder="确认密码" />
+                    </div>
+                    <button id="btnSubmit" type="button" class="mui-btn mui-btn-blue mui-btn-block login-btn">注册</button>
+                </div>
+            </form>
+        </div>
+    </div>
+    <script src="scripts/jquery/jquery-1.11.2.min.js"></script>
+    <script src="scripts/layer/layer.js"></script>
+    <script src="scripts/mui.min.js"></script>
+    <script src="scripts/jquery/Cookie.js"></script>
+    <script src="scripts/user.js"></script>
+    <script type="text/javascript">
+    	if(DEBUG) console.log('正在执行');
+    	mui.init({
+			statusBarBackground: '#e63d34',
+		});
+		mui('.header').on('tap','.mui-pull-left',function(){
+			COM.openWindow(COM.getStorage(LOCAL_STORAGE.u_deal_prev_id),'',true);
+		});
+    	document.getElementById('vCodeImg').src =  URL_DATA.https + 'tools/verify_code_sub.aspx';
+		COM.addReload();
+        $(function () {
+            var refrenstime = getCookie("refresht");
+            if (refrenstime > 0) {
+                refreshmsg(getCookie("refreshid"), refrenstime);
+            }
+        });
+        mui('#d_d_d_d').on('tap','#protocol',function(){
+        	COM.openWindow('protocol','',false,true);
+        });
+
+        mui(".reg-form").on('tap', '#btnSubmit', function () {
+            var url = getUrlParam("url"), mobile = $("#mobile").val(), pwd = $("#pwd").val(), pwd2 = $("#pwd2").val(), code_mobile = $("#code_mobile").val(), ref_mobile = $("#ref_mobile").val();
+            if (!ValidateChar(pwd)) {
+                $("#pwd").focus();
+                layer.msg("密码由6-24位的字母数字或下划线组成");
+                return;
+            }
+            if (pwd2 != pwd) {
+                $("#pwd2").focus();
+                layer.msg("两次输入密码不一致");
+                return;
+            }
+            if (code_mobile.length != 4) {
+                layer.msg("请输入正确的短信验证码");
+                $("#code_mobile").focus();
+                return;
+            }
+            if (ref_mobile != "") {
+                /*推荐人电话验证*/
+                if (!ValidateMobile(ref_mobile)) {
+                    $("#ref_mobile").focus();
+                    layer.msg("推荐人手机号码不正确");
+                    return;
+                }
+            }
+            if (!$('#agree').is(':checked')) {
+                layer.msg("必须同意注册协议才能注册");
+                $("#agree").focus();
+                return;
+            }
+            var ajaxObj = {
+            	url:URL_DATA.https + 'tools/user_ajax.ashx?act=reg',
+            	data: { "mobile": mobile, "pwd": pwd, "pwd2": pwd2, code_mobile: code_mobile, ref_mobile: ref_mobile },
+            	beforeSend: function (XMLHttpRequest) {
+                    $("#btnSubmit").attr("disabled", true);
+                    layer.load(0, { shade: false, time: 1000 });
+                },success: function (data, textStatus) {
+                	if(DEBUG) console.log('==========COM.ajax回调函数');
+                    if (data.status == "y") {
+                        mui.alert(
+                            '恭喜你注册成功，请码妥善保管账户和密码',
+                            '恭喜你注册成功',
+                            ['知道啦'],
+                            function (e) {
+                                if (e.index == 0) {
+                                	COM.openWindow('login');
+                                }
+                            }
+                        );
+                    } else if (data.status == "y2") {
+                        mui.alert(
+                            '恭喜你注册成功，请码妥善保管账户和密码',
+                            '恭喜你注册成功',
+                            ['知道啦'],
+                            function (e) {
+                                if (e.index == 0) {
+                                	COM.openWindow('user/bind_phone');
+                                }
+                            }
+                        );
+                    } else {
+                        layer.msg(data.info);
+                        $("#btnSubmit").attr("disabled", false);
+                    }
+                },
+                error: function (XMLHttpRequest, textStatus, errorThrown) {
+                    layer.msg("状态：" + textStatus + "；出错提示：" + errorThrown);
+                    $("#btnSubmit").attr("disabled", false);
+                }
+            }
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+        });
+
+        //=============================切换验证码======================================
+        function ToggleCode(obj, codeurl) {
+            $(obj).attr("src", URL_DATA.https + codeurl + "?time=" + Math.random());
+        }
+	</script>
+</body>
+</html>

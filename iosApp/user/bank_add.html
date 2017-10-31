@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>绑定银行卡</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/user.css" />
+		<link rel="stylesheet" href="../css/mui.picker.min.css" />
+
+	</head>
+
+	<body style="display: block;">
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+			<h1 class="mui-title">添加银行卡</h1>
+		</header>
+		<div class="mui-content">
+			<div class="add-bank">
+				<form id="form1" method="post" onsubmit="return false;">
+					<!-- step1 -->
+					<div id="step1">
+						<p>请输入您要绑定银行卡的信息</p>
+						<div class="add-bank-row">
+							<ul class="my-ul">
+								<li>
+									<input type="text" value="" id="user_name" name="user_name" class="user-set-inp" placeholder="持卡人" />
+								</li>
+								<li>
+									<input type="number" value="" id="card_no" name="card_no" class="user-set-inp" placeholder="卡号" />
+								</li>
+							</ul>
+						</div>
+						<p></p>
+						<p>银行卡绑定智能加密，保证你的用卡安全</p>
+						<div class="w70">
+							<button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" onclick="bind_bank_step1();">下一步</button>
+						</div>
+					</div>
+					<!-- step2 -->
+					<div id="step2" style="display: none;">
+						<p>信息加密处理，仅用于银行验证</p>
+						<div class="add-bank-row">
+							<ul class="my-ul">
+								<li>
+									<div class="mui-input-row">
+										<label>卡类型:</label>
+										<input type="text" id="bank_name" name="bank_name" placeholder="" value="" readonly="readonly" />
+									</div>
+								</li>
+								<li>
+									<div class="mui-input-row">
+										<label>所在地区:</label>
+										<input id="province" name="province" type="hidden" />
+										<input id="city" name="city" type="hidden" />
+										<input id="area" name="area" type="hidden" />
+										<input type="text" id="bankArea" placeholder="开户地区" value="" style="background: none;" />
+										<span class="mui-icon mui-icon-arrowright bank-select" />
+									</div>
+								</li>
+								<li>
+									<div class="mui-input-row">
+										<label>开户支行:</label>
+										<input type="text" id="upbank_name" name="upbank_name" placeholder="请填写开户行名" value="" />
+									</div>
+								</li>
+								<li>
+									<div class="mui-input-row">
+										<label>手机号:</label>
+										<input type="tel" id="mobile" name="mobile" placeholder="请填写银行预留手机号" value="" />
+									</div>
+								</li>
+							</ul>
+						</div>
+						<p></p>
+						<p>
+							<label>
+                            <input type="checkbox" id="agree" name="agree" />同意</label>
+							<a onclick="COM.openWindow('protocol','../protocol.html')" class="c-yel">《服务协议》</a>
+						</p>
+						<div class="w70">
+							<button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" onclick="bind_bank_step2();">下一步</button>
+						</div>
+					</div>
+					<!-- step3 -->
+					<div id="step3" style="display: none;">
+						<p>请输入手机号<span id="mobile_txt">****</span>收到的短信验证码</p>
+						<div class="mui-row njs_yzm">
+							<input type="text" id="code" name="code" class="com-inp" placeholder="输入验证码" />
+							<input id="btnOnece" value="获取验证码" type="button" class="mui-btn mui-btn-yellow mui-btn-outlined yzm" onclick="sms_send();" />
+						</div>
+						<div class="w70">
+							<button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" onclick="bind_bank();">下一步</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+		<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../scripts/mui.min.js"></script>
+		<script type="text/javascript" src="../scripts/mui.picker.min.js"></script>
+		<script src="../scripts/layer/layer.js"></script>
+		<script src="../scripts/jquery/Cookie.js"></script>
+		<script src="../scripts/city.data-3.js"></script>
+		<script src="../scripts/user.js"></script>
+		<script type="text/javascript">
+			if(DEBUG) console.log('正在执行user/bank_add.html');
+			COM.addReload();
+			$(function() {
+				var refrenstime = getCookie("refresht");
+				if(refrenstime > 0) {
+					refreshmsg(getCookie("refreshid"), refrenstime);
+				}
+			});
+
+			(function($, doc) {
+				$.init();
+				$.ready(function() {
+					//三级联示例
+					var cityPicker3 = new $.PopPicker({
+						layer: 3
+					});
+					cityPicker3.setData(cityData3);
+					var showCityPickerButton = doc.getElementById('bankArea');
+					var province = doc.getElementById('province');
+					var city = doc.getElementById('city');
+					var area = doc.getElementById('area');
+					showCityPickerButton.addEventListener('tap', function(event) {
+						document.activeElement.blur();
+						cityPicker3.show(function(items) {
+							province.value = (items[0] || {}).text;
+							city.value = (items[1] || {}).text;
+							area.value = (items[2] || {}).text;
+							showCityPickerButton.value = (items[0] || {}).text + " " + (items[1] || {}).text + " " + (items[2] || {}).text;
+							//返回 false 可以阻止选择框的关闭
+							//return false;
+						});
+					}, false);
+				});
+			})(mui, document);
+		</script>
+	</body>
+
+</html>

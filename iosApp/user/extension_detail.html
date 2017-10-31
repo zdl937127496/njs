@@ -1,0 +1,108 @@
+
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>我的佣金</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+    <link href="../css/pager.css" rel="stylesheet" />
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-icon mui-action-back mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">佣金明细</h1>
+        <a class="mui-btn mui-btn-link mui-pull-right white" onclick="COM.showEplain('exp_extension','../')">规则</a>
+    </header>
+    <div class="mui-content">
+        <div class="extend-detail">
+            <p class="extend-member-total mui-clearfix"><span class="mui-pull-right" id="d_totalRecord"></span></p>
+            <div id="newHL" style="position: relative;">
+                <!--下拉刷新容器-->
+                <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+                    <div class="mui-scroll">
+                        <!--数据列表-->
+                        <div class="extend-detail-list" id="data_list">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="page">
+            <div id="pager_user_commision_list" class="page flickr" style="display: none;"></div>
+        </div>
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+	<script src="../scripts/mui.picker.min.js"></script>
+	<script>
+		if(DEBUG) console.log('正在执行 user/extension_detail.html');
+		function pullupRefresh() {
+            setTimeout(function () {
+            	var is_fresh = (++count > pagenum);
+                var ajaxObj = {
+                	url:'tools/user_opt_ajax.ashx', 
+                	data:{ act: "user_commision_list", pageSize: pageSize, p: count, t: new Date() },
+                	dataType:'text',
+                	type:'get',
+                	success:function(data){
+                		if(DEBUG) console.log('==========COM.ajax回调函数');
+                		mui('#pullrefresh').pullRefresh().endPullupToRefresh(is_fresh);//参数为true代表没有更多数据了。 
+                		$("#data_list").append(data);
+                	}
+                }
+                if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+            }, 1000);
+        }
+		COM.createLoading();
+		$("#newHL").css({ "height": ($(window).height() - 44) + "px" });
+		count = 0, pageSize = 0, pagenum = 0;
+		COM.addReload(function(){
+			plus.navigator.setStatusBarBackground("#e63d34");
+			$('#data_list').html('');
+			getData();
+		});
+		
+		var getData = function(){
+			var ajaxObj = {
+				url: URL_DATA.userAjaxExtension_detail,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						 count = 0, pageSize = rs.pageSize, pagenum = rs.newsPageNum;
+						$('#d_totalRecord').html('共计佣金'+ rs.totalRecord +'笔')
+						COM.closeLoading();
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(false)
+						mui('#pullrefresh').pullRefresh().pullupLoading();
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		}
+		mui.plusReady(function() {
+			mui.init({
+				statusBarBackground: '#e63d34',
+                pullRefresh: {
+                    container: '#pullrefresh',
+                    up: {
+                        contentrefresh: '正在加载...',
+                        callback: pullupRefresh
+                    }
+                }
+            });
+			COM.createMenu('user/default', '../');
+			getData();
+		});
+	</script>
+</body>
+</html>

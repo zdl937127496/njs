@@ -1,0 +1,5 @@
+body{background: #fff;}
+.process{max-width: 750px; margin: 0 auto; text-align: center;}
+.process img{max-width: 100%; vertical-align: middle;}
+.process .process-banner{margin-bottom: 10px;}
+.process .process-steps .title img{width: 36%;}

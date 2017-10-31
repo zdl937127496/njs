@@ -1,0 +1,1872 @@
+{
+	"@platforms": [
+		"android",
+		"iPhone",
+		"iPad"
+	],
+	"id": "H5E159E12",/*应用的标识，创建应用时自动生成，勿手动修改*/
+	"name": "牛金所",/*应用名称，程序桌面图标名称*/
+	"version": {
+		"name": "1.0.1",/*应用版本名称*/
+		"code": "1"
+	},
+	"description": "牛金所,股票配资,配资平台,配资公司,配资炒股",/*应用描述信息*/
+	"icons": {
+		"72": "icon.png"
+	},
+	"launch_path": "start.html",/*应用的入口页面，默认为根目录下的index.html；支持网络地址，必须以http://或https://开头*/
+	"developer": {
+		"name": "",/*开发者名称*/
+		"email": "",/*开发者邮箱地址*/
+		"url": ""
+	},
+	"permissions": {
+
+
+
+		"Cache": {
+			"description": "管理应用缓存"
+		},
+
+		"Console": {
+			"description": "跟踪调试输出日志"
+		},
+
+		"Device": {
+			"description": "访问设备信息"
+		},
+		"Downloader": {
+			"description": "文件下载管理"
+		},
+		"Events": {
+			"description": "应用扩展事件"
+		},
+		"File": {
+			"description": "访问本地文件系统"
+		},
+		"Gallery": {
+			"description": "访问系统相册"
+		},
+
+		"Invocation": {
+			"description": "使用Native.js能力"
+		},
+
+
+		"Storage": {
+			"description": "管理应用本地数据"
+		},
+
+		"Uploader": {
+			"description": "管理文件上传任务"
+		},
+		"Runtime": {
+			"description": "访问运行期环境"
+		},
+		"XMLHttpRequest": {
+			"description": "跨域网络访问"
+		},
+		"Zip": {
+			"description": "文件压缩与解压缩"
+		},
+
+
+
+		"Webview": {
+			"description": "窗口管理"
+		},
+		"NativeUI": {
+			"description": "原生UI控件"
+		},
+		"Navigator": {
+			"description": "浏览器信息"
+		},
+		"NativeObj": {
+			"description": "原生对象"
+		},
+		"Statistic": {},
+		"Camera": {},
+		"Push": {}
+	},
+	"plus": {
+		"splashscreen": {
+			"autoclose": true,/*是否自动关闭程序启动界面，true表示应用加载应用入口页面后自动关闭；false则需调plus.navigator.closeSplashscreen()关闭*/
+			"waiting": true
+		},
+		"statusbar": {
+			"style": "light"
+		},
+		"popGesture": "close",/*设置应用默认侧滑返回关闭Webview窗口，"none"为无侧滑返回功能，"hide"为侧滑隐藏Webview窗口。参考http://ask.dcloud.net.cn/article/102*/
+		"runmode": "normal",/*应用的首次启动运行模式，可取liberate或normal，liberate模式在第一次启动时将解压应用资源（Android平台File API才可正常访问_www目录）*/
+		"signature": "Sk9JTiBVUyBtYWlsdG86aHIyMDEzQGRjbG91ZC5pbw==",/*可选，保���给应用签名，暂不使用*/
+		"distribute": {
+			"plugins": {
+				"push": {
+					"igexin": {
+						"appid": "7eTFVt2Ycv7hA1A1qyDwy9",
+						"appkey": "x90x7f3Qz48J2F0MQSCx53",
+						"appsecret": "ZWKtKBNsRq6DyApZimz3L3"
+					}
+				},
+				"statics": {
+					"umeng": {
+						"appkey_ios": "59f29973b27b0a312300005c",
+						"channelid_ios": "App Store",
+						"appkey_android": "59f7e43aa40fa3589600005f",
+						"channelid_android": "tencent"
+					}
+				}
+			},
+			"apple": {
+				"appid": "",/*iOS应用标识，苹果开发网站申请的appid，如io.dcloud.HelloH5*/
+				"mobileprovision": "",/*iOS应用打包配置文件*/
+				"password": "",/*iOS应用打包个人证书导入密码*/
+				"p12": "",/*iOS应用打包个人证书，打包配置文件关联的个人证书*/
+				"devices": "universal",/*iOS应用支持的设备类型，可取值iphone/ipad/universal*/
+				"frameworks": []
+			},
+			"google": {
+				"packagename": "",/*Android应用包名，如io.dcloud.HelloH5*/
+				"keystore": "",/*Android应用打包使用的密钥库文件*/
+				"password": "",/*Android应用打包使用密钥库中证书的密码*/
+				"aliasname": "",/*Android应用打包���用密钥库中证书的别名*/
+				"permissions": [
+					"<uses-permission android:name=\"android.permission.INTERNET\"/>",
+					"<uses-permission android:name=\"android.permission.READ_PHONE_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.VIBRATE\"/>",
+					"<uses-permission android:name=\"android.permission.READ_LOGS\"/>",
+					"<uses-permission android:name=\"android.permission.WAKE_LOCK\"/>",
+					"<uses-permission android:name=\"android.permission.CALL_PHONE\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_WIFI_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.SYSTEM_ALERT_WINDOW\"/>",
+					"<uses-feature android:name=\"android.hardware.camera\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_EXTERNAL_STORAGE\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_USER_PRESENT\"/>",
+					"<uses-permission android:name=\"android.permission.ACCESS_NETWORK_STATE\"/>",
+					"<uses-permission android:name=\"android.permission.WRITE_SETTINGS\"/>",
+					"<uses-permission android:name=\"android.permission.RECEIVE_BOOT_COMPLETED\"/>",
+					"<uses-permission android:name=\"android.permission.CAMERA\"/>"
+				]
+			},
+			"orientation": [
+				"portrait-primary",
+				"portrait-secondary"
+			],/*应用支持的方向，portrait-primary：竖屏正方向；portrait-secondary：竖屏反方向；landscape-primary：横屏正方向；landscape-secondary：横屏反方向*/
+			"icons": {
+				"ios": {
+					"prerendered": true, /*应用图标是否已经高亮处理，在iOS6及以下设备上有效*/
+					"auto": "", /*应用图标，分辨率：512x512，用于自动生成各种尺寸程序图标*/
+					"iphone": {
+						"normal": "unpackage/res/icons/57x57.png", /*iPhone3/3GS程序图标，分辨率：57x57*/
+						"retina": "unpackage/res/icons/114x114.png", /*iPhone4程序图标，分辨率：114x114*/
+						"retina7": "unpackage/res/icons/120x120.png", /*iPhone4S/5/6程序图标，分辨率：120x120*/
+						"retina8": "unpackage/res/icons/180x180.png", /*iPhone6 Plus程序图标，分辨率：180x180*/
+						"spotlight-normal": "unpackage/res/icons/29x29.png", /*iPhone3/3GS Spotlight搜索程序图标，分辨率：29x29*/
+						"spotlight-retina": "unpackage/res/icons/58x58.png", /*iPhone4 Spotlight搜索程序图标，分辨率：58x58*/
+						"spotlight-retina7": "unpackage/res/icons/80x80.png", /*iPhone4S/5/6 Spotlight搜索程序图标，分辨率：80x80*/
+						"settings-normal": "unpackage/res/icons/29x29.png", /*iPhone4设置页面程序图标，分辨率：29x29*/
+						"settings-retina": "unpackage/res/icons/58x58.png", /*iPhone4S/5/6设置页面程序图标，分辨率：58x58*/
+						"settings-retina8": "unpackage/res/icons/87x87.png"
+					},
+					"ipad": {
+						"normal": "unpackage/res/icons/72x72.png", /*iPad普通屏幕程序图标，分辨率：72x72*/
+						"retina": "unpackage/res/icons/144x144.png", /*iPad高分屏程序图标，分辨率：144x144*/
+						"normal7": "unpackage/res/icons/76x76.png", /*iPad iOS7程序图标，分辨率：76x76*/
+						"retina7": "unpackage/res/icons/152x152.png", /*iPad iOS7高分屏程序图标，分辨率：152x152*/
+						"spotlight-normal": "unpackage/res/icons/50x50.png", /*iPad Spotlight搜索程序图标，分辨率：50x50*/
+						"spotlight-retina": "unpackage/res/icons/100x100.png", /*iPad高分屏Spotlight搜索程序图标，分辨率：100x100*/
+						"spotlight-normal7": "unpackage/res/icons/40x40.png",/*iPad iOS7 Spotlight搜索程序图标，分辨率：40x40*/
+						"spotlight-retina7": "unpackage/res/icons/80x80.png",/*iPad iOS7高分屏Spotlight搜索程序图标，分辨率：80x80*/
+						"settings-normal": "unpackage/res/icons/29x29.png",/*iPad设置页面程序图标，分辨率：29x29*/
+						"settings-retina": "unpackage/res/icons/58x58.png"
+					}
+				},
+				"android": {
+					"mdpi": "unpackage/res/icons/48x48.png", /*普通屏程序图标，分辨率：48x48*/
+					"ldpi": "unpackage/res/icons/48x48.png", /*大屏程序图标，分辨率：48x48*/
+					"hdpi": "unpackage/res/icons/72x72.png", /*高分屏程序图标，分辨率：72x72*/
+					"xhdpi": "unpackage/res/icons/96x96.png",/*720P高分屏程序图标，分辨率：96x96*/
+					"xxhdpi": "unpackage/res/icons/144x144.png",
+					"xxxhdpi": "unpackage/res/icons/192x192.png"
+				}
+			},
+			"splashscreen": {
+				"ios": {
+					"iphone": {
+						"default": "", /*iPhone3启动图片选，分辨率：320x480*/
+						"retina35": "unpackage/res/iphone4_4s_640X960.png",/*3.5英寸设备(iPhone4)启动图片，分辨率：640x960*/
+						"retina40": "unpackage/res/iphone5_5s_640X1136.png",/*4.0 英寸设备(iPhone5/iPhone5s)启动图片，分辨率：640x1136*/
+						"retina47": "unpackage/res/iphone6_750X1334.png",/*4.7 英寸设备(iPhone6)启动图片，分辨率：750x1334*/
+						"retina55": "unpackage/res/iphone6plus竖屏_1242X2208.png",/*5.5 英寸设备(iPhone6 Plus)启动图片，分辨率：1242x2208*/
+						"retina55l": "unpackage/res/iphone6plus横屏_2208X1242.png"
+					},
+					"ipad": {
+						"portrait": "unpackage/res/ipad竖屏_768X1004.png", /*iPad竖屏启动图片，分辨率：768x1004*/
+						"portrait-retina": "unpackage/res/ipad高分屏竖屏_1536X2008.png",/*iPad高分屏竖屏图片，分辨率：1536x2008*/
+						"landscape": "unpackage/res/ipad横屏1024X748.png", /*iPad横屏启动图片，分辨率：1024x748*/
+						"landscape-retina": "unpackage/res/ipad高分屏横屏_2048X1496.png", /*iPad高分屏横屏启动图片，分辨率：2048x1496*/
+						"portrait7": "unpackage/res/ipad IOS7竖屏_768X1024_.png", /*iPad iOS7竖屏启动图��，分辨率：768x1024*/
+						"portrait-retina7": "unpackage/res/ipad Ios7高分屏竖屏_1536X2048.png",/*iPad iOS7高分屏竖屏图片，分辨率：1536x2048*/
+						"landscape7": "unpackage/res/ipad IOS7横屏_1024X768.png", /*iPad iOS7横屏启动图片，分辨率：1024x768*/
+						"landscape-retina7": "unpackage/res/ipad Ios7高分屏横屏_2048X1536.png"
+					}
+				},
+				"android": {
+					"mdpi": "", /*普通屏启动图片，分辨率：240x282*/
+					"ldpi": "", /*大屏启动图片，分辨率：320x442*/
+					"hdpi": "unpackage/res/ipad IOS7竖屏_768X1024_.png", /*高分屏启动图片，分辨率：480x762*/
+					"xhdpi": "unpackage/res/ipad IOS7竖屏_768X1024_.png", /*720P高分屏启动图片，分辨率：720x1242*/
+					"xxhdpi": "unpackage/res/ipad IOS7竖屏_768X1024_.png"
+				}
+			}
+		}
+	},
+	"dependencies": {
+		"pages": {
+			"default.html": {
+				"href": "default.html",
+				"priority": 0,
+				"resources": [
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"images/icon/footer_home_h.png",
+					"images/icon/footer_deal_h.png",
+					"images/icon/footer_user_h.png",
+					"images/icon/footer_pz_h.png",
+					"images/icon/footer_user.png",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_home.png",
+					"deal.html",
+					"stock/day.html",
+					"user/default.html",
+					"fonts/mui.ttf",
+					"images/icon/laba.png",
+					"images/icon/danger.png",
+					"images/icon/m.png",
+					"images/icon/checkbox.png",
+					"images/icon/checkbox_checked.png",
+					"images/icon/news_recommend_line.png",
+					"fonts/iconfont.ttf",
+					"images/icon/charge.png",
+					"images/icon/cash.png",
+					"images/icon/task.png",
+					"images/icon/footer_user_f.png",
+					"images/icon/user_b.png",
+					"images/icon/balance_b.png",
+					"images/icon/task_b.png",
+					"images/icon/bag.png",
+					"images/icon/extend.png",
+					"images/icon/msg.png",
+					"images/icon/question.png",
+					"images/icon/question_w.png",
+					"images/icon/set.png",
+					"images/icon/checked.png",
+					"images/icon/phone.png",
+					"images/icon/pass.png",
+					"images/icon/qq.png",
+					"images/icon/weixin.png",
+					"images/icon/weibo.png",
+					"images/icon/mark.png",
+					"images/icon/ewm.png",
+					"images/icon/link.png",
+					"images/icon/yqm.png",
+					"images/icon/email.png",
+					"images/icon/up.png",
+					"images/icon/camera.png",
+					"images/icon/new_menu_01.png",
+					"images/icon/new_menu_02.png",
+					"images/icon/new_menu_03.png",
+					"images/icon/new_menu_04.png",
+					"images/icon/new_menu_05.png",
+					"images/icon/new_menu_06.png",
+					"images/icon/new_menu_07.png",
+					"images/icon/new_menu_08.png",
+					"images/icon/new_menu_icon_01.png",
+					"images/icon/new_menu_icon_02.png",
+					"images/icon/new_menu_icon_03.png",
+					"images/icon/new_menu_icon_04.png",
+					"images/icon/new_menu_icon_05.png",
+					"images/icon/new_menu_icon_06.png",
+					"images/icon/new_menu_icon_07.png",
+					"images/icon/new_menu_icon_08.png",
+					"images/icon/new_menu_icon_09.png",
+					"images/icon/new_menu_icon_10.png",
+					"images/icon/new_menu_icon_11.png",
+					"scripts/mui.min.js",
+					"stock/pay.html",
+					"/css/style.css",
+					"/css/iconfont.css",
+					"/css/mui.min.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"images/user_img.jpg",
+					"explain.html",
+					"scripts/rem.js",
+					"scripts/user.js",
+					"scripts/mui.pullToRefresh.material.js",
+					"scripts/jquery-scrolltofixed-min.js",
+					"scripts/mui.pullToRefresh.js",
+					"images/icon/nindex-menu1.png",
+					"/images/icon/nindex-menu2.png",
+					"/images/icon/nindex-menu3.png",
+					"/images/icon/nindex-menu4.png",
+					"images/icon/nindex-menu5.png",
+					"images/icon/nindex-menu4.png",
+					"images/icon/nindex-menu2.png",
+					"images/icon/nindex-menu3.png",
+					"stock/free.html",
+					"stock/month.html",
+					"news/detail.html",
+					"process.html",
+					"activity.html",
+					"images/start/loading.gif"
+				],
+				"refer": [
+					"login.html",
+					"user/task_list.html",
+					"user/borrow_list.html",
+					"help.html",
+					"user/sys_set.html",
+					"user/extension.html",
+					"finduserpwd.html",
+					"reg.html"
+				]
+			},
+			"deal.html": {
+				"resources": [
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"images/icon/footer_user.png",
+					"images/icon/footer_home.png",
+					"css/style.css",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal_h.png",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/default.html",
+					"stock/day.html",
+					"default.html",
+					"images/icon/footer_pz_h.png",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/default.html": {
+				"resources": [
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"images/icon/footer_user.png",
+					"images/icon/footer_home.png",
+					"css/style.css",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal_h.png",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_user_h.png",
+					"deal.html",
+					"stock/day.html",
+					"default.html",
+					"login.html",
+					"scripts/mui.min.js",
+					"scripts/user.js",
+					"images/icon/pass.png",
+					"images/icon/user.png",
+					"images/icon/phone.png",
+					"images/icon/emial.png",
+					"images/icon/new_menu_icon_06.png",
+					"images/icon/new_menu_icon_11.png",
+					"images/icon/balance.png",
+					"images/icon/new_menu_icon_09.png",
+					"images/icon/new_menu_icon_03.png",
+					"images/icon/email.png",
+					"images/user/account_top.jpg",
+					"images/icon/charge.png",
+					"images/icon/new_menu_icon_10.png",
+					"images/icon/new_menu_icon_05.png",
+					"css/mui.picker.min.css",
+					"images/icon/new_menu_icon_08.png",
+					"images/icon/new_menu_icon_02.png",
+					"fonts/mui.ttf",
+					"css/user.css",
+					"images/icon/cash.png",
+					"images/icon/new_menu_icon_07.png",
+					"images/icon/new_menu_icon_01.png",
+					"images/icon/account_line.png",
+					"images/icon/new_menu_icon_04.png",
+					"images/user_img.jpg",
+					"user/message.html",
+					"user/user_email.html",
+					"user/trade_pwd.html",
+					"user/real_name.html",
+					"user/pay.html",
+					"user/withdrawal.html",
+					"user/bank.html",
+					"user/money_list.html",
+					"user/money.html",
+					"user/borrow_list.html",
+					"user/borrow_adddeposit.html",
+					"user/borrow_getprofit.html",
+					"scripts/mui.picker.min.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/layer/layer.js",
+					"user/integral.html",
+					"user/reward_list.html",
+					"images/icon/footer_home_h.png",
+					"images/start/loading.gif"
+				],
+				"refer": [
+					"user/userinfo.html",
+					"user/borrow_addbond.html"
+				],
+				"priority": 0
+			},
+			"stock/day.html": {
+				"resources": [
+					"images/icon/footer_pz_h.png",
+					"deal.html",
+					"user/default.html",
+					"login.html",
+					"default.html",
+					"images/icon/footer_home.png",
+					"images/icon/footer_user_h.png",
+					"scripts/main.js",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"images/icon/footer_deal.png",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"images/icon/checkbox_checked.png",
+					"css/stock.css",
+					"scripts/mui.min.js",
+					"scripts/product.js",
+					"css/iconfont.css",
+					"scripts/jquery/common.js",
+					"css/mui.min.css",
+					"images/icon/footer_user.png",
+					"images/icon/question_w.png",
+					"css/mui.picker.min.css",
+					"scripts/mui.picker.min.js",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"images/icon/footer_home_h.png",
+					"images/icon/footer_pz.png",
+					"stock/month.html",
+					"stock/pay.html",
+					"images/icon/footer_deal_h.png"
+				],
+				"refer": [
+					"user/borrow_list.html"
+				],
+				"priority": 0
+			},
+			"login.html": {
+				"resources": [
+					"scripts/user.js",
+					"scripts/mui.min.js",
+					"images/login/login_bottom_txt.png",
+					"images/logo.png",
+					"css/login.css",
+					"css/style.css",
+					"images/login/login_bg.jpg",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/layer/skin/default/loading-0.gif",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"default.html",
+					"fonts/mui.ttf",
+					"reg.html",
+					"deal.html",
+					"finduserpwd.html",
+					"set_pass_suc.html",
+					"user/default.html",
+					"user/message.html",
+					"stock/day.html",
+					"stock/pay.html",
+					"start.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"reg.html": {
+				"resources": [
+					"images/login/reg_ad.png",
+					"scripts/jquery/Cookie.js",
+					"scripts/user.js",
+					"css/login.css",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/mui.min.js",
+					"images/logo.png",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"protocol.html",
+					"default.html",
+					"scripts/layer/skin/default/loading-0.gif",
+					"/login.html",
+					"login.html",
+					"start.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"protocol.html": {
+				"resources": [
+					"scripts/mui.picker.min.js",
+					"css/activity.css",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"default.html",
+					"user/bank_add.html",
+					"user/sys_set.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"finduserpwd.html": {
+				"resources": [
+					"login.html",
+					"scripts/jquery/Cookie.js",
+					"scripts/user.js",
+					"scripts/mui.min.js",
+					"css/login.css",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"/set_pass_suc.html",
+					"set_pass_suc.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"set_pass_suc.html": {
+				"resources": [
+					"css/login.css",
+					"fonts/mui.ttf",
+					"/scripts/jquery/jquery-1.11.2.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"images/login/suc_ico.png",
+					"/scripts/mui.min.js",
+					"login.html",
+					"scripts/mui.min.js",
+					"scripts/jquery/jquery-1.11.2.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"test.html": {
+				"resources": [
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"test/userTest.html": {
+				"resources": [
+					"scripts/mui.min.js",
+					"scripts/jquery/jquery-1.11.2.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/message.html": {
+				"resources": [
+					"scripts/mui.min.js",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"user/default.html",
+					"user/message_list.html",
+					"login.html",
+					"deal.html",
+					"user/message_d.html",
+					"images/start/loading.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/message_list.html": {
+				"resources": [
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"user/message.html",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"news/detail.html",
+					"user/default.html",
+					"default.html",
+					"images/start/loading.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/user_email.html": {
+				"resources": [
+					"scripts/user.js",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"images/icon/footer_home.png",
+					"scripts/jquery/Cookie.js",
+					"css/user.css",
+					"css/style.css",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_user_h.png",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"images/icon/footer_home_h.png",
+					"images/icon/footer_user.png",
+					"default.html",
+					"scripts/layer/skin/default/loading-0.gif",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"user/default.html",
+					"images/start/loading.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/real_name.html": {
+				"resources": [
+					"scripts/user.js",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"images/icon/footer_home.png",
+					"scripts/jquery/Cookie.js",
+					"css/user.css",
+					"css/style.css",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_user_h.png",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/layer/skin/default/loading-0.gif",
+					"user/default.html",
+					"images/start/loading.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/trade_pwd.html": {
+				"resources": [
+					"user/default.html",
+					"scripts/user.js",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/layer/skin/default/loading-0.gif",
+					"user/forgetTradepwd.html",
+					"images/icon/footer_home.png",
+					"images/icon/footer_deal.png",
+					"images/start/loading.gif",
+					"images/icon/footer_user_h.png",
+					"images/icon/footer_pz.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/pay.html": {
+				"resources": [
+					"/images/icon/yl_icon.png",
+					"/images/icon/yhk_icon.png",
+					"/images/icon/zfb_icon.png",
+					"images/icon/yhk_icon.png",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"images/icon/yl_icon.png",
+					"explain.html",
+					"user/pay_unspay.html",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/default.html",
+					"user/pay_bank.html",
+					"stock/pay.html",
+					"scripts/mui.min.js"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"exp_pay.html": {
+				"resources": [
+					"scripts/mui.min.js",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"css/activity.css",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"user/pay.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"explain.html": {
+				"resources": [
+					"css/activity.css",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/pay.html",
+					"default.html",
+					"user/pay_unspay.html",
+					"user/borrow_getprofit.html",
+					"user/reward_list.html",
+					"user/withdrawal.html",
+					"stock/month.html",
+					"images/start/loading.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/pay_unspay.html": {
+				"resources": [
+					"scripts/user.js",
+					"css/user.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"explain.html",
+					"user/bank_add.html",
+					"scripts/mui.min.js",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"images/bank/hx.png",
+					"/images/bank/hx.png",
+					"user/pay_money.html",
+					"user/pay.html",
+					"images/start/loading.gif",
+					"images/bank/js.png",
+					"images/bank/gs.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/bank_add.html": {
+				"resources": [
+					"scripts/city.data-3.js",
+					"scripts/jquery/Cookie.js",
+					"css/mui.picker.min.css",
+					"scripts/user.js",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"css/user.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/layer/skin/default/loading-0.gif",
+					"user/pay_unspay.html",
+					"scripts/mui.picker.min.js",
+					"protocol.html",
+					"user/bank.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/pay_money.html": {
+				"resources": [
+					"images/icon/footer_home.png",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_user_h.png",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"css/mui.picker.min.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"images/icon/footer_home_h.png",
+					"images/icon/footer_user.png",
+					"default.html",
+					"user/default.html",
+					"user/pay_unspay.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/withdrawal.html": {
+				"resources": [
+					"images/icon/m.png",
+					"scripts/jquery/common.js",
+					"scripts/user.js",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"scripts/layer/layer.js",
+					"css/mui.picker.min.css",
+					"scripts/layer/skin/layer.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/mui.picker.min.js",
+					"images/icon/footer_home.png",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_user_h.png",
+					"images/bank/hx.png",
+					"user/default.html",
+					"images/icon/footer_pz.png",
+					"user/forgetTradepwd.html",
+					"images/bank/js.png",
+					"explain.html",
+					"images/start/loading.gif",
+					"images/bank/gs.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/forgetTradepwd.html": {
+				"resources": [
+					"scripts/city.data-3.js",
+					"scripts/jquery/Cookie.js",
+					"scripts/user.js",
+					"scripts/layer/skin/default/loading-0.gif",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"css/user.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/mui.picker.min.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"/default.html",
+					"user/withdrawal.html",
+					"user/trade_pwd.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/pay_bank.html": {
+				"resources": [
+					"scripts/mui.min.js",
+					"css/user.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"images/icon/checkbox.png",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"images/icon/checkbox_checked.png",
+					"user/pay.html",
+					"user/pay_bank_sub.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/pay_bank_sub.html": {
+				"resources": [
+					"scripts/user.js",
+					"/images/bank/ny.png",
+					"/images/bank/gs.png",
+					"/images/bank/zs.png",
+					"images/bank/ny.png",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"images/bank/gs.png",
+					"user/default.html",
+					"user/pay_bank.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/bank.html": {
+				"resources": [
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"images/icon/footer_home.png",
+					"css/user.css",
+					"css/style.css",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal.png",
+					"scripts/layer/layer.js",
+					"images/icon/footer_user_h.png",
+					"/images/bank/%3C%#Utils.bank_cls(Eval(",
+					"scripts/layer/skin/layer.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"images/bank/hx.png",
+					"user/bank_add.html",
+					"user/default.html",
+					"images/bank/gs.png",
+					"images/bank/js.png",
+					"images/start/loading.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/money_list.html": {
+				"resources": [
+					"css/pager.css",
+					"scripts/user.js",
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"scripts/mui.pullToRefresh.js",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"fonts/mui.ttf",
+					"scripts/mui.pullToRefresh.material.js",
+					"user/default.html",
+					"user/money.html",
+					"images/start/loading.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/money.html": {
+				"resources": [
+					"images/icon/task.png",
+					"scripts/mui.min.js",
+					"images/icon/charge.png",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"images/icon/cash.png",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/money_list.html",
+					"user/default.html",
+					"user/task_list.html",
+					"user/pay.html",
+					"user/withdrawal.html",
+					"images/start/loading.gif",
+					"images/icon/footer_home.png",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_user_h.png",
+					"images/icon/footer_pz.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/task_list.html": {
+				"resources": [
+					"scripts/user.js",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/money.html",
+					"user/sign.html",
+					"images/icon/footer_home.png",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_user_h.png",
+					"user/extension.html",
+					"user/trade_pwd.html",
+					"images/start/loading.gif"
+				],
+				"refer": [
+					"explain.html"
+				],
+				"priority": 0
+			},
+			"user/sign.html": {
+				"resources": [
+					"images/user/sign_days_bg.png",
+					"scripts/ZK_Calendar.js",
+					"css/calendar.css",
+					"scripts/user.js",
+					"images/user/calendar_arrow_left.png",
+					"scripts/mui.min.js",
+					"images/user/calendar_arrow_right.png",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"user/task_list.html",
+					"images/user/sign_mon.png",
+					"images/icon/footer_home.png",
+					"images/icon/footer_deal.png",
+					"images/start/loading.gif",
+					"images/icon/footer_user_h.png",
+					"images/icon/footer_pz.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/userinfo.html": {
+				"resources": [
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"images/icon/footer_home.png",
+					"css/user.css",
+					"css/style.css",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_user_h.png",
+					"images/user_img.jpg",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/avator.html",
+					"user/user_opt.html",
+					"user/user_email.html",
+					"images/start/loading.gif"
+				],
+				"refer": [
+					"stock/day.html"
+				],
+				"priority": 0
+			},
+			"user/avator.html": {
+				"resources": [
+					"images/icon/up.png",
+					"scripts/avator/cropper.min.js",
+					"scripts/avator/lrz.bundle.js",
+					"scripts/avator/cropper.min.css",
+					"css/user_avator.css",
+					"scripts/layer/layer.js",
+					"scripts/avator/layer-mobile-v1.6.js",
+					"images/user/account_top.jpg",
+					"scripts/avator/1.chunk.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/avator/2.chunk.js",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"css/user.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"/images/back.png",
+					"user/userinfo.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/user_opt.html": {
+				"resources": [
+					"scripts/user.js",
+					"scripts/jquery/city.js",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/userinfo.html",
+					"images/start/loading.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/bind_phone.html": {
+				"resources": [
+					"scripts/user.js",
+					"css/login.css",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"scripts/jquery/Cookie.js",
+					"images/icon/footer_home.png",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_user_h.png",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"images/icon/footer_pz.png",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/layer/skin/default/loading-0.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/message_d.html": {
+				"resources": [
+					"css/activity.css",
+					"user/default.html",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/message.html",
+					"images/start/loading.gif",
+					"images/icon/footer_user_h.png",
+					"images/icon/footer_home.png",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"news/detail.html": {
+				"resources": [
+					"images/icon/news_recommend_line.png",
+					"css/activity.css",
+					"images/icon/wx_line.png",
+					"images/icon/qq_line.png",
+					"images/icon/wb_line.png",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/message_list.html",
+					"images/icon/footer_home.png",
+					"images/icon/footer_user_h.png",
+					"news/list.html",
+					"images/icon/footer_user.png",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal.png",
+					"images/start/loading.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"stock/pay.html": {
+				"resources": [
+					"css/stock.css",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"scripts/jquery/common.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"scripts/layer/layer.js",
+					"css/mui.picker.min.css",
+					"scripts/layer/skin/layer.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"stock/day.html",
+					"login.html",
+					"default.html",
+					"user/pay.html",
+					"scripts/layer/skin/default/loading-0.gif",
+					"stock/free.html",
+					"images/icon/footer_user.png",
+					"stock/reward.html",
+					"user/borrow_list.html",
+					"images/start/loading.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"stock/month.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"scripts/main.js",
+					"images/icon/footer_home.png",
+					"css/style.css",
+					"images/icon/footer_deal.png",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"images/icon/checkbox_checked.png",
+					"css/stock.css",
+					"scripts/mui.min.js",
+					"scripts/product.js",
+					"css/iconfont.css",
+					"scripts/jquery/common.js",
+					"css/mui.min.css",
+					"images/icon/footer_user.png",
+					"images/icon/question_w.png",
+					"css/mui.picker.min.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"images/icon/footer_pz_h.png",
+					"scripts/mui.picker.min.js",
+					"images/icon/footer_home_h.png",
+					"default.html",
+					"images/icon/footer_pz.png",
+					"stock/pay.html",
+					"deal.html",
+					"explain.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"stock/free.html": {
+				"resources": [
+					"fonts/mui.ttf",
+					"images/icon/dot_02.png",
+					"images/icon/dot_01.png",
+					"images/icon/footer_home.png",
+					"css/style.css",
+					"images/icon/footer_deal.png",
+					"images/icon/dot_03.png",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"images/icon/dot_04.png",
+					"css/stock.css",
+					"scripts/mui.min.js",
+					"scripts/product.js",
+					"css/iconfont.css",
+					"scripts/jquery/common.js",
+					"css/mui.min.css",
+					"images/icon/footer_user.png",
+					"css/mui.picker.min.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"images/icon/footer_pz_h.png",
+					"scripts/layer/skin/default/loading-0.gif",
+					"stock/pay.html",
+					"user/default.html",
+					"default.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/borrow_list.html": {
+				"resources": [
+					"css/stock.css",
+					"css/pager.css",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"scripts/mui.min.js",
+					"images/icon/footer_home.png",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal.png",
+					"scripts/layer/layer.js",
+					"images/icon/footer_user_h.png",
+					"scripts/layer/skin/layer.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/default.html",
+					"stock/reward.html",
+					"images/start/loading.gif"
+				],
+				"refer": [
+					"user/borrow_detail.html"
+				],
+				"priority": 0
+			},
+			"user/borrow_addbond.html": {
+				"resources": [
+					"scripts/user.js",
+					"images/icon/m.png",
+					"fonts/mui.ttf",
+					"images/icon/footer_home.png",
+					"css/style.css",
+					"css/user.css",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_user_h.png",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"scripts/jquery/common.js",
+					"css/mui.min.css",
+					"images/icon/footer_pz.png",
+					"css/mui.picker.min.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/layer/skin/default/loading-0.gif",
+					"scripts/mui.picker.min.js",
+					"images/start/loading.gif"
+				],
+				"refer": [
+					"explain.html"
+				],
+				"priority": 0
+			},
+			"user/borrow_adddeposit.html": {
+				"resources": [
+					"scripts/mui.picker.min.js",
+					"images/icon/m.png",
+					"scripts/jquery/common.js",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/user.js",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"css/user.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/mui.min.js",
+					"user/default.html",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/mui.picker.min.css",
+					"images/start/loading.gif"
+				],
+				"refer": [
+					"explain.html"
+				],
+				"priority": 0
+			},
+			"user/borrow_getprofit.html": {
+				"resources": [
+					"scripts/mui.picker.min.js",
+					"images/icon/m.png",
+					"scripts/jquery/common.js",
+					"scripts/layer/layer.js",
+					"user/default.html",
+					"scripts/layer/skin/default/loading-0.gif",
+					"scripts/layer/skin/layer.css",
+					"explain.html",
+					"scripts/user.js",
+					"fonts/mui.ttf",
+					"images/icon/footer_home.png",
+					"css/style.css",
+					"css/user.css",
+					"images/icon/footer_deal.png",
+					"images/start/loading.gif",
+					"images/icon/footer_user_h.png",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"images/icon/footer_pz.png",
+					"css/mui.picker.min.css"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/integral.html": {
+				"resources": [
+					"images/icon/task.png",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/integral_list.html",
+					"user/default.html",
+					"user/task_list.html",
+					"images/start/loading.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/integral_list.html": {
+				"resources": [
+					"css/pager.css",
+					"scripts/user.js",
+					"scripts/mui.picker.min.js",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/integral.html",
+					"images/icon/footer_home.png",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_user_h.png",
+					"images/icon/footer_pz.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/reward_list.html": {
+				"resources": [
+					"scripts/mui.picker.min.js",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"stock/reward.html",
+					"user/borrow_detail.html",
+					"user/default.html",
+					"explain.html",
+					"images/icon/footer_user_h.png",
+					"images/icon/footer_home.png",
+					"images/icon/footer_deal.png",
+					"images/start/loading.gif",
+					"images/icon/footer_pz.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"stock/reward.html": {
+				"resources": [
+					"css/stock.css",
+					"scripts/jquery/common.js",
+					"images/icon/question_w.png",
+					"images/icon/checkbox_checked.png",
+					"scripts/mui.picker.min.js",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/mui.picker.min.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"images/icon/footer_pz_h.png",
+					"scripts/layer/skin/default/loading-0.gif",
+					"stock/pay.html",
+					"user/default.html",
+					"user/reward_list.html",
+					"user/borrow_list.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/borrow_detail.html": {
+				"resources": [
+					"css/stock.css",
+					"scripts/jquery/common.js",
+					"scripts/user.js",
+					"scripts/mui.picker.min.js",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"images/icon/m.png",
+					"images/icon/danger.png",
+					"scripts/layer/skin/default/loading-0.gif",
+					"stock/contract.html",
+					"user/borrow_list.html",
+					"user/borrow_begin_list.html",
+					"user/default.html",
+					"images/start/loading.gif",
+					"images/icon/footer_home.png",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_user_h.png",
+					"images/icon/footer_pz.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"stock/contract.html": {
+				"resources": [
+					"css/activity.css",
+					"images/icon/footer_user.png",
+					"images/icon/footer_pz_h.png",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/borrow_detail.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/borrow_begin_list.html": {
+				"resources": [
+					"scripts/pager.js",
+					"explain.html",
+					"scripts/jquery/pagination.js",
+					"css/pager.css",
+					"user/borrow_fee_list.html",
+					"scripts/mui.picker.min.js",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"css/stock.css",
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"user/borrow_detail.html",
+					"images/start/loading.gif"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/borrow_fee_list.html": {
+				"resources": [
+					"user/borrow_begin_list.html",
+					"scripts/mui.picker.min.js",
+					"scripts/pager.js",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"images/start/loading.gif",
+					"scripts/jquery/pagination.js",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"css/stock.css",
+					"css/pager.css",
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css"
+				],
+				"refer": [
+					"explain.html"
+				],
+				"priority": 0
+			},
+			"user/extension.html": {
+				"resources": [
+					"images/icon/user_b.png",
+					"images/icon/yqm.png",
+					"scripts/mui.picker.min.js",
+					"images/icon/link.png",
+					"fonts/mui.ttf",
+					"images/icon/footer_home.png",
+					"css/style.css",
+					"css/user.css",
+					"images/icon/ewm.png",
+					"images/icon/footer_deal.png",
+					"images/icon/footer_user_h.png",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"images/icon/mark.png",
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"images/icon/footer_pz.png",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"user/extension_detail.html",
+					"user/extension_user.html",
+					"user/integral.html",
+					"user/task_list.html",
+					"default.html",
+					"images/start/loading.gif"
+				],
+				"refer": [
+					"explain.html"
+				],
+				"priority": 0
+			},
+			"user/extension_user.html": {
+				"resources": [
+					"css/pager.css",
+					"scripts/mui.picker.min.js",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"user/extension.html",
+					"images/icon/footer_home.png",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal.png",
+					"images/start/loading.gif",
+					"images/icon/footer_user_h.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/extension_detail.html": {
+				"resources": [
+					"explain.html",
+					"css/pager.css",
+					"scripts/mui.picker.min.js",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/user.css",
+					"css/style.css",
+					"scripts/layer/layer.js",
+					"user/extension.html",
+					"scripts/layer/skin/layer.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"images/icon/footer_home.png",
+					"images/icon/footer_deal.png",
+					"images/start/loading.gif",
+					"images/icon/footer_user_h.png",
+					"images/icon/footer_pz.png"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"activity.html": {
+				"resources": [
+					"images/icon/footer_home_h.png",
+					"css/activity.css",
+					"scripts/mui.picker.min.js",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"images/icon/footer_deal.png",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"images/icon/footer_user.png",
+					"images/icon/footer_pz.png",
+					"scripts/layer/layer.js",
+					"scripts/layer/skin/layer.css",
+					"stock/month.html",
+					"stock/free.html",
+					"images/start/loading.gif",
+					"default.html"
+				],
+				"refer": [
+					"user/reward_list.html",
+					"stock/day.html"
+				],
+				"priority": 0
+			},
+			"help.html": {
+				"resources": [
+					"css/activity.css",
+					"scripts/mui.min.js",
+					"fonts/mui.ttf",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"css/style.css",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"images/icon/footer_user.png",
+					"images/icon/footer_home.png",
+					"images/icon/footer_pz.png",
+					"images/icon/footer_deal.png",
+					"default.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"user/sys_set.html": {
+				"resources": [
+					"scripts/user.js",
+					"fonts/mui.ttf",
+					"css/style.css",
+					"css/user.css",
+					"images/icon/footer_home.png",
+					"images/icon/footer_deal.png",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"scripts/jquery.cookie.js",
+					"scripts/mui.min.js",
+					"css/iconfont.css",
+					"css/mui.min.css",
+					"images/icon/footer_user.png",
+					"images/icon/footer_pz.png",
+					"default.html",
+					"protocol.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"start.html": {
+				"resources": [
+					"scripts/mui.min.js",
+					"images/start/1.jpg",
+					"images/start/2.jpg",
+					"css/mui.min.css",
+					"images/start/3.jpg",
+					"scripts/jquery/jquery-1.11.2.min.js",
+					"login.html",
+					"reg.html",
+					"images/help/4.png",
+					"images/start/750_1334.png",
+					"default.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"news/list.html": {
+				"resources": [
+					"css/pager.css",
+					"default.html"
+				],
+				"refer": [],
+				"priority": 0
+			},
+			"process.html": {
+				"resources": [
+					"images/process/steps_14.jpg",
+					"images/process/steps_24.jpg",
+					"images/process/steps_32.jpg",
+					"css/process.css",
+					"images/process/steps_25.jpg",
+					"images/process/steps_27.jpg",
+					"images/process/steps_01.jpg",
+					"images/process/steps_04.jpg",
+					"images/process/steps_19.jpg",
+					"images/process/steps_36.jpg",
+					"default.html",
+					"images/process/steps_22.jpg",
+					"images/process/steps_30.jpg",
+					"images/process/steps_15.jpg",
+					"images/process/steps_09.jpg",
+					"images/process/steps_07.jpg",
+					"images/process/steps_35.jpg",
+					"images/process/steps_10.jpg",
+					"images/process/steps_20.jpg",
+					"images/process/steps_17.jpg",
+					"images/process/steps_34.jpg",
+					"images/process/steps_29.jpg",
+					"images/process/steps_12.jpg"
+				],
+				"refer": [],
+				"priority": 0
+			}
+		},
+		"idle": {
+			"resources": [
+				"images/help/11.png",
+				"images/icon/menu_icon_01.png",
+				"scripts/moneyMatch.js",
+				"images/help/15.png",
+				"images/ewm.png",
+				"images/bank/ms.png",
+				"images/icon/menu_icon_03.png",
+				"images/icon/menu_icon_05.png",
+				"images/login/sina_login.png",
+				"scripts/mui.js",
+				"images/index_news_tit.png",
+				"images/bank/yzcx.png",
+				"images/menu_xs.png",
+				"scripts/artdialog/dialog-min.js",
+				"images/help/6.png",
+				"images/banner.jpg",
+				"images/help/16.png",
+				"images/bank/bj.png",
+				"images/download/download_ios.png",
+				"images/download/download_top.jpg",
+				"images/icon/menu_icon_09.png",
+				"images/login/wechat_login.png",
+				"images/help/13.png",
+				"images/activity_01.jpg",
+				"images/news_img.jpg",
+				"images/share_01.jpg",
+				"images/bank/jt.png",
+				"images/bank/pa.png",
+				"images/icon/m_white.png",
+				"images/icon/gift.png",
+				"images/icon/menu_icon_02.png",
+				"images/bank/sh.png",
+				"css/download.css",
+				"images/download/download_apk.png",
+				"scripts/jquery/jquery.jcrop.min.js",
+				"images/share_02.jpg",
+				"scripts/jquery/jquery.lazyload.min.js",
+				"images/help/14.png",
+				"images/login/qq_login.png",
+				"images/menu_qh.png",
+				"images/bank/xy.png",
+				"scripts/jquery/jquery.pagination.js",
+				"images/bank/nongye.png",
+				"images/menu_pz.png",
+				"scripts/artdialog/ui-dialog-2.css",
+				"images/bank/zx.png",
+				"images/bank/gzfz.png",
+				"scripts/jquery/jquery.jqzoom.js",
+				"images/help/3.png",
+				"scripts/Cookie.js",
+				"scripts/jquery/Validform_v5.3.2_min.js",
+				"images/help/2.png",
+				"images/help/12.png",
+				"images/help/8.png",
+				"images/help/9.png",
+				"images/icon/menu_icon_10.png",
+				"scripts/jquery/PCASClass.js",
+				"images/icon/menu_icon_08.png",
+				"images/icon/menu_icon_04.png",
+				"images/bank/pdfz.png",
+				"images/bank/zs.png",
+				"images/bank/xcxys.png",
+				"scripts/layer/skin/default/icon-ext.png",
+				"scripts/webuploader/webuploader.min.js",
+				"css/mui.css",
+				"scripts/layer/skin/layer.ext.css",
+				"images/activity_02.jpg",
+				"images/user/calendar_log.png",
+				"images/menu_kt.png",
+				"scripts/jquery/jquery.nicescroll.js",
+				"scripts/layer/extend/layer.ext.js",
+				"images/icon/menu_icon_07.png",
+				"images/download/download_bg.jpg",
+				"images/icon/zfb_icon.png",
+				"scripts/layer/skin/default/loading-1.gif",
+				"images/login/login_third_tit.png",
+				"images/icon/menu_icon_06.png",
+				"images/help/5.png",
+				"scripts/layer/skin/default/loading-2.gif",
+				"scripts/artdialog/ui-dialog.css",
+				"scripts/layer/skin/default/icon.png",
+				"images/help/17.png",
+				"images/icon/home.png",
+				"images/bank/gd.png",
+				"scripts/jquery/jquery.form.min.js",
+				"images/menu_hd.png",
+				"images/menu_jj.png",
+				"images/help/10.png",
+				"images/back.png",
+				"images/help/7.png",
+				"images/login/ch.png",
+				"images/bank/zg.png",
+				"scripts/webuploader/uploader.swf",
+				"images/help/1.png",
+				"scripts/artdialog/dialog-plus-min.js"
+			]
+		}
+	}
+}

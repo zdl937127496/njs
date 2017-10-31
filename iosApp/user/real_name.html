@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<title>实名认证</title>
+		<link href="../css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="../css/style.css" />
+		<link rel="stylesheet" href="../css/iconfont.css" />
+		<link rel="stylesheet" href="../css/user.css" />
+	</head>
+
+	<body>
+		<header class="mui-bar mui-bar-nav header">
+			<a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left nohref" id="d_back"></a>
+			<h1 class="mui-title">实名认证</h1>
+		</header>
+		<div class="mui-content">
+			<div class="user-set">
+				<div class="w70">
+					<form id="form1" method="post" onsubmit="return false;">
+						<div class="mui-input-row">
+							<input type="text" value="" id="user_name" name="user_name" class="user-set-inp" placeholder="请输入真实姓名" />
+						</div>
+						<div class="mui-input-row">
+							<input type="text" id="id_no" value="" name="id_no" class="user-set-inp" placeholder="输入身份证号码" />
+						</div>
+						<div class="mui-input-row">
+							<input type="text" id="id_no_match" value="" name="id_no_match" class="user-set-inp" placeholder="确认身份证号码" />
+						</div>
+						<div class="mui-row njs_yzm">
+							<input type="text" id="code2" name="code2" class="com-inp" placeholder="输入图像验证码" />
+							<img width="100" id="vCodeImg" alt="验证码" title="点击切换验证码" onclick="ToggleCode(this, 'tools/verify_code_sub.aspx');return false;" class="mui-btn mui-btn-yellow mui-btn-outlined yzm" />
+						</div>
+						<div id='d_name_true' style="display: none;">
+							<div class="mui-input-row">
+								<input id="reg_mobile" type="hidden" />
+								<input type="text" id="mobile" name="mobile" value="" class="user-set-inp" placeholder="输入手机号码" />
+							</div>
+							<div class="mui-row njs_yzm">
+								<input type="text" id="code_mobile" name="code_mobile" class="com-inp" placeholder="输入手机验证码" />
+								<input id="btnOnece" value="获取验证码" type="button" class="mui-btn mui-btn-yellow mui-btn-outlined yzm" onclick="name_true_sms();" />
+							</div>
+							<button type="button" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block" id="btn_reset" onclick="user_name_true();">确认提交</button>
+
+						</div>
+						<button id="d_name_true1" type="button" style="display: none;" class="mui-btn mui-btn-yellow mui-btn-block my-btn-block">您已通过实名认证</button>
+
+					</form>
+				</div>
+			</div>
+		</div>
+		<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+		<script type="text/javascript" src="../scripts/mui.min.js"></script>
+		<script src="../scripts/layer/layer.js"></script>
+		<script src="../scripts/jquery/Cookie.js"></script>
+		<script src="../scripts/user.js"></script>
+		<script type="text/javascript">
+			if(DEBUG) console.log('正在执行user/real_name.html');
+			COM.createLoading();
+			mui.init({
+				statusBarBackground: '#e63d34',
+			});
+			COM.addReload();
+			document.getElementById('vCodeImg').src = URL_DATA.https + 'tools/verify_code_sub.aspx';
+			mui.plusReady(function() {
+				COM.createMenu('user/default', '../');
+				var ajaxObj = {
+					url: URL_DATA.userAjaxReal_name,
+					type: 'get',
+					success: function(rs) {
+						if(DEBUG) console.log('==========COM.ajax回调函数');
+						if(rs.status === 'y') {
+							var userModel = rs.userModel;
+							if(userModel.name_true != 2) {
+								$('#d_name_true').show();
+							} else {
+								$('#d_name_true1').show();
+							}
+							$('#reg_mobile').val(userModel.phone_mobile);
+							COM.closeLoading();
+
+							var refrenstime = getCookie("refresht");
+							if(refrenstime > 0) {
+								refreshmsg2(getCookie("refreshid"), getCookie("refresht"));
+							}
+						} else {
+							COM.cacheUrl();
+							COM.openWindow('login', '../login.html');
+						}
+					}
+				}
+				if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+			});
+		</script>
+		<script type="text/javascript">
+			function ToggleCode(obj, codeurl) {
+				$(obj).attr("src", URL_DATA.https + codeurl + "?time=" + Math.random());
+			}
+		</script>
+	</body>
+
+</html>

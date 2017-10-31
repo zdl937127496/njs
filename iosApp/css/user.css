@@ -1,0 +1,229 @@
+/*extend*/
+.extend-top{margin-top:10px;padding:20px 10px;background:#fff}
+.extend-top p{font-size:15px}
+.extend-top .extend-top-money{padding:30px 0;font-size:30px}
+.extend-top .mui-icon{font-size:20px}
+.extend-list{margin-top:10px}
+.extend-list .mui-table-view-cell{padding:15px;font-size:16px;vertical-align: middle;}
+.extend-list .mui-table-view-cell a{margin: -15px; }
+.extend-list .my-icon{width: 14px; height: 14px;}
+.extend-member-total{margin-bottom:0;padding:0 15px;line-height:35px}
+.extend-member-list li{font-size:15px}
+.extend-detail-list-card{margin:0 0 10px;padding:0 15px;box-shadow:none}
+.extend-detail-list-card .mui-card-header{padding:10px 0}
+.extend-detail-list-card .c-yel{font-size:14px}
+.extend-detail-list-info{padding-bottom:10px}
+.extend-detail-list-info .mui-col-xs-6{padding:10px}
+.extend-detail-list-info .mui-col-xs-6:first-child{border-right:1px solid #ddd}
+.extend-detail-list-info .mui-col-xs-6 p{margin-bottom:20px}
+.extend-detail-list-info .mui-col-xs-6 strong{padding-left:15px;font-size:24px}
+/*account*/
+.account-head{background:0 0;box-shadow:none}
+.account-head .my-icon-email{ height: 15px;width: 20px;}
+.account-top{padding:100px 10% 10px;background:url(../images/user/account_top.jpg) no-repeat;background-size:cover;color:#fff}
+.user-img{position:relative;overflow:hidden;margin-bottom:5px;width:75px;height:75px;border-radius:100%;}
+.user-img .user-img-bg{position:absolute;top:0;left:0;z-index: 2;width:100%;height:100%;border:5px solid rgba(200,200,200,.4);border-radius:100%;}
+.user-img img{width:100%;}
+.account-user .mui-pull-left{text-align:center}
+.account-user .mui-pull-left a {color:#fff;}
+.account-user .mui-pull-right{width:50%;text-align:left}
+.account-user .user-info{padding:20px 0;line-height:20px}
+.account-user .user-info p{margin-bottom:0;color:#fff}
+.account-user .user-info .user-balance{padding-left:25px;height:20px;background:url(../images/icon/balance.png) 0 center no-repeat;background-size:auto 75%;font-size:18px}
+.account-user-ident{margin-top:20px}
+.account-user-ident li{background:url(../images/icon/account_line.png) right center no-repeat;background-size:auto 50%;text-align:center;font-size:12px}
+.account-user-ident li img{display:block;margin:0 auto;height:20px}
+.account-user-ident li:last-child{background:0 0}
+.account-func{padding:15px 0;background:#fff;text-align:center}
+.account-func li{border-right:1px solid #e1e1e1}
+.account-func li:last-child{border-right:none}
+.account-func li a{padding:5px 0;color:#333}
+.account-func li .recharge{padding-left:40px;background:url(../images/icon/charge.png) left center no-repeat;background-size:auto 80%}
+.account-func li .cash{padding-left:40px;background:url(../images/icon/cash.png) left center no-repeat;background-size:auto 80%}
+.account-menu .mui-grid-9{background:#fff}
+.account-menu li img{width:80%;max-width:80px}
+.account-menu .mui-table-view+.mui-table-view{margin-top:10px}
+/*message*/
+.message .message-tit{background: #fff;}
+.message .message-tit a.mui-control-item.mui-active{color: #FF7814;}
+.message-tit-bar{background: #FF7814 !important;}
+.message .message-list{border: 0 !important; margin-top: 10px;}
+.message .message-list .time{font-size: 13px; color: #aaa;}
+.message .no-message{padding-top: 40%; text-align: center;}
+/*user-info*/
+.user-info-list{margin-top: 15px;}
+.user-info-list .mui-table-view-cell>a:not(.mui-btn){padding-right: 30px; font-size: 14px;}
+.user-info-list .user-img{width: 30px; height: 30px; margin: 0;}
+.user-info-list .user-img .user-img-bg{border-width: 2px;}
+/*set*/
+.set-nick .mui-input-row{background: #fff; margin-top: 10px; }
+.set-nick .mui-input-row input,.set-nick .mui-input-row label{font-size: 14px;font-family: "microsoft yahei";}
+.set-nick .set-tip{padding: 0 15px; margin-top: 10px; font-size: 13px; color: #878787;}
+/*help*/
+.help-list{margin-top: 10px;}
+.help-list .mui-table-view-cell>a:not(.mui-btn){padding: 15px; font-size: 16px;}
+.help-info p{text-indent: 2em;}
+.help-info-btns{line-height: 30px; margin-top: 10px;}
+.help-info-btns span.c-yel{font-size: 14px;}
+/*user-set*/
+.user-set{margin-top: 20px;}
+input.user-set-inp{background: none;}
+.user-set-img-top{padding:170px 10% 30px;background:url(../images/user/account_top.jpg) no-repeat;background-size:cover;position: relative;margin-bottom: 90px;}
+.user-set-img-img{position: absolute; top:140px; left: 50%; margin-left: -60px;}
+.user-set-img-img .user-img{width: 120px; height: 120px;}
+.user-set-img-btns .my-btn-block{padding: 5px 0;}
+.user-set-img-btns .my-icon{height: 30px; width: 30px;}
+/*user-bank*/
+.user-bank{margin-top: 20px;}
+.user-bank-list{padding: 0 15px;}
+.user-bank-list li{padding: 11px 15px;margin-top:10px; background: -webkit-linear-gradient(left,#e75c64,#e9507e);
+background: -moz-linear-gradient(right,#e75c64, #e9507e);
+background: -o-linear-gradient(right,#e75c64, #e9507e);
+background: linear-gradient(to right, #e75c64, #e9507e); border-radius: 5px;}
+.user-bank-list li.user-bank-blue{background: -webkit-linear-gradient(left,#4f83be,#3c5da9);
+background: -moz-linear-gradient(right,#4f83be,#3c5da9);
+background: -o-linear-gradient(right,#4f83be,#3c5da9);
+background: linear-gradient(to right, ##4f83be,#3c5da9);}
+.user-bank-list .user-bank-logo{width: 60px; height: 60px; display: block; background: rgba(255,255,255,.5); border-radius: 70px;
+overflow: hidden; margin-right: 10px;}
+.user-bank-list .user-bank-logo img{width: 54px; display: block; margin: 3px auto;}
+.user-bank-list li p{color: #fff; font-size: 14px; line-height: 24px; margin-bottom: 0;}
+.user-bank-list li .bank-name{font-size: 16px; line-height: 30px; margin-top: 5px;}
+.user-bank-list li .bank-number{font-size: 18px; font-weight: bold; font-family: arial; margin-top: 15px;}
+.add-bank{margin-top:10px; padding: 0 15px;}
+.add-bank .add-bank-row li{margin-top: -1px; border: 1px solid rgba(0,0,0,.2); overflow: hidden; font-size: 15px;}
+.add-bank .add-bank-row .user-set-inp{margin-bottom: 0; border-radius: 0; border: none;}
+.add-bank .add-bank-row li:first-child{border-top-left-radius: 3px; border-top-right-radius: 3px;}
+.add-bank .add-bank-row li:last-child{border-bottom-left-radius: 3px; border-bottom-right-radius: 3px;}
+.add-bank .add-bank-row .bank-select{position: absolute; right: 10px; top:8px;}
+/*user-balance*/
+.user-balance{}
+.user-balance-top{margin-top:10px;padding:20px 10px;background:#fff}
+.user-balance-top p{font-size:15px}
+.user-balance-top .user-balance-top-money{padding:30px 0;font-size:30px}
+.user-balance-list{margin-top:10px}
+.user-balance-list .mui-table-view-cell{padding:15px;font-size:16px}
+.user-balance-list .mui-table-view-cell a{margin: -15px;}
+.user-flow{margin-top: 10px;}
+.user-flow li{font-size: 16px;}
+.user-flow li p{font-size: 13px;}
+.user-flow li .mui-pull-right{text-align: right;}
+/*coupon*/
+.coupon-list{background: #fff;}
+.coupon-list-tit{padding: 11px 15px; margin-top: 10px; color: #C8C7CC; font-size: 15px; border-bottom: 1px solid #C8C7CC;}
+.coupon-list li{font-size: 14px; padding: 20px 15px;}
+.coupon-list li strong{font-size: 24px;}
+/*user-cash*/
+.user-cash{ margin-top: 10px;}
+.user-cash-bank a{height: 64px; line-height: 21px;}
+.user-cash-bank .bank{height: 44px; display: block; padding-left: 40px;}
+.user-cash-bank .bank p{font-size: 13px; color: #C8C7CC;}
+.user-cash-bank .bank-gs{background: url(../images/bank/gs.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-js{background: url(../images/bank/js.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-zs{background: url(../images/bank/zs.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-ny{background: url(../images/bank/ny.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-zg{background: url(../images/bank/zg.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-jt{background: url(../images/bank/jt.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-gd{background: url(../images/bank/gd.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-zx{background: url(../images/bank/zx.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-ms{background: url(../images/bank/ms.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-xy{background: url(../images/bank/xy.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-pdfz{background: url(../images/bank/pdfz.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-pa{background: url(../images/bank/pa.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-bj{background: url(../images/bank/bj.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-zgrm{background: url(../images/bank/zgrm.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-hx{background: url(../images/bank/hx.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-sh{background: url(../images/bank/sh.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-yzcx{background: url(../images/bank/yzcx.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-ncxys{background: url(../images/bank/ncxys.png) left center no-repeat; background-size: auto 80%;}
+.user-cash-bank .bank-gdfz{background: url(../images/bank/gdfz.png) left center no-repeat; background-size: auto 80%;}
+
+.user-cash-money{padding:11px 0;margin-top: 10px; background: #fff; margin-bottom: 20px;}
+.user-cash-money p{padding: 0 15px; color: #666;}
+.user-cash-money .user-cash-inp{border:0; background: url(../images/icon/m.png) no-repeat; background-size: auto 50%; background-position: 15px center; height: 40px; line-height: 40px; padding:0;
+padding-left: 40px; font-size: 20px; font-weight: bold;}
+.user-cash-money .last{border-top:1px solid #C8C7CC; margin-bottom: 0; padding-top: 10px;}
+.user-cash-bank .stock-icon{position: absolute; top:15px; left: 15px; width:36px; height: 36px; line-height: 36px; background: #FF7814; color: #fff; font-size: 15px; display: block; border-radius: 100%; text-align: center;}
+.user-cash-bank .stock-day:after{content: '天';}
+.user-cash-bank .stock-month{background: #f9a800;}
+.user-cash-bank .stock-month:after{content: '月';}
+.user-cash-bank .stock-award:after{content: '奖';}
+.user-cash-bank .stock-free:after{content: '免';}
+.user-cash-bank .stock-qihuo:after{content: '免';}
+.user-cash-bank .stock-qi:after{content: '期';}
+/*pay-mode*/
+
+.pay-mode-t{padding: 0 15px;}
+.pay-mode .mui-table-cell{vertical-align: middle; font-size: 16px;}
+.pay-mode .mui-table-cell img{max-height: 42px; height: auto;max-width: 42px; margin-right: 10px;} 
+.pay-mode .mui-table-cell p{font-size: 12px;}
+.pay-mode-input{background: #fff;}
+.pay-mode-limit{padding: 10px 15px; margin: 0;}
+.user-bank-select.mui-popover.mui-popover-action .mui-table-view{margin: 0; border-radius: 0; color: #666;}
+.user-bank-select .mui-table-view .mui-table-view-cell:last-child:after{height: 0;}
+.user-bank-select .my-bank-select-item{}
+.user-bank-select-item .user-bank-select-img{width: 42px; height: 42px; margin-right: 5px;}
+.user-bank-select-item .user-bank-select-img img{max-height: 42px; max-width: 42px;}
+.user-bank-select-item .user-bank-select-info{width: 75%; font-size: 15px; text-align: left;}
+.user-bank-select-item .user-bank-select-info p{font-size: 13px;}
+.user-bank-select .text-left{text-align: left; font-size: 15px;}
+.pay-mode-outline{padding: 0px 15px;}
+.pay-mode-outline h3{font-weight: normal; font-size: 15px; line-height: 1.6em; margin: 0;}
+.pay-mode-outline p{font-size: 13px;}
+.pay-mode-bank-list{background: #fff; border-radius: 5px; border:1px solid #C8C7CC; padding:0 10px; margin: 20px 0;}
+.pay-mode-bank-list li{position: relative;padding: 11px 0;}
+.pay-mode-bank-list li:after{position: absolute;right: 0;bottom: 0;left: 0;height: 1px;content: '';-webkit-transform: scaleY(.5);transform: scaleY(.5);background-color: #c8c7cc;}
+.pay-mode-bank-list li:last-child:after{height: 0;}
+.pay-mode-bank-list li p{color: #333; margin: 0;}
+.pay-mode-check{text-align: center; margin-bottom: 10px; color: #999;}
+.pay-mode-checked .pay-mode-check{color:#FF7814;}
+.pay-mode-receipt{width: 80%; margin: 0 auto;}
+.pay-mode-receipt .mui-input-row{border:1px solid #C8C7CC; margin-bottom: 10px;}
+.pay-mode-receipt .mui-input-row label{font-size: 15px; padding: 11px 8px; color: #333;}
+.text-area{background: none; border: none; margin: 0; line-height: 1.5em; font-size: 14px;}
+
+/*task*/
+.task-tit{background: #fff;padding: 10px 0;}
+.task-tit .mui-control-item{overflow: visible; position: relative;line-height: 25px; font-size: 17px;}
+.task-tit .mui-control-item:first-child{border-right:1px solid #ccc;}
+.task-tit .mui-control-item.mui-active{color: #FF7814 !important;}
+.task .mui-slider .mui-segmented-control.mui-segmented-control-inverted~.mui-slider-group .mui-slider-item{border:0;}
+.task-list{background: none;}
+.task-list li{margin-bottom: 5px; background: #fff; line-height: 40px; font-size: 15px; padding: 8px 15px;}
+.task-list li:after{height:0;}
+.task-list .task-btn{padding: 2px 10px; margin-left: 5px;}
+.task-list .task-btn p{color: #fff; font-size: 11px;}
+.task-list .mui-pull-right .span{color: #999; }
+/*my-share*/
+.my-share{background: #f9f9f9;}
+.my-share-tit{text-align: center; border-bottom: 1px solid #C8C7CC; font-size: 15px; padding: 5px 0; color: #999; line-height: 35px;}
+.my-share-info{height: 110px; position: relative; padding:20px 15px; margin: 0 !important;}
+.my-share-info .mui-scroll{width: auto;}
+.my-share-info .my-ul{height:70px;white-space: nowrap;}
+.my-share-info .my-ul li{width: 90px; text-align: center; display: inline-block;}
+.my-share-info .my-ul li img{height: 70px;}
+/*sign*/
+.sign{background: #811c1d; width: 100%; padding: 0 10%;}
+.my-calender{padding: 10% 0;}
+.sign-days{background: url(../images/user/sign_days_bg.png) bottom no-repeat; background-size: contain; padding: 15px 0 10px 0;}
+.sign-days p{color: #fff; font-size: 16px;}
+.sign-days .days{font-size: 30px; color: #FF7814; padding-right: 5px;}
+.sign-mon{background: #FF7814; color: #fff; font-size: 16px; width: 100%; display: table;text-align: center;}
+.sign-mon .mon{ display: table-cell; vertical-align: middle; }
+.sign-mon .mon img{max-height: 60%; vertical-align: middle;padding: 0 10px;}
+.sign-mon span{border-left: 1px solid #d23132; display: table-cell; padding: 5px 0; width: 90%;}
+.sign-rule{padding: 25px 0 15px;}
+.sign-rule h3{color: #fff; font-size: 15px; padding-bottom: 5px;}
+.sign-rule p{color: #fff; margin-bottom: 0; line-height: 1.5em;}
+
+/*add by 20170323*/
+.account-menu-list{background: #fff; border-top: 1px solid #e1e1e1; border-bottom: 1px solid #e1e1e1; margin-bottom: 10px; padding-bottom: 15px;}
+.account-menu-list .account-menu-tit{padding: 15px 14px 0;}
+.account-menu-list li .my-icon{height: 25px; line-height: 25px; width: 25px; margin-right: 0; background-position: center;}
+.account-menu-list .mui-table-view.mui-grid-view .mui-table-view-cell{padding-top: 15px;}
+.account-menu-list .mui-table-view.mui-grid-view .mui-table-view-cell .mui-media-body{font-size: 14px; margin-top: 10px;}
+
+
+    /*add by 20170329*/
+            .user-bank-list li{position: relative; overflow: hidden; z-index: 1;}
+            .user-bank-list li .bank-cancel{position: absolute; height: 100%; background: #c0c0c0; color: #fff; top:0; right:0; padding: 11px; vertical-align: middle; font-size: 14px; line-height: 24px; display: none; z-index: 2;} 

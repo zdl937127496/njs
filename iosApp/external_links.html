@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>外部链接</title>
+    <link href="css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="css/style.css" />
+    <link rel="stylesheet" href="css/iconfont.css" />
+    <link rel="stylesheet" href="css/activity.css" />
+    <style>
+    	.mui-pull-loading {
+				display: none;
+			}
+			
+			#d_iframe {
+				margin-top: 0px;
+				width: 100%;
+				height: 100%;
+				border: none;
+			}
+			.mui-bar{
+				position: absolute !important;
+				bottom: 0 !important;
+			}
+			html,body{
+				height: 100% !important;
+			}
+
+    </style>
+</head>
+<body id="d_body" style="display: block;">
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+
+    </header>
+    <div class="mui-content" style="padding-bottom: 0px;">
+        <iframe id="d_iframe" width='100%' height='100%' frameborder='0' >
+        	
+        </iframe>
+    </div>
+	<script type="text/javascript" src="scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="scripts/mui.min.js"></script>
+	<script>
+		if(DEBUG) console.log('正在执行 external_links.html');
+		$('#d_iframe').height(document.body.clientHeight - 44);
+		document.getElementById('d_iframe').outerHeight = window.outerHeight - 94;
+		$('body').height(window.outerHeight);
+		mui.init({
+			statusBarBackground: '#e63d34',
+		});
+		COM.addReload(function(){
+			plus.navigator.setStatusBarBackground("#e63d34");
+			var url = COM.getStorage(LOCAL_STORAGE.z_external_links);
+			if(DEBUG) console.log('=url====' + url);
+			document.getElementById('d_iframe').src = url;
+		})
+		mui.plusReady(function() {
+			var url = COM.getStorage(LOCAL_STORAGE.z_external_links);
+			if(DEBUG) console.log('=url====' + url);
+			document.getElementById('d_iframe').src = url;
+		});
+	</script>
+</body>
+</html>

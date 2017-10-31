@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>推广赚钱</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css" />
+    <link rel="stylesheet" href="../css/iconfont.css" />
+    <link rel="stylesheet" href="../css/user.css" />
+
+    <style>
+        #jiathis_weixin_modal
+        {
+            background-clip: padding-box;
+            background-color: #FFFFFF;
+            border: 1px solid rgba(0, 0, 0, 0.3);
+            border-radius: 6px 6px 6px 6px;
+            box-shadow: 0 3px 7px rgba(0, 0, 0, 0.3);
+            left: 69% !important;
+            margin: -200px 0 0 -200px;
+            overflow: hidden;
+            position: fixed;
+            top: 50%;
+            width: 278px !important;
+            height: 360px;
+            overflow: hidden;
+        }
+
+    </style>
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-action-back mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title">推广返佣</h1>
+        <a class="mui-btn-link mui-pull-right white">明细</a>
+    </header>
+    <div class="mui-content">
+        <div class="extend">
+            <div class="extend-top">
+                <p class="c-black">推广佣金(元)<span class="mui-pull-right mui-icon my-icon my-icon-mark"></span></p>
+                <div class="extend-top-money"><strong id="d_money_invite"></strong></div>
+            </div>
+            <div class="extend-list">
+                <ul class="mui-table-view _notop _nobottom">
+                    <li class="mui-table-view-cell" id="d_extension_user">
+                        <a class="mui-navigate-right">
+                            <span class="mui-icon my-icon my-icon-user-b"></span>我的会员
+		    		            </a>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a class="mui-navigate-right" id="extendEwm">
+                            <span class="mui-icon my-icon my-icon-ewm"></span>我的二维码
+		    		            </a>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a class="mui-navigate-right" id="extendLink">
+                            <span class="mui-icon my-icon my-icon-link"></span>我的推广链接
+		    		            </a>
+                    </li>
+                    <li class="mui-table-view-cell">
+                        <a class="mui-navigate-right" id="extendYqm">
+                            <span class="mui-icon my-icon my-icon-yqm"></span>我的邀请码
+		    		            </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="my-popup my-popup-in" id="myExtendLink" style="display: none;">
+        <div class="my-popup-inner">
+            <div class="my-popup-title">我的推广链接</div>
+            <div class="my-popup-text" id="d_ref_url"></div>
+        </div>
+        <div class="my-popup-buttons">
+            <span class="my-popup-button"><a  class="c-yel">点击分享</a></span>
+        </div>
+    </div>
+    <div class="my-popup my-popup-in" id="myExtendEwm" style="display: none;">
+        <div class="my-popup-inner">
+            <div class="my-popup-ewm">
+                <img id="d_QRCodeImages"/>
+                <p>微信扫描二维码，注册成为会员</p>
+            </div>
+        </div>
+        <div class="my-popup-buttons">
+            <span class="my-popup-button"><a href="#share" class="c-yel">点击分享</a></span>
+        </div>
+    </div>
+    <div class="my-popup my-popup-in" id="myExtendYqm" style="display: none;">
+        <div class="my-popup-inner">
+            <div class="my-popup-title">我的邀请码</div>
+            <div class="my-popup-msg" id="d_phone_mobile">
+                
+            </div>
+        </div>
+        <div class="my-popup-buttons">
+            <span class="my-popup-button"><a href="#share" class="c-yel">点击分享</a></span>
+        </div>
+    </div>
+    <div id="myPopupBack" class="my-popup-backdrop my-popup-active" style="display: none;"></div>
+    <div id="share" class="mui-popover mui-popover-bottom mui-popover-action ">
+        <!-- 可选择菜单 -->
+        <div class="my-share">
+            <div class="my-share-tit">选择分享方式</div>
+            <div class="my-share-info mui-scroll-wrapper">
+                <div class="mui-scroll" style="margin: 0 auto; display: block; width: 200px; position: relative;">
+                    <!-- JiaThis Button BEGIN -->
+                    <div class="jiathis_style_32x32">
+                        <a class="jiathis_button_weixin nohref"></a>
+                        <a class="jiathis_button_tsina nohref"></a>
+                        <a class="jiathis_button_cqq nohref"></a>
+                        <a class="jiathis_button_qzone nohref"></a>
+                        <a class="jiathis_button_douban nohref"></a>
+                    </div>
+
+                   
+                </div>
+            </div>
+        </div>
+        <!-- 取消菜单 -->
+    </div>
+    <script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+	<script src="../scripts/mui.picker.min.js"></script>
+    <script>
+    	if(DEBUG) console.log('正在执行 user/extension.html');
+    	COM.createLoading();
+    	mui.init({
+				statusBarBackground: '#e63d34',
+			});
+    	mui(".extend").on('tap', '.my-icon-mark', function () {
+    		COM.showEplain('exp_extension','../');
+        });
+        mui('.header').on('tap','.mui-pull-right',function(){
+        	COM.openWindow('user/extension_detail','extension_detail.html',true,true);
+        });
+        mui('#d_extension_user').on('tap','a',function(){
+        	COM.openWindow('user/extension_user','extension_user.html',true,true);
+        });
+        var getData = function(){
+        	var ajaxObj = {
+				url: URL_DATA.userAjaxExtension,
+				type: 'get',
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						if(rs.userModel){
+							initShow(rs);
+						}
+						COM.closeLoading();
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+        }
+        
+      	COM.addReload(function(){
+      		plus.navigator.setStatusBarBackground("#e63d34");
+      		getData();
+      	});
+       
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			getData();
+		});
+    </script>
+    <script>
+    	var initShow = function(rs){
+    		$('#d_money_invite').html(COM.stringFormat(rs.money_invite));
+    		$('#d_ref_url').html(rs.ref_url);
+    		
+    		if(DEBUG) console.log('=src===='+URL_DATA.httpLocal + rs.QRCodeImages);
+    		if(rs.QRCodeImages){
+    			$('#d_QRCodeImages').attr('src',URL_DATA.httpLocal + rs.QRCodeImages);
+    		}
+    		$('#d_phone_mobile').html('您的邀请码：' + rs.userModel.phone_mobile);
+    		jiathis_config = {
+                data_track_clickback: true,
+                url: rs.ref_url,
+                summary: "牛金所配资-90%的股民都会选择的互联网在线配资平台,更安全！快来注册啦",
+                title: "牛金所配资-90%的股民都会选择的互联网在线配资平台,更安全！快来注册啦",
+                pic: rs.config.webmobileurl+rs.QRCodeImages,
+                shortUrl: false,
+                hideMore: true
+            }
+    		var t1 = document.createElement('script');
+    		t1.src = 'http://v3.jiathis.com/code/jia.js?uid=1829167';
+    		t1.charset="utf-8";
+    		document.body.appendChild(t1);
+    	}
+    </script>
+    <script>
+    	document.getElementById("extendLink").addEventListener('tap', function (e) {
+            e.detail.gesture.preventDefault();
+            $("#myExtendLink").show();
+            $("#myPopupBack").show();
+        });
+        document.getElementById("extendEwm").addEventListener('tap', function (e) {
+            e.detail.gesture.preventDefault();
+            $("#myExtendEwm").show();
+            $("#myPopupBack").show();
+        });
+        document.getElementById("extendYqm").addEventListener('tap', function (e) {
+            e.detail.gesture.preventDefault();
+            $("#myExtendYqm").show();
+            $("#myPopupBack").show();
+        });
+        document.getElementById("myPopupBack").addEventListener('tap', function (e) {
+            $("#myExtendLink").hide();
+            $("#myExtendEwm").hide();
+            $("#myExtendYqm").hide();
+            $(".my-popup-backdrop").hide();
+        });
+        mui(".mui-scroll-wrapper").scroll({
+	            scrollY: false,
+	            scrollX: true,
+	            deceleration: 0.005,
+	            indicators: false,
+	            bounce: true
+	       });
+    	
+        var is_share_succ = function () {
+            $("#myPopupBack").hide();
+            $("#share").hide();
+            $("#myExtendLink").hide();
+            $("#myExtendEwm").hide();
+            $("#myExtendYqm").hide();
+            mui.confirm('您已经分享成功了？', '分享状态', ['是的', '没有'], function (e) {
+                if (e.index == 0) {
+                	var ajaxObj = {
+                		url:'tools/user_opt_ajax.ashx?act=is_share_succ',
+                		dataType: "text",
+                		success: function (data) {
+                			if(DEBUG) console.log('==========COM.ajax回调函数');
+                            var obj = eval('(' + data + ')');
+                            alert(obj.info);
+                            window.location.reload();
+                        }
+                	}
+                    if(DEBUG) console.log('==========正在执行COM.ajax');
+					COM.ajax(ajaxObj);
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>操盘列表</title>
+    <link href="../css/mui.min.css" rel="stylesheet" />
+    <link rel="stylesheet" type="text/css" href="../css/style.css" />
+    <link rel="stylesheet" type="text/css" href="../css/iconfont.css" />
+    <link rel="stylesheet" type="text/css" href="../css/stock.css" />
+    <link href="../css/pager.css" rel="stylesheet" />
+
+</head>
+<body>
+    <header class="mui-bar mui-bar-nav header">
+        <a class="mui-icon mui-icon-left-nav mui-pull-left"></a>
+        <h1 class="mui-title stock-menu-main" id="openPopover">我的配资<span class="mui-icon mui-icon-arrowdown"></span>
+            <div class="stock-menu" id="stock_menu">
+                <ul>
+					<li typeId="-2"><a id="d_-2">全部</a></li>
+					<li typeId="1"><a id="d_1">股票-按天</a></li>
+					<li typeId="2"><a id="d_2">股票-按月</a></li>
+					<li typeId="0"><a id="d_0">股票-免息</a></li>
+					<li typeId="26"><a id="d_26">国际综合</a></li>
+				</ul>
+            </div>
+        </h1>
+        <a class="mui-btn mui-btn-link mui-pull-right white" href="JavaScript:void(0)" id="shoumore">更多</a>
+    </header>
+    <div class="mui-content" id="d1">
+        <div class="mui-slider" id="d2">
+            <div id="d_active" class="mui-slider-indicator mui-segmented-control mui-segmented-control-inverted stock-tit-list">
+                <a id="d_s_1" class="mui-control-item s-link" status="1" >操盘中</a>
+				<a id="d_s_3" class="mui-control-item s-link" status="3">操盘结束</a>
+				<span class="badge s-link" status="5" style="display:none;">失败开户</span>
+            </div>
+            <div id="newHL" style="position: relative;">
+                <!--下拉刷新容器-->
+                <div id="pullrefresh" class="mui-content mui-scroll-wrapper">
+                    <div class="mui-scroll" id="d3">
+                        <!--数据列表-->
+                        <div class="mui-table-view mui-table-view-chevron stock-list" id="data_list">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="page" style="display: none;">
+                <div id="pager_borrow_list" class="page flickr" style="display: none;"></div>
+            </div>
+        </div>
+        <div id="tmp_hidden" style="display: none;"></div>
+    </div>
+	<input id="url" type="hidden" value="" />
+	<input id="type_id" type="hidden" value="" />
+    <input id="status" type="hidden" value="" />
+	<script type="text/javascript" src="../scripts/jquery/jquery-1.11.2.min.js"></script>
+	<script type="text/javascript" src="../scripts/mui.min.js"></script>
+	<script src="../scripts/layer/layer.js"></script>
+	<script>
+		function pullupRefresh() {
+            setTimeout(function () {
+            	var is_fresh = (++count > pagenum);
+                var ajaxObj = {
+                	url:'tools/user_opt_ajax.ashx',
+                	data:{ act: "user_borrow_list", type_id: typeId, status: status, pageSize: pageSize, p: count, t: new Date() },
+                	dataType:'text',
+                	type:'get',
+                	success:function(data){
+                		if(DEBUG) console.log('==========COM.ajax回调函数');
+                		$("#data_list").append(data);
+                		mui('#pullrefresh').pullRefresh().endPullupToRefresh(is_fresh);//参数为true代表没有更多数据了。 
+                	}
+                }
+                if(DEBUG) console.log('==========正在执行COM.ajax');
+				COM.ajax(ajaxObj);
+            }, 1000);
+        }
+		if(DEBUG) console.log('正在执行 user/borrow_list.html');
+		mui('.header').on('tap','.mui-pull-left',function(){
+			var backId = COM.getStorage(LOCAL_STORAGE.z_borrow_list_url);
+			if(backId){
+				COM.setStorage(LOCAL_STORAGE.z_borrow_list_url,"");
+				COM.openWindow(backId);
+			}else{
+				COM.openWindow('user/default','default.html');
+			}
+			
+		});
+		/**上拉加载具体业务实现**/
+	    count = 0, pageSize = 0, pagenum = 0;
+		$("#newHL").css({ "height": ($(window).height() - 89) + "px" });
+
+		COM.addReload(function(){
+//			plus.navigator.setStatusBarBackground("#e63d34");
+			COM.setStorage(LOCAL_STORAGE.z_borrow_list_type_id,'-2');
+			COM.setStorage(LOCAL_STORAGE.z_borrow_list_status,'1');
+			location.href = location.href;
+//			typeId = COM.getStorage(LOCAL_STORAGE.z_borrow_list_type_id) || '-2';
+//			status = COM.getStorage(LOCAL_STORAGE.z_borrow_list_status) || '1';
+//			backUrl = COM.getStorage(LOCAL_STORAGE.z_borrow_list_url) || 'default.html';
+//			getData();
+		});
+		
+		mui.plusReady(function() {
+			COM.createMenu('user/default', '../');
+			typeId = COM.getStorage(LOCAL_STORAGE.z_borrow_list_type_id) || '-2';
+			status = COM.getStorage(LOCAL_STORAGE.z_borrow_list_status) || '1';
+			backUrl = COM.getStorage(LOCAL_STORAGE.z_borrow_list_url) || 'default.html';
+			$('#d_'+typeId).addClass('c-yel');
+			$('#d_s_'+status).addClass('mui-active');
+			if(DEBUG) console.log('=typeId===='+typeId);
+			if(DEBUG) console.log('=status===='+status);
+			if(DEBUG) console.log('=backUrl===='+backUrl);
+			mui.init({
+				statusBarBackground: '#e63d34',
+                pullRefresh: {
+                    container: '#pullrefresh',
+                    up: {
+                        contentrefresh: '正在加载...',
+                        callback: pullupRefresh
+                    }
+                }
+            });
+            setTimeout(getData,50);
+//          getData();
+		});
+
+		var getData = function(){
+			var ajaxObj = {
+				url: URL_DATA.userAjaxBorrow_list,
+				type: 'get',
+				data:{
+					type_id:typeId,
+					status:status,
+					url:backUrl 
+				},
+				success: function(rs) {
+					if(DEBUG) console.log('==========COM.ajax回调函数');
+					if(rs.status === 'y') {
+						count = 0, pageSize = rs.pageSize, pagenum = rs.newsPageNum;
+						mui('#pullrefresh').pullRefresh().endPullupToRefresh(false);
+						mui('#pullrefresh').pullRefresh().pullupLoading();
+					} else {
+						COM.cacheUrl();
+						COM.openWindow('login','../login.html');
+					}
+				}
+			}
+			if(DEBUG) console.log('==========正在执行COM.ajax');
+			COM.ajax(ajaxObj);
+		}
+		mui('#stock_menu').on('tap','li',function(){
+			var t_typeId = this.getAttribute('typeId');
+			if(t_typeId === typeId){
+				return;
+			}
+			typeId = t_typeId;
+			$(this).siblings().each(function(){
+				$(this).find('a').attr('class','');
+			});
+			$(this).find('a').attr('class','c-yel');
+			$("#data_list").html('');
+			$("#stock_menu").toggle();
+			COM.setStorage(LOCAL_STORAGE.z_borrow_list_type_id,typeId);
+			location.href = location.href;
+		});
+		mui('#d_active').on('tap','.s-link',function(){
+			var t_status = this.getAttribute('status');
+			if(status === t_status){
+				return
+			}
+			$(this).siblings('a').removeClass('mui-active');
+			if(t_status === '5'){
+				$(this).hide();
+			}else{
+				$(this).addClass('mui-active');
+			}
+			status = t_status;
+			$("#data_list").html('');
+//			getData();
+			COM.setStorage(LOCAL_STORAGE.z_borrow_list_status,status);
+			
+			location.href = location.href;
+		});
+	</script>
+	<script>
+		$("#openPopover").click(function () {
+            $("#stock_menu").toggle();
+       });
+        $("#shoumore").on('tap', function () {
+            $(".badge").toggle();
+        });
+        mui('#data_list').on('tap','.mui-card',function(){
+        	var goid = this.getAttribute('goid');
+        	COM.showBorrow_detail(goid);
+        });
+        
+	</script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+ul,li{list-style: none; margin: 0; padding: 0;}
+.zk_container { width:100%; position:relative; margin: 0 auto;}
+.zk_container .cal_container{height: 100%; width: 100%;}
+.zk_container .cal_container .cal_top{ height:50px; line-height:50px; width:100%; position:relative; text-align: center; font-size: 24px; color: #fff; font-weight: normal; background: #ff7814;}
+.zk_container .cal_container .cal_top a{ cursor:pointer;  font-size:12px; display:block; width:28px; height:28px; position:absolute; top:11px;}
+.zk_container .cal_container .cal_top .l-arrow{ left:10px; background: url(../images/user/calendar_arrow_left.png) center no-repeat; background-size: contain;}
+.zk_container .cal_container .cal_top .r-arrow{ right:10px; background: url(../images/user/calendar_arrow_right.png) center no-repeat; background-size: contain;}
+.zk_container .cal_container .cal_bottom{width:100%;}
+.zk_container .cal_container .cal_menu{ height: 36px; background: #e7f2ff; border-bottom: 2px solid #ededed; font-size: 15px;}
+.zk_container .cal_container .cal_menu li{float: left; width: 14.28%; display: block; height: 36px; line-height: 36px; overflow: hidden;color: #FF7814; text-align: center;}
+.zk_container .cal_container .cal_main{background: #ffffff; font-weight:normal; color:#555;clear:both; border-bottom-left-radius: 6px; border-bottom-right-radius: 6px; overflow: hidden;}
+.zk_container .cal_container .cal_main a{ width:14.28%; height:40px; display:block; text-align:center; line-height:40px; float:left; cursor:pointer; font-size: 16px; font-weight: bold; color: #6d6d6d; border-right: 2px solid #ebebeb; border-bottom:2px solid #ebebeb;}
+.zk_container .cal_container .cal_main a.disabled{ color:#d6ccc1;cursor:auto; font-weight: normal; }
+.zk_container .cal_container .cal_main a.mouseover{}
+.zk_container .cal_container .cal_main a.today{}
+.zk_container .cal_container .cal_main a.log{ background: url(../images/user/calendar_log.png) center no-repeat; background-size: contain;}
+.zk_container .cal_container .cal_main a:nth-child(7n){border-right:0;}
+.zk_container .cal_container .cal_main a.today {background-color:#FF7814; color:#fff;}
